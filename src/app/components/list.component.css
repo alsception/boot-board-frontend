@@ -1,0 +1,77 @@
+.listing-container{
+  margin-bottom: 20px !important;
+}
+
+.listing {
+    background: var(--accent-color);
+    border-radius: 30px;
+    padding-bottom: 3px;
+  }
+  .listing-heading {
+    color: var(--primary-color);
+    padding: 10px 20px 0 20px;
+  }
+  .listing-photo {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 30px 30px 0 0;
+  }
+  .listing {
+    /*padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;*/
+    padding: 5px 20px 5px 20px;
+  }
+
+  .listing-meta-container {
+    display: flex; /* Use flexbox to arrange items horizontally */
+    gap: 10px; /* Add space between items */
+    align-items: center; /* Align items vertically to the center */
+    display: flex; /* Flexbox for horizontal alignment */
+    gap: 10px; /* Space between items */
+    align-items: center; /* Vertically center items */
+    padding: 10px; /* Add padding to prevent overflow */
+    border: 1px solid #ddd; /* Optional: Border for visual clarity */
+    border-radius: 4px; /* Optional: Rounded corners */
+    background-color: #fff; /* Optional: Background color */
+    overflow: /*hidden*/auto; /* Prevent content overflow */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+  /*This is class used for cards metadata*/
+.listing-meta {
+  padding: 5px 10px; /* Add some padding for better spacing */
+  border: 1px solid #ddd; /* Optional: Add a border */
+  border-radius: 4px; /* Optional: Rounded corners */
+  background-color: #f9f9f9; /* Optional: Background color */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #7c7c8f;
+  background: #ffffff;
+  padding: 10px 10px 0 10px;
+  font-size: x-small;
+}
+  .listing::before {
+/*     content: url("/assets/location-pin.svg") / "";
+ */  }
+  section.listing a {
+    padding-left: 20px;
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+  section.listing a::after {
+    content: "\203A";
+    margin-left: 5px;
+  }
+
+  .draggable-item {
+    width: 200px;
+    height: 50px;
+    background-color: #90caf9;
+    border: 1px solid #42a5f5;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+  }

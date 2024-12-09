@@ -25,7 +25,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         The argument to the function is the value property of the filter template variable. 
         Specifically, the .value property from the input HTML element.      
         -->
-        <input type="text" placeholder="Filter by city" #filter />
+        <input type="text" placeholder="Search cards / lists / boards" #filter />
         <button
           class="primary"
           type="button"
@@ -36,7 +36,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
       </form>
     </section>
     <section class="results">
-      <bb-list cdkDrag class="draggable-item"
+<!--     add this to bb-list cdkDrag
+ -->      <bb-list cdkDrag class="draggable-item"
         *ngFor="let xList of filteredLists"
         [bbList]="xList"
       ></bb-list>

@@ -4,26 +4,30 @@ import {RouterModule} from '@angular/router';
 import {BBList} from '../interfaces/bblist';
 import {BBCard} from '../interfaces/bbcard';
 import {CardComponent} from '../components/card.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'bb-list',
-  imports: [CommonModule, RouterModule, CardComponent],
+  imports: [CommonModule, RouterModule, CardComponent, DragDropModule],
   template: `
     <section class="listing listing-container">
       <h2 class="listing-heading">{{ bbList.title }}</h2>
-      <div class="listing listing-meta-container">
+      <div class="listing listing-meta-container ">
         <p class="listing-meta">ID: {{ bbList.id }}</p>
-        <p class="listing-meta">user id: {{ bbList.userId }}</p>
-        <p class="listing-meta">board id: {{ bbList.boardId }}</p>
+        <p class="listing-meta hidden">user id: {{ bbList.userId }}</p>
+        <p class="listing-meta hidden">board id: {{ bbList.boardId }}</p>
         
-        <p class="listing-meta">COLOR: {{ bbList.color }}</p>
-        <p class="listing-meta">POSITION: {{ bbList.position }}</p>
+        <p class="listing-meta hidden">COLOR: {{ bbList.color }}</p>
+        <p class="listing-meta hidden">POSITION: {{ bbList.position }}</p>
       </div>
 
       <p class="listing">Cards: {{ bbList.cards?.length }}</p>
       <a [routerLink]="['/lists', bbList.id]">Learn More</a>
       <section class="cardsResults">
-        <bb-card
+        <!-- add this directive to make it draggable: cdkDrag -->
+<!--         class="draggable-item"         
+ -->        <bb-card  
           *ngFor="let xCard of bbList.cards"
           [bbCard]="xCard"
         ></bb-card>

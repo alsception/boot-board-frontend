@@ -8,7 +8,9 @@
     padding-bottom: 3px;
   }
   .listing-heading {
-    color: var(--primary-color);
+    
+    color: #000000;
+    /*background: #b1bfdb;*/
     padding: 10px 20px 0 20px;
   }
   .listing-photo {
@@ -35,8 +37,8 @@
     padding: 10px; /* Add padding to prevent overflow */
     border: 1px solid #ddd; /* Optional: Border for visual clarity */
     border-radius: 4px; /* Optional: Rounded corners */
-    background-color: #fff; /* Optional: Background color */
-    overflow: /*hidden*/auto; /* Prevent content overflow */
+/*     background-color: #fff; /* Optional: Background color */
+     overflow: hidden/*auto*/; /* Prevent content overflow */
     box-sizing: border-box; /* Ensure padding is included in width/height */
 }
   /*This is class used for cards metadata*/

@@ -11,17 +11,18 @@ import {RouterModule} from '@angular/router';
       <a [routerLink]="['/']">
         <header class="brand-name">
           <!--img class="brand-logo" src="/assets/logo-bb.png" alt="logo" aria-hidden="true" /-->
-          <img
+          <!-- <img
             class="brand-logo"
             width="225"
             height="50"
-            src="/assets/logo/bb-logo-clear.png"
+            src="/assets/logo/bb-logo-full.png"
             alt="logo"
             aria-hidden="true"
-          />
+          /> -->
+          <span class="boot">BOOT</span><span class="board">BOARD</span>
         </header>
       </a>
-      <section class="content">
+      <section class="content" >
         <router-outlet></router-outlet>
       </section>
     </main>
@@ -29,5 +30,5 @@ import {RouterModule} from '@angular/router';
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  title = "homes-frites";
+  title = "boot-board";
 }

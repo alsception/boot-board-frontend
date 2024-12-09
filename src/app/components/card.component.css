@@ -1,8 +1,9 @@
 .card-container {
-    background: /* var(--accent-color) */#ffffff;
-    border-radius: 5px;
-    padding-bottom: 3px;
-    border: 1px solid slateblue;
+  background: #ffffff;
+  border-radius: 5px;
+  padding-bottom: 0px;
+  border: 1px solid slateblue;
+  margin-bottom: 10px;
   }
   .card {
     background: /* var(--accent-color) */#ffffff;
@@ -11,8 +12,7 @@
     /* border: 1px solid slateblue; */
   }
   .card-title {
-    color: #000000;
-    background: #b1bfdb;
+    color: var(--primary-color);
     padding: 10px 20px 0 20px;
   }
   .card-meta-container {

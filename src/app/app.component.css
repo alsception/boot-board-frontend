@@ -9,4 +9,21 @@ header {
 }
 .content {
   padding: var(--content-padding);
+  background-image: url("../assets/img/4k-background.jpg");
+  background-repeat: no-repeat;
+
+}
+
+.boot{
+  color: #501dc1;
+  padding: 10px 0px 0 20px;
+  font-size: xxx-large;
+  font-weight: bolder;
+}
+
+.board{
+  color: #501dc1;
+  padding: 10px 20px 0 0px;
+  font-size: xxx-large;
+  font-weight: bolder;
 }

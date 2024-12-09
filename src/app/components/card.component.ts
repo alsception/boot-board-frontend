@@ -12,6 +12,7 @@ import {BBCard} from '../interfaces/bbcard';
       <p class="card card-text">{{ bbCard.text }}</p>
       <div class="card card-meta-container">
         <div class="card-meta">ID: {{ bbCard.id }}</div>
+        <div class="card-meta">Created: {{ bbCard.created }}</div>
         <div class="card-meta hidden">user id: {{ bbCard.userId }}</div>
         <div class="card-meta hidden">listId: {{ bbCard.listId }}</div>      
         <div class="card-meta hidden">COLOR: {{ bbCard.color }}</div>
@@ -19,6 +20,7 @@ import {BBCard} from '../interfaces/bbcard';
      </div>
 <!--       <a [routerLink]="['/lists', bbCard.id]">Learn More</a>
  -->    </section>
+ 
   `,
   styleUrls: ['./card.component.css'],
 })

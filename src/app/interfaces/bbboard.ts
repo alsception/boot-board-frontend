@@ -12,8 +12,8 @@ export interface BBBoard
     
     position: number;
     
-    createdAt?: Date;
-    updatedAt?: Date;
+    created?: Date;
+    updated?: Date;
 
     cards?: BBList[]; 
   }

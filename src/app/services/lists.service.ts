@@ -36,6 +36,24 @@ export class ListsService
     const data = await fetch(`${this.apiUrl}/${id}/cards`);
     return (await data.json()) ?? {};
   }
+
+  async delete(id: number): Promise<void> {
+    try {
+      const response = await fetch(`${this.apiUrl}/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        console.log('Item deleted successfully');
+        // Reload the page after successful deletion
+        window.location.reload();
+      } else {
+        console.error('Failed to delete the item');
+      }
+    } catch (error) {
+      console.error('Error occurred while deleting the item:', error);
+    }
+  }
   
   //TODO
   //submit edit

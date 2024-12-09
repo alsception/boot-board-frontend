@@ -6,12 +6,12 @@ const routeConfig: Routes = [
     {
       path: '',
       component: HomeComponent,
-      title: 'Home page',
+      title: 'BootBoard - Home',
     },
     {
       path: 'details/:id',
       component: DetailsComponent,
-      title: 'Home details',
+      title: 'BootBoard',
     },
   ];
   export default routeConfig;

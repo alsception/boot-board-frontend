@@ -13,8 +13,8 @@ export interface BBList
     position: number;
     
     // Add createdAt and updatedAt if needed
-    createdAt?: Date;
-    updatedAt?: Date;
+    created?: Date;
+    updated?: Date;
 
     cards?: BBCard[]; // Array of BBCards
   }

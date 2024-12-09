@@ -7,9 +7,9 @@ import {RouterModule} from '@angular/router';
   selector: "app-root",
   imports: [HomeComponent, RouterModule],
   template: `
-    <main>
+    <main class="main">
       <a [routerLink]="['/']">
-        <header class="brand-name">
+        <header class="header-line">
           <!--img class="brand-logo" src="/assets/logo-bb.png" alt="logo" aria-hidden="true" /-->
           <!-- <img
             class="brand-logo"

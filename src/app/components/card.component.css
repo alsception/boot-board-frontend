@@ -5,6 +5,12 @@
   border: 1px solid slateblue;
   margin-bottom: 10px;
   }
+  .card-container:hover {
+    background: #fdffcd !important;
+  }
+  .card:hover {
+    background: #fdffcd !important;
+  }
   .card {
     background: /* var(--accent-color) */#ffffff;
     /* border-radius: 30px; */
@@ -23,7 +29,7 @@
     gap: 10px; /* Space between items */
     align-items: center; /* Vertically center items */
     padding: 10px; /* Add padding to prevent overflow */
-    border: 1px solid #ddd; /* Optional: Border for visual clarity */
+    /*border: 1px solid #ddd; *//* Optional: Border for visual clarity */
     border-radius: 4px; /* Optional: Rounded corners */
     background-color: #fff; /* Optional: Background color */
     overflow: /*hidden*/auto; /* Prevent content overflow */
@@ -33,8 +39,8 @@
 /*This is class used for cards metadata*/
 .card-meta {
     padding: 5px 10px; /* Add some padding for better spacing */
-    border: 1px solid #ddd; /* Optional: Add a border */
-    border-radius: 4px; /* Optional: Rounded corners */
+    /*border: 1px solid #ddd;*/ /* Optional: Add a border */
+   /* border-radius: 4px; /* Optional: Rounded corners */
     background-color: #f9f9f9; /* Optional: Background color */
     white-space: nowrap; /* Prevent text from wrapping */
     color: #7c7c8f;

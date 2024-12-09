@@ -1,6 +1,13 @@
 .listing-container{
   margin-bottom: 20px !important;
+    transition: background-color 0.3s ease;
+    border: 1px solid gray;
 }
+
+.listing-container:hover{
+    background-color: #00bbf0;
+}
+
 
 .listing {
     background: var(--accent-color);
@@ -11,7 +18,7 @@
     
     color: #000000;
     /*background: #b1bfdb;*/
-    padding: 10px 20px 0 20px;
+    padding: 10px 20px 20px 10px;
   }
   .listing-photo {
     height: 250px;

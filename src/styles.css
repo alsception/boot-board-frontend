@@ -6,12 +6,21 @@
 
 body {
   font-family: 'Be Vietnam Pro', sans-serif;
+  padding-top: 60px; /* Add padding to prevent content from being hidden behind the header line */
 }
 :root {
+  /*
   --primary-color: #605DC8;
   --secondary-color: #8B89E6;
   --accent-color: #e8e7fa;
   --shadow-color: #E8E8E8;
+  */
+  --primary-color: #233142; /*This is primary text color*/
+  --secondary-color: #8B89E6;
+  --accent-color: #e8e7fa; /*This is list background color*/
+  --shadow-color: #e3e3e3;
+
+  --yellow-background: #fff5bf;
 }
 
 button.primary {
@@ -24,4 +33,37 @@ button.primary {
 
 .hidden{
   display: none !important;
+}
+
+.up-right{
+  position: relative;
+  left: 94%;
+  top: 30px;
+}
+.btn{
+  border-radius: 7px;
+}
+.btn-red{
+  background-color: #f95959;
+}
+.overlay {
+  position: fixed;  /* Fix the overlay to the viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);  /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;  /* Ensure overlay is on top of everything */
+}
+
+.dialog-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
 }

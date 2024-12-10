@@ -12,10 +12,10 @@ import { ListsService } from '../services/lists.service';
   selector: 'bb-list',
   imports: [CommonModule, RouterModule, CardComponent, DragDropModule],
   template: `
-    <section class="listing listing-container">
+    <section class="listing-dark listing-container listing-nb">
     <button class="btn btn-red up-right" (click)="showDeleteDialog(bbList.id)">&nbsp;X&nbsp;</button>
       
-      <h2 class="listing-heading">{{ bbList.title }} </h2>
+      <h2 class="listing-heading-dark">{{ bbList.title }} </h2>
      
       <section class="cardsResults">
         <!-- add this directive to make it draggable: cdkDrag -->
@@ -25,11 +25,11 @@ import { ListsService } from '../services/lists.service';
           [bbCard]="xCard"
         ></bb-card>
       </section>
-      <p class="listing">Total cards: {{ bbList.cards?.length }}</p>
-      <div class="listing listing-meta-container ">
+      <p class="listing-dark">Total cards: {{ bbList.cards?.length }}</p>
+      <div class="listing-dark listing-meta-container ">
       
-        <p class="listing-meta">ID: {{ bbList.id }}</p>
-        <div class="listing-meta">Created: {{ bbList.created }}</div>
+        <p class="listing-meta blue">ID: {{ bbList.id }}</p>
+        <div class="listing-meta blue listing-dark">Created: {{ bbList.created }}</div>
         <p class="listing-meta hidden">user id: {{ bbList.userId }}</p>
         <p class="listing-meta hidden">board id: {{ bbList.boardId }}</p>
         

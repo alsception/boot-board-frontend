@@ -5,20 +5,31 @@
 }
 
 .listing-container:hover{
-    background-color: #00bbf0;
+    /* background-color: #00bbf0; */
 }
-
-
 .listing {
     background: var(--accent-color);
     border-radius: 30px;
     padding-bottom: 3px;
+  }
+  .listing-dark {
+    background: var(--accent-color-dark);
+    border-radius: 30px;
+    padding-bottom: 30px;
+    color: #74cf01;
+
   }
   .listing-heading {
     
     color: #000000;
     /*background: #b1bfdb;*/
     padding: 10px 20px 20px 10px;
+  }
+  .listing-heading-dark {
+    
+    color: #74cf01;
+    /*background: #b1bfdb;*/
+    padding: 10px 20px 20px 20px;
   }
   .listing-photo {
     height: 250px;
@@ -60,6 +71,10 @@
   padding: 10px 10px 0 10px;
   font-size: x-small;
 }
+.blue{
+  background-color: #42a5f5 !important;
+  color: #ddd;
+}
   .listing::before {
 /*     content: url("/assets/location-pin.svg") / "";
  */  }
@@ -83,4 +98,21 @@
     align-items: center;
     justify-content: center;
     cursor: grab;
+  }
+  .listing-nb:hover{
+   /*  color: #fff;
+    font-size: 1.25rem;
+    line-height: 1; */
+    border-style: none;
+   /*  outline: none;
+    height: calc(1em + 1.6em + 0.5em);
+    width: 100%;
+    padding: 0.8em 1em; */
+    border: 0.25em solid transparent;
+    background-image: linear-gradient(#000, #000), linear-gradient(120deg, #f09 0%, #0ff 50%, #9f0 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: 1.8em;
+    background-size: 200% 100%;
+    transition: background-position 0.8s ease-out;
   }

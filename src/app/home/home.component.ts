@@ -1,13 +1,9 @@
 import { Component , inject} from "@angular/core";
 import { CommonModule } from "@angular/common";
-
-//import { HousingLocationComponent } from "../housing-location/housing-location.component";
 import { ListComponent } from "../components/list.component"
-
 import { ListsService } from '../services/lists.service';
 import { CardsService } from '../services/cards.service';
 import { BoardsService } from '../services/boards.service';
-
 import { BBBoard } from "../interfaces/bbboard";
 import { BBCard } from "../interfaces/bbcard";
 import { BBList } from "../interfaces/bblist";
@@ -34,6 +30,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
           Search
         </button>
       </form>
+
+      <!-- test input -->
+      <div class="container">
+        <div class="input-group">
+          <label class="input-group__label" for="myInput">Input test</label>
+          <input type="text" id="myInput" class="input-group__input" value="This is my input">
+        </div>
+      </div>
+
     </section>
     <section class="results">
 <!--     add this to bb-list cdkDrag
@@ -83,10 +88,18 @@ export class HomeComponent {
       return;
     }
     console.log("79")
-    this.filteredLists = this.lists.filter(
-      (list) =>
-        list?.title.toLowerCase().includes(text.toLowerCase())
-    );
+    this.filteredLists = this.lists.filter((list) => {
+      // Check if the list title matches the search text
+      const listTitleMatches = list?.title.toLowerCase().includes(text.toLowerCase());
+    
+      // Check if any card's title matches the search text
+      const cardTitleMatches = list?.cards?.some((card) =>
+        card.title.toLowerCase().includes(text.toLowerCase())
+      );
+    
+      // The list is included if either the list title or any card's title matches
+      return listTitleMatches || cardTitleMatches;
+    });
     console.log("84")
     /**
      * This function uses the String filter function to compare the value of the text parameter against the housingLocation.city property.

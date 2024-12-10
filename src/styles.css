@@ -18,6 +18,7 @@ body {
   --primary-color: #233142; /*This is primary text color*/
   --secondary-color: #8B89E6;
   --accent-color: #e8e7fa; /*This is list background color*/
+  --accent-color-dark: #171717;
   --shadow-color: #e3e3e3;
 
   --yellow-background: #fff5bf;

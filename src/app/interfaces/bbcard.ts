@@ -5,14 +5,17 @@ export interface BBCard
     listId: number;
 
     title: string;
-    text: string;
+    description: string;
 
     color: string;
     type: string;
 
     position: number;
 
-    // Add createdAt and updatedAt if needed
+    //This fields can be not present
     created?: Date;
     updated?: Date;
+
+    //Fields starting with _ underscore are nagular only and not present in backend.
+    _showDescription?: boolean;
   }

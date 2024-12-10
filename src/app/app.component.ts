@@ -9,7 +9,7 @@ import {RouterModule} from '@angular/router';
   template: `
     <main class="main">
       <a [routerLink]="['/']">
-        <header class="header-line">
+        <header class="header-line container-nb">
           <!--img class="brand-logo" src="/assets/logo-bb.png" alt="logo" aria-hidden="true" /-->
           <!-- <img
             class="brand-logo"
@@ -22,7 +22,7 @@ import {RouterModule} from '@angular/router';
           <span class="boot">BOOT</span><span class="board">BOARD</span>
         </header>
       </a>
-      <section class="content" >
+      <section class="content /*container-nb*/" >
         <router-outlet></router-outlet>
       </section>
     </main>

@@ -3,6 +3,11 @@
     border-radius: 30px;
     padding-bottom: 30px;
   }
+  .listing-dark {
+    background: var(--accent-color-dark);
+    border-radius: 30px;
+    padding-bottom: 30px;
+  }
   .listing-heading {
     color: var(--primary-color);
     padding: 10px 20px 0 20px;

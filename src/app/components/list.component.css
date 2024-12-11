@@ -1,118 +1,180 @@
-.listing-container{
+.listing-container {
   margin-bottom: 20px !important;
-    transition: background-color 0.3s ease;
-    border: 1px solid gray;
+  transition: background-color 0.3s ease;
+  border: 1px solid #dedede;
 }
 
-.listing-container:hover{
-    /* background-color: #00bbf0; */
+.listing-container:hover {
+  /* background-color: #00bbf0; */
 }
+
 .listing {
-    background: var(--accent-color);
-    border-radius: 30px;
-    padding-bottom: 3px;
-  }
-  .listing-dark {
-    background: var(--accent-color-dark);
-    border-radius: 30px;
-    padding-bottom: 30px;
-    color: #74cf01;
+  width: fit-content;
+  background: var(--accent-color);
+  border-radius: 30px;
+  padding-bottom: 3px;
+}
 
-  }
-  .listing-heading {
-    
-    color: #000000;
-    /*background: #b1bfdb;*/
-    padding: 10px 20px 20px 10px;
-  }
-  .listing-heading-dark {
-    
-    color: #74cf01;
-    /*background: #b1bfdb;*/
-    padding: 10px 20px 20px 20px;
-  }
-  .listing-photo {
-    height: 250px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 30px 30px 0 0;
-  }
-  .listing {
-    /*padding-top: 10px;
+.listing-dark {
+  background: var(--accent-color-dark);
+  border-radius: 30px;
+  padding-bottom: 30px;
+  color: #74cf01;
+
+}
+
+.listing-heading {
+
+  color: #000000;
+  /*background: #b1bfdb;*/
+  padding: 10px 20px 20px 10px;
+}
+
+.listing-heading-dark {
+
+  color: #74cf01;
+  /*background: #b1bfdb;*/
+  padding: 10px 20px 20px 20px;
+}
+
+.listing-photo {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 30px 30px 0 0;
+}
+
+.listing {
+  /*padding-top: 10px;
     padding-right: 20px;
     padding-bottom: 20px;
     padding-left: 20px;*/
-    padding: 5px 20px 5px 20px;
-  }
-
-  .listing-meta-container {
-    display: flex; /* Use flexbox to arrange items horizontally */
-    gap: 10px; /* Add space between items */
-    align-items: center; /* Align items vertically to the center */
-    display: flex; /* Flexbox for horizontal alignment */
-    gap: 10px; /* Space between items */
-    align-items: center; /* Vertically center items */
-    padding: 10px; /* Add padding to prevent overflow */
-    border: 1px solid #ddd; /* Optional: Border for visual clarity */
-    border-radius: 4px; /* Optional: Rounded corners */
-/*     background-color: #fff; /* Optional: Background color */
-     overflow: hidden/*auto*/; /* Prevent content overflow */
-    box-sizing: border-box; /* Ensure padding is included in width/height */
+  padding: 5px 20px 5px 20px;
 }
-  /*This is class used for cards metadata*/
+
+.listing-meta-container {
+  display: flex;
+  /* Use flexbox to arrange items horizontally */
+  gap: 20px;
+  /* Add space between items */
+  align-items: center;
+  /* Align items vertically to the center */
+  display: flex;
+  /* Flexbox for horizontal alignment */
+  gap: 10px;
+  /* Space between items */
+  align-items: center;
+  /* Vertically center items */
+  padding: 10px;
+  /* Add padding to prevent overflow */
+/*   border: 1px solid #ddd;
+ */  /* Optional: Border for visual clarity */
+/*   border-radius: 4px;
+ */  /* Optional: Rounded corners */
+  /*     background-color: #fff; /* Optional: Background color */
+  overflow: hidden
+    /*auto*/
+  ;
+  /* Prevent content overflow */
+  box-sizing: border-box;
+  /* Ensure padding is included in width/height */
+}
+
+/*This is class used for cards metadata*/
 .listing-meta {
-  padding: 5px 10px; /* Add some padding for better spacing */
-  border: 1px solid #ddd; /* Optional: Add a border */
-  border-radius: 4px; /* Optional: Rounded corners */
-  background-color: #f9f9f9; /* Optional: Background color */
-  white-space: nowrap; /* Prevent text from wrapping */
+  padding: 5px 10px;
+  /* Add some padding for better spacing */
+  white-space: nowrap;
+  /* Prevent text from wrapping */
   color: #7c7c8f;
-  background: #ffffff;
+  /*  background: #ffffff; */
   padding: 10px 10px 0 10px;
   font-size: x-small;
 }
-.blue{
+
+.blue {
   background-color: #42a5f5 !important;
   color: #ddd;
 }
-  .listing::before {
-/*     content: url("/assets/location-pin.svg") / "";
- */  }
-  section.listing a {
-    padding-left: 20px;
-    text-decoration: none;
-    color: var(--primary-color);
-  }
-  section.listing a::after {
-    content: "\203A";
-    margin-left: 5px;
-  }
 
-  .draggable-item {
-    width: 200px;
-    height: 50px;
-    background-color: #90caf9;
-    border: 1px solid #42a5f5;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: grab;
-  }
-  .listing-nb:hover{
-   /*  color: #fff;
+.listing::before {
+  /*     content: url("/assets/location-pin.svg") / "";
+ */
+}
+
+section.listing a {
+  padding-left: 20px;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+section.listing a::after {
+  content: "\203A";
+  margin-left: 5px;
+}
+
+.draggable-item {
+  width: 200px;
+  height: 50px;
+  background-color: #90caf9;
+  border: 1px solid #42a5f5;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.listing-nb:hover>h2 {
+  color: cyan;
+}
+
+.listing-nb:hover {
+  /*  color: #fff;
     font-size: 1.25rem;
     line-height: 1; */
-    border-style: none;
-   /*  outline: none;
+  border-style: none;
+  /*  outline: none;
     height: calc(1em + 1.6em + 0.5em);
     width: 100%;
     padding: 0.8em 1em; */
-    border: 0.25em solid transparent;
-    background-image: linear-gradient(#000, #000), linear-gradient(120deg, #f09 0%, #0ff 50%, #9f0 100%);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-    border-radius: 1.8em;
-    background-size: 200% 100%;
-    transition: background-position 0.8s ease-out;
-  }
+  border: 0.3em solid transparent;
+  background-image: linear-gradient(#000, #000), linear-gradient(120deg, #f09 0%, #0ff 50%, #9f0 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-radius: 1.8em;
+  background-size: 200% 100%;
+  transition: background-position 0.8s ease-out;
+}
+
+.lg-violet {
+  background: linear-gradient(to bottom, blueviolet, #e8e7fa);
+}
+
+.lg-green {
+  background: linear-gradient(to bottom, green, #e8e7fa);
+}
+
+.lg-blue {
+  background: linear-gradient(to bottom, blue, #e8e7fa);
+}
+
+.lg-red {
+  background: linear-gradient(to bottom, red, #e8e7fa);
+}
+
+.lg-yellow {
+  background: linear-gradient(to bottom, yellow, #e8e7fa);
+}
+
+.lg-white {
+  background: linear-gradient(to bottom, white, #e8e7fa);
+}
+
+.lg-black {
+  background: linear-gradient(to bottom, black, #e8e7fa);
+}
+
+.rlg {
+  background: repeating-linear-gradient(to bottom, blueviolet, lightgray 20%);
+}

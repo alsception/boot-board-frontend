@@ -1,5 +1,5 @@
 .card-container {
-  background: #ffffff;
+  background: #fdffcd;
   border-radius: 5px;
   padding-bottom: 0px;
   border: 1px solid slateblue;
@@ -17,10 +17,11 @@
 .card {
   background:
     /* var(--accent-color) */
-    #ffffff;
+    #fdffcd;
   /* border-radius: 30px; */
   padding-bottom: 3px;
   /* border: 1px solid slateblue; */
+  color: #2b2828;
 }
 
 .card-dark {
@@ -38,7 +39,8 @@
 
 .card-title {
   color: var(--primary-color);
-  padding: 10px 20px 0 20px;
+  padding: 10px 20px 10px 20px;
+  background-color: #a4c4ff; /*cornflower*/
 }
 
 .card-title-dark {
@@ -66,8 +68,8 @@
   /* Optional: Border for visual clarity */
   border-radius: 4px;
   /* Optional: Rounded corners */
-  background-color: #fff;
-  /* Optional: Background color */
+/*   background-color: #fff;
+ */  /* Optional: Background color */
   overflow:
     /*hidden*/
     auto;
@@ -87,9 +89,9 @@
   /* Optional: Background color */
   white-space: nowrap;
   /* Prevent text from wrapping */
-  color: #7c7c8f;
-  background: #ffffff;
-  padding: 10px 10px 0 10px;
+  color: #7c7c8f75;
+/*   background: #ffffff;
+ */  padding: 10px 10px 0 10px;
   font-size: x-small;
 }
 
@@ -106,6 +108,12 @@
   color: #7c7c8f;
   padding: 10px 10px 0 10px;
   font-size: x-small;
+}
+
+.card-footer-container{
+  background-color: #eaeaff;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .card-photo {

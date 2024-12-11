@@ -32,6 +32,10 @@ button.primary {
   border-radius: 8px;
 }
 
+.material-icons {
+  font-size: 12px !important;
+}
+
 .hidden{
   display: none !important;
 }
@@ -67,4 +71,14 @@ button.primary {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   max-width: 400px;
   width: 100%;
+}
+
+html, body { height: 100%; }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+.custom-card-dialog-container {
+  width: 80vw; /* 80% of viewport width */
+  height: 60vh; /* 60% of viewport height */
+  max-width: 900px; /* Optional max width */
+  max-height: 600px; /* Optional max height */
 }

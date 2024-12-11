@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import { HomeComponent } from './home';//actually use different approach with index.ts
-//import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './home';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -9,19 +8,10 @@ import {RouterModule} from '@angular/router';
   template: `
     <main class="main">
       <a [routerLink]="['/']">
-        <header class="header-line container-nb">
-          <!--img class="brand-logo" src="/assets/logo-bb.png" alt="logo" aria-hidden="true" /-->
-          <!-- <img
-            class="brand-logo"
-            width="225"
-            height="50"
-            src="/assets/logo/bb-logo-full.png"
-            alt="logo"
-            aria-hidden="true"
-          /> -->
+        <header class="header-line container-nb">          
           <span class="boot">BOOT</span><span class="board">BOARD</span>
         </header>
-      </a>
+      </a>     
       <section class="content /*container-nb*/" >
         <router-outlet></router-outlet>
       </section>

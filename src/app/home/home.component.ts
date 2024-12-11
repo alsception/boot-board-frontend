@@ -7,7 +7,6 @@ import { BoardsService } from '../services/boards.service';
 import { BBBoard } from "../interfaces/bbboard";
 import { BBCard } from "../interfaces/bbcard";
 import { BBList } from "../interfaces/bblist";
-
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -32,7 +31,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
       </form>
 
       <!-- test input -->
-      <div class="container">
+      <div class="container hidden">
         <div class="input-group">
           <label class="input-group__label" for="myInput">Input test</label>
           <input type="text" id="myInput" class="input-group__input" value="This is my input">
@@ -72,22 +71,14 @@ export class HomeComponent {
         this.lists = xList;
         this.filteredLists = xList;
       });
-      console.log("loding finished");
-      console.log("this.lists",this.lists);
-      console.log("this.filteredLists",this.filteredLists);
-
   }
 
   filterResults(text: string) {
-    console.log("filtering results > ", text);
     //Se no xe cerca -> mostri tutto
     if (!text) {
-      console.log("74")
       this.filteredLists = this.lists;
-      console.log("76")
       return;
     }
-    console.log("79")
     this.filteredLists = this.lists.filter((list) => {
       // Check if the list title matches the search text
       const listTitleMatches = list?.title.toLowerCase().includes(text.toLowerCase());
@@ -100,7 +91,6 @@ export class HomeComponent {
       // The list is included if either the list title or any card's title matches
       return listTitleMatches || cardTitleMatches;
     });
-    console.log("84")
     /**
      * This function uses the String filter function to compare the value of the text parameter against the housingLocation.city property.
      * You can update this function to match against any property or multiple properties for a fun exercise.

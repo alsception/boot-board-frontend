@@ -4,33 +4,52 @@ import {RouterModule} from '@angular/router';
 import {FormBuilder,FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {BBCard} from '../interfaces/bbcard';
 import { CardsService } from '../services/cards.service';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { DialogCardComponent } from '../components/dialog-card.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'bb-card',
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatIconModule],
   template: `
     <section class="card-container">
-      <h3 class="card-title-dark">{{ bbCard.title }}</h3>
-      <br>
+      <h3 class="card-title">{{ bbCard.title }}</h3>
+
       <form [formGroup]="editCardForm" (submit)="submitCard()">
-          <input id="title" type="text" class="input-group__input" formControlName="title" />
+          <input id="title" type="text" class="input-group__input hidden" formControlName="title" />
           <button type="submit" class="primary hidden">Save</button>
         </form>
-      <br>
-      <p class="card-dark card-text" *ngIf="bbCard._showDescription">{{ bbCard.description }}</p>
-      <button class="toggle-text-btn" (click)="toggleDescription(bbCard)">
+
+      <p class="card card-text" *ngIf="true">{{ bbCard.description }}</p>
+      
+      <button class="toggle-text-btn hidden" (click)="toggleDescription(bbCard)">
         {{ bbCard._showDescription ? 'Hide' : 'Show' }} Description
       </button>
-      <div class="card-dark card-meta-container">
-        <div class="card-meta-dark">ID: {{ bbCard.id }}</div>
-        <div class="card-meta-dark">Created: <br>{{ bbCard.created }}</div>
-        <div class="card-meta-dark">Updated: <br>{{ bbCard.updated }}</div>
-        <div class="card-meta hidden">user id: {{ bbCard.userId }}</div>
-        <div class="card-meta hidden">listId: {{ bbCard.listId }}</div>      
-        <div class="card-meta hidden">COLOR: {{ bbCard.color }}</div>
-        <div class="card-meta hidden">POSITION: {{ bbCard.position }}</div>
+
+      <div class="card card-meta-container">
+        <div class="card-meta">
+        <span class="material-icons md-12">tag</span>{{ bbCard.id }}</div>
+          
+        <div class="card-meta">
+          <span class="material-icons md-12">save</span>  
+          {{ bbCard.created }}
+        </div>
+        <div class="card-meta">
+          <span class="material-icons md-12">edit</span>
+          {{ bbCard.updated }}
+        </div>
       </div>
+
+      <div class="card-footer-container">
+
+        <button mat-button color="primary" (click)="openEditDialog(bbCard)">
+        <mat-icon>edit</mat-icon>Edit card</button>
+
+        <button mat-button color="primary" (click)="openEditDialog(bbCard)">
+        <mat-icon>delete</mat-icon>Delete card</button>
+      </div>
+
      </section>
  
   `,
@@ -48,7 +67,7 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
      //position: new FormControl(""),
    });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private dialog: MatDialog) {}
 
   cardsService: CardsService = inject(CardsService);
   
@@ -75,6 +94,16 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
     } catch (error) {
       console.error('Failed to update card:', error);
     }
+  }
+
+  openEditDialog(card: BBCard ) {
+    //const person = { name: 'John Doe', age: 30 };
+    this.dialog.open(DialogCardComponent, {
+      data: card,
+     /*  width: '600px', // Set the width
+      height: '400px', // Set the height */
+      panelClass: 'custom-card-dialog-container',
+    });
   }
   
 }

@@ -30,6 +30,7 @@ header {
 
 .main {
   background-image: url("../assets/img/4k-background.jpg");
+  background-image: url("../assets/img/beach2.jpg");
   background-position: 0 -10px; /* Move the background image 10px upwards */
   background-size: cover; /* Optional: Ensures the image covers the element */
   background-repeat: repeat; /* The image repeats both horizontally and vertically */

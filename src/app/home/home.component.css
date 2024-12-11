@@ -1,6 +1,6 @@
 .results {
   display: grid;
-  column-gap: 10px;
+  column-gap: 30px;
   row-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
   margin-top: 50px;

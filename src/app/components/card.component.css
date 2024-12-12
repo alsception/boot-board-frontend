@@ -1,24 +1,25 @@
 .card-container {
   background: #fdffcd;
-  border-radius: 5px;
+  border-radius: 10px;
   padding-bottom: 0px;
   border: 1px solid slateblue;
   margin-bottom: 10px;
 }
 
 .card-container:hover {
-  background: #fdffcd !important;
-}
+/*   background: #fdffcd !important;
+ */}
 
 .card:hover {
-  background: #fdffcd !important;
-}
+/*   background: #fdffcd !important;
+ */}
 
 .card {
   background:
     /* var(--accent-color) */
-    #fdffcd;
-  /* border-radius: 30px; */
+    /* #fdffcd; */
+    #faf9fd;
+   border-radius: 30px; 
   padding-bottom: 3px;
   /* border: 1px solid slateblue; */
   color: #2b2828;
@@ -40,7 +41,7 @@
 .card-title {
   color: var(--primary-color);
   padding: 10px 20px 10px 20px;
-  background-color: #a4c4ff; /*cornflower*/
+  /*background-color: #a4c4ff;*/ /*cornflower*/
 }
 
 .card-title-dark {
@@ -111,8 +112,8 @@
 }
 
 .card-footer-container{
-  background-color: #eaeaff;
-  padding-top: 0px;
+/*   background-color: #eaeaff;
+ */  padding-top: 0px;
   padding-bottom: 0px;
 }
 
@@ -145,4 +146,85 @@ section.card a {
 section.card a::after {
   content: "\203A";
   margin-left: 5px;
+}
+
+/* dialog */
+.dlg-card-container {
+  padding: 16px;
+}
+
+.form-container {
+  margin-bottom: 16px;
+  padding-left: 20px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.form-input:read-only {
+ background-color: #f3f3f5;
+ color: gray;
+}
+
+.dlg-card-meta-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.dlg-card-meta {
+  flex: 1 1 200px;
+  font-size: 0.9rem;
+  color: #666;
+}
+.metadata-container {
+  display: flex;
+  gap: 16px; /* Space between fields */
+  flex-wrap: wrap; /* Allow wrapping if there's not enough space */
+}
+
+.metadata-container {
+  display: flex;
+  gap: 16px; /* Space between fields */
+  flex-wrap: wrap; /* Allow wrapping if there's not enough space */
+  padding-top: 20px;
+}
+
+.metadata-item {
+  display: flex;
+  flex-direction: column;
+  width: 30%; /* You can adjust the width as needed */
+}
+
+.metadata-item-100 {
+  display: flex;
+  flex-direction: column;
+  width: 94%; /* You can adjust the width as needed */
+}
+.metadata-item-50 {
+  display: flex;
+  flex-direction: column;
+  width: 46%; /* You can adjust the width as needed */
+}
+
+.dlg-card-container, .metadata-container, .metadata-item, .metadata-item-2 label {
+  font-family: monospace !important;
+  color: #878585;
+}
+
+.form-input {
+  width: 100%; /* Make input fields take the full width of their container */
+}
+
+.form-container .dialog-card label {
+  margin-bottom: 4px; /* Space between label and input */
+}
+#description {
+  width: 100%; /* Makes the textarea take up 100% of its parent container width */
+  height: 100px; /* Set the height as desired */
+  resize: vertical; /* Allows resizing only vertically (optional) */
 }

@@ -98,11 +98,26 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
 
   openEditDialog(card: BBCard ) {
     //const person = { name: 'John Doe', age: 30 };
-    this.dialog.open(DialogCardComponent, {
-      data: card,
-     /*  width: '600px', // Set the width
-      height: '400px', // Set the height */
+    const dialogRef = this.dialog.open(DialogCardComponent, {
+      data: card,     
+      autoFocus: false, // Prevent Angular Material from focusing the default element
       panelClass: 'custom-card-dialog-container',
+      width: '800px',  // Adjust this to control width
+      height: '700px', // Adjust this to control height
+      maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
+    });
+
+    // Handle the dialog close event
+    // Subscribe to afterClosed()
+    dialogRef.afterClosed().subscribe((updatedCard: BBCard | undefined) => {
+      if (updatedCard) {
+        console.log('Dialog closed with updated card:', updatedCard);
+        // Handle the updated card
+        //this.updateCardInList(updatedCard); // Example: Updating your local list
+        this.bbCard = Object.assign({}, updatedCard);
+      } else {
+        console.log('Dialog was closed without saving changes.');
+      }
     });
   }
   

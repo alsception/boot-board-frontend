@@ -28,9 +28,25 @@ import { MatIconModule } from '@angular/material/icon';
 
       
       <div class="listing-meta-container">      
-        <div class="listing-meta "> <span class="material-icons md-12">tag</span>{{ bbList.id }}</div>
-        <div class="listing-meta "><span class="material-icons md-12">save</span>  {{ bbList.created }}</div>
-        <div class="listing-meta">Total cards: {{ bbList.cards?.length }}</div>
+        <div class="listing-meta "> 
+          <span class="material-icons md-12">key</span>
+          {{ bbList.id }}
+        </div>
+        <div class="listing-meta ">
+          <span class="material-icons md-12">tag</span>
+          {{ bbList.position }}
+        </div>
+        <div class="listing-meta ">
+          <span class="material-icons md-12">save</span>  
+          {{ bbList.created }}
+        </div>
+        <div class="listing-meta">
+          <span class="material-icons md-12">functions</span>
+          <span class="material-icons md-12">summarize</span>
+          {{ bbList.cards?.length }}
+        </div>
+        
+
 
       </div>
 

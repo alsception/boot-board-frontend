@@ -9,7 +9,7 @@
 }
 
 .listing {
-  width: fit-content;
+  width: /*fit*/min-content;
   background: var(--accent-color);
   border-radius: 30px;
   padding-bottom: 3px;
@@ -87,6 +87,16 @@
   white-space: nowrap;
   /* Prevent text from wrapping */
   color: #7c7c8f;
+  /*  background: #ffffff; */
+  padding: 10px 10px 0 10px;
+  font-size: x-small;
+}
+.listing-meta:hover {
+  padding: 5px 10px;
+  /* Add some padding for better spacing */
+  white-space: nowrap;
+  /* Prevent text from wrapping */
+  color: cyan;
   /*  background: #ffffff; */
   padding: 10px 10px 0 10px;
   font-size: x-small;

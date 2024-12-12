@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 
 @Component({
   selector: "app-root",
-  imports: [HomeComponent, RouterModule],
+  imports: [/*HomeComponent, */RouterModule],
   template: `
     <main class="main">
       <a [routerLink]="['/']">

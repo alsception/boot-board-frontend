@@ -91,7 +91,10 @@
   padding: 10px 10px 0 10px;
   font-size: x-small;
 }
-.listing-meta:hover {
+.listing:hover > * {
+    color: cyan !important;
+}
+.listing-meta:hover  {
   padding: 5px 10px;
   /* Add some padding for better spacing */
   white-space: nowrap;
@@ -100,6 +103,11 @@
   /*  background: #ffffff; */
   padding: 10px 10px 0 10px;
   font-size: x-small;
+}
+.card-title:hover {
+  color: #74b1fb;
+  padding: 10px 20px 10px 20px;
+  background: #20203e;
 }
 
 .blue {

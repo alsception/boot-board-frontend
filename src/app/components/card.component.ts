@@ -97,7 +97,6 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
   }
 
   openEditDialog(card: BBCard ) {
-    //const person = { name: 'John Doe', age: 30 };
     const dialogRef = this.dialog.open(DialogCardComponent, {
       data: card,     
       autoFocus: false, // Prevent Angular Material from focusing the default element

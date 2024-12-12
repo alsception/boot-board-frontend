@@ -1,9 +1,15 @@
 .card-container {
-  background: #fdffcd;
+  /* background: #fdffcd;
+  border-radius: 10px;
+  padding-bottom: 0px;
+  border: 1px solid slateblue;
+  margin-bottom: 10px; */
+  background: #1a1c37;
   border-radius: 10px;
   padding-bottom: 0px;
   border: 1px solid slateblue;
   margin-bottom: 10px;
+  color: navajowhite;
 }
 
 .card-container:hover {
@@ -19,8 +25,8 @@
     /* var(--accent-color) */
     /* #fdffcd; */
     #faf9fd;
-   border-radius: 30px; 
-  padding-bottom: 3px;
+/*    border-radius: 30px; 
+ */  padding-bottom: 3px;
   /* border: 1px solid slateblue; */
   color: #2b2828;
 }
@@ -39,7 +45,7 @@
 }
 
 .card-title {
-  color: var(--primary-color);
+  color:navajowhite;
   padding: 10px 20px 10px 20px;
   /*background-color: #a4c4ff;*/ /*cornflower*/
 }
@@ -48,6 +54,21 @@
   padding: 10px 20px 10px 20px;
   background-color: black;
   color: #74cf01;
+}
+
+.card-container:hover .card-title, 
+.card-container:hover .card-footer-container, 
+.card-container:hover .card, 
+.card-container:hover .card-text {
+  color: #74b1fb;
+  background: #20203e;
+}
+
+.card-title, 
+.card-footer-container, 
+.card, 
+.card-text {
+  transition: color 0.3s ease, background 0.3s ease;
 }
 
 .card-meta-container {
@@ -67,8 +88,8 @@
   /* Add padding to prevent overflow */
   /*border: 1px solid #ddd; */
   /* Optional: Border for visual clarity */
-  border-radius: 4px;
-  /* Optional: Rounded corners */
+/*   border-radius: 4px;
+ */  /* Optional: Rounded corners */
 /*   background-color: #fff;
  */  /* Optional: Background color */
   overflow:
@@ -115,6 +136,8 @@
 /*   background-color: #eaeaff;
  */  padding-top: 0px;
   padding-bottom: 0px;
+  background-color: white;
+  /* color: ; */
 }
 
 .card-photo {

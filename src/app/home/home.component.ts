@@ -1,4 +1,4 @@
-import { Component , inject} from "@angular/core";
+import { Component , inject, HostListener} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ListComponent } from "../components/list.component"
 import { ListsService } from '../services/lists.service';
@@ -24,9 +24,26 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         <button
           class="primary"
           type="button"
+          style="cursor: pointer;"
           (click)="filterResults(filter.value)"
         >
           Search
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="primary"
+          style="cursor: pointer;"
+          type="button"
+          (click)="toggleCards()"
+        >Toggle cards
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="primary"
+          style="cursor: disabled;"
+          type="button"
+          (click)="toggleCards()"
+        >Toggle lists
         </button>
       </form>
 
@@ -96,5 +113,32 @@ export class HomeComponent {
      * You can update this function to match against any property or multiple properties for a fun exercise.
      */
   }  
+
+  
+    @HostListener('window:keydown', ['$event'])
+    handleKeyDown(event: KeyboardEvent): void {
+      // Check for the key combination (Ctrl + Shift + K)
+      if (event.ctrlKey && event.shiftKey && event.key === 'X') {
+        console.log('Ctrl + Shift + K was pressed!');
+        this.toggleCards();
+      }
+    }
+    isHidden = false;
+    toggleCards(): void {
+      //Hide all cards completely
+      //todo: hide cards only textt
+      const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
+            this.isHidden = !this.isHidden; // Toggle state
+  
+      cards.forEach(card => {
+        if (this.isHidden) {
+          card.classList.add('hidden'); // Add the 'hidden' class
+        } else {
+          card.classList.remove('hidden'); // Remove the 'hidden' class
+        }
+      });
+  
+      console.log(`Hidden class is now ${this.isHidden ? 'applied' : 'removed'}`);
+    }
   
 }

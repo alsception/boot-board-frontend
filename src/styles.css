@@ -82,3 +82,14 @@ html, body { height: 100%; }
   max-width: 900px; /* Optional max width */
   max-height: 600px; /* Optional max height */
 }
+
+
+
+.listing:hover .card-title, 
+.listing:hover .card-footer-container, 
+.listing:hover .card, 
+.listing:hover .card-text {
+  color: #74b1fb;
+  background: #20203e;
+  transition: color 0.3s ease, background 0.3s ease;
+}

@@ -175,9 +175,7 @@ export class DialogCardComponent implements AfterViewInit
   constructor(
     private dialogRef: MatDialogRef<DialogCardComponent>, // Inject MatDialogRef
     @Inject(MAT_DIALOG_DATA) public data: BBCard) 
-  {
-    console.log(data);
-    
+  {    
     this.editCardForm = new FormGroup(
       {
         id: new FormControl(data?.id || null), // Initialize with data or default to null

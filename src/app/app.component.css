@@ -37,14 +37,15 @@ header {
 }
 
 .boot{
-  color: #f95959;
+  color: /*#f95959;*/rgb(223, 0, 255);
   padding: 10px 0px 0 20px;
   font-size: xx-large;
   font-weight: bolder;
+  font-style: italic;
 }
 
 .board{
-  color: #00bbf0;
+  color: /*#00bbf0;*/cyan;
   padding: 10px 20px 0 0px;
   font-size: xxx-large;
   font-weight: bolder;

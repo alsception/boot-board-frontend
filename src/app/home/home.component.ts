@@ -42,7 +42,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
           class="primary"
           style="cursor: disabled;"
           type="button"
-          (click)="toggleCards()"
+          (click)="toggleLists()"
         >Toggle lists
         </button>
       </form>
@@ -129,22 +129,38 @@ export class HomeComponent {
     //2. hide empty lists
 
 
-    isHidden = false;
+    isHiddenCardDescription = false;
     toggleCards(): void {
-      //Hide all cards completely
-      //todo: hide cards only textt
+      //Hide cards description, show only title
       const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
-            this.isHidden = !this.isHidden; // Toggle state
+            this.isHiddenCardDescription = !this.isHiddenCardDescription; // Toggle state
   
       cards.forEach(card => {
-        if (this.isHidden) {
+        if (this.isHiddenCardDescription) {
           card.classList.add('hidden'); // Add the 'hidden' class
         } else {
           card.classList.remove('hidden'); // Remove the 'hidden' class
         }
       });
   
-      console.log(`Hidden class is now ${this.isHidden ? 'applied' : 'removed'}`);
+      console.log(`Hidden class is now ${this.isHiddenCardDescription ? 'applied' : 'removed'}`);
+    }
+
+    isHiddenCards = false;
+    toggleLists(): void {
+      //Hide all cards completely
+      const cards = document.querySelectorAll('bb-card');
+            this.isHiddenCards = !this.isHiddenCards; // Toggle state
+  
+      cards.forEach(card => {
+        if (this.isHiddenCards) {
+          card.classList.add('hidden'); // Add the 'hidden' class
+        } else {
+          card.classList.remove('hidden'); // Remove the 'hidden' class
+        }
+      });
+  
+      console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
     }
   
 }

@@ -81,7 +81,7 @@ import { HostListener } from '@angular/core';
           <input
             id="title"
             type="text"
-            class="form-input"
+            class="form-input dlg-input"
             formControlName="title"
           />
         </div>

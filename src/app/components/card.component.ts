@@ -13,10 +13,17 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'bb-card',
   imports: [CommonModule, RouterModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatIconModule],
   template: `
-    <section class="card-container">
-      <h3 class="card-title">{{ bbCard.title }}</h3>
-
-      <p class="card card-text" *ngIf="true">{{ bbCard.description }}</p>
+    <section class="card-container lgc-{{bbCard.color}}">
+      <h3 class="card-title" (click)="openEditDialog(bbCard)" *ngIf="bbCard" class="lgc-{{bbCard.color}}">
+        {{ bbCard.title }}
+      </h3>
+      
+      <p class="card card-text" 
+        (click)="openEditDialog(bbCard)" *ngIf="bbCard.description"
+         style="cursor: pointer;"
+         class="lgc-{{bbCard.color}}">
+        {{ bbCard.description | slice:0:200 }}<span *ngIf="bbCard.description.length > 200">...</span>
+      </p>
       
       <button class="toggle-text-btn hidden" (click)="toggleDescription(bbCard)">
         {{ bbCard._showDescription ? 'Hide' : 'Show' }} Description
@@ -67,6 +74,7 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
   }
 
   openEditDialog(card: BBCard ) {
+    console.log("open edit")
     const dialogRef = this.dialog.open(EditDialogCardComponent, {
       data: card,     
       autoFocus: false, // Prevent Angular Material from focusing the default element

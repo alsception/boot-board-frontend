@@ -44,12 +44,9 @@ import { MatIconModule } from '@angular/material/icon';
           <span class="material-icons md-12">functions</span>
           <span class="material-icons md-12">summarize</span>
           {{ bbList.cards?.length }}
-        </div>
-        
-
-
+        </div>   
       </div>
-
+      
       <div class="listing-container"></div>
 
       <button mat-button color="primary" (click)="openAddCardDialog(bbList)">
@@ -63,7 +60,6 @@ import { MatIconModule } from '@angular/material/icon';
       </button>
     </section>    
 
-    <!-- Delete dialog -->
     <div *ngIf="showDeleteDialog" class="overlay" (click)="showDeleteDialog = false">
       <div class="dialog-box" (click)="$event.stopPropagation()">
         <p>Delete list?</p>

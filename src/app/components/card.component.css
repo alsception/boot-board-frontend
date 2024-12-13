@@ -32,6 +32,8 @@
   padding-bottom: 3px;
   /* border: 1px solid slateblue; */
   color: #2b2828;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+
 }
 
 .card-dark {
@@ -52,7 +54,7 @@
   background: #1a1c37;
 }
 
-.card-title {
+.card-title-dark-header {
   color: navajowhite;
   padding: 10px 20px 10px 20px;
   max-width: 450px;
@@ -60,6 +62,19 @@
   display: block;
   /* margin: 1em 0; */
   border: none;
+}
+
+.card-title {
+color: #3b3936;
+padding: 10px 20px 10px 20px;
+max-width: 450px;
+word-wrap: break-word;
+display: block;
+border: none;
+background: aliceblue;
+border-top-left-radius: inherit;
+border-top-right-radius: inherit;
+cursor: pointer;
 }
 
 .card-text{
@@ -79,7 +94,7 @@
 .card-container:hover .card-footer-container,
 .card-container:hover .card,
 .card-container:hover .card-text {
-  color: #74b1fb;
+  color: aqua;
   background: #20203e;
 }
 
@@ -87,8 +102,8 @@
 .card-footer-container,
 .card,
 .card-text {
-  transition: color 0.3s ease, background 0.3s ease;
-}
+/*   transition: color 0.3s ease, background 0.3s ease;
+ */}
 
 .card-meta-container {
   display: flex;
@@ -174,7 +189,7 @@
     padding-right: 20px;
     padding-bottom: 20px;
     padding-left: 20px;*/
-  padding: 5px 20px 5px 20px;
+  padding: 5px 50px 5px 20px;
 }
 
 .card::before {
@@ -266,6 +281,11 @@ section.card a::after {
   color: #878585;
 }
 
+
+.dlg-input{
+  font-family: monospace;
+}
+
 .form-input {
   width: 100%;
   /* Make input fields take the full width of their container */
@@ -285,4 +305,48 @@ label {
   /* Set the height as desired */
   resize: vertical;
   /* Allows resizing only vertically (optional) */
+}
+
+/* Add some animation*/
+/* Default visible state */
+bb-card {
+  max-height: 200px; /* Adjust based on your card's actual height */
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+}
+
+/* Hidden state */
+bb-card.hidden {
+  max-height: 0; /* Collapse the card */
+  opacity: 0;    /* Fade out */
+}
+
+
+.lgc-violet {
+  color:  blueviolet;
+}
+
+.lgc-green {
+  color:  green;
+}
+
+.lgc-blue {
+  color:  blue;
+}
+
+.lgc-red {
+  color:  red;
+}
+
+.lgc-yellow {
+  color:  yellow;
+}
+
+.lgc-white {
+  color:  white;
+}
+
+.lgc-black {
+  color:  black;
 }

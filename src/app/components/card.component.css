@@ -13,20 +13,23 @@
 }
 
 .card-container:hover {
-/*   background: #fdffcd !important;
- */}
+  /*   background: #fdffcd !important;
+ */
+}
 
 .card:hover {
-/*   background: #fdffcd !important;
- */}
+  /*   background: #fdffcd !important;
+ */
+}
 
 .card {
   background:
     /* var(--accent-color) */
     /* #fdffcd; */
     #faf9fd;
-/*    border-radius: 30px; 
- */  padding-bottom: 3px;
+  /*    border-radius: 30px; 
+ */
+  padding-bottom: 3px;
   /* border: 1px solid slateblue; */
   color: #2b2828;
 }
@@ -44,10 +47,26 @@
   padding: 20px;
 }
 
+.card-dialog-title {
+  color: navajowhite;
+  background: #1a1c37;
+}
+
 .card-title {
-  color:navajowhite;
+  color: navajowhite;
   padding: 10px 20px 10px 20px;
-  /*background-color: #a4c4ff;*/ /*cornflower*/
+  max-width: 450px;
+  word-wrap: break-word;
+  display: block;
+  /* margin: 1em 0; */
+  border: none;
+}
+
+.card-text{
+  max-width: 450px;
+  word-wrap: break-word;
+  display: block;
+  /* margin: 1em 0; */
 }
 
 .card-title-dark {
@@ -56,17 +75,17 @@
   color: #74cf01;
 }
 
-.card-container:hover .card-title, 
-.card-container:hover .card-footer-container, 
-.card-container:hover .card, 
+.card-container:hover .card-title,
+.card-container:hover .card-footer-container,
+.card-container:hover .card,
 .card-container:hover .card-text {
   color: #74b1fb;
   background: #20203e;
 }
 
-.card-title, 
-.card-footer-container, 
-.card, 
+.card-title,
+.card-footer-container,
+.card,
 .card-text {
   transition: color 0.3s ease, background 0.3s ease;
 }
@@ -88,10 +107,12 @@
   /* Add padding to prevent overflow */
   /*border: 1px solid #ddd; */
   /* Optional: Border for visual clarity */
-/*   border-radius: 4px;
- */  /* Optional: Rounded corners */
-/*   background-color: #fff;
- */  /* Optional: Background color */
+  /*   border-radius: 4px;
+ */
+  /* Optional: Rounded corners */
+  /*   background-color: #fff;
+ */
+  /* Optional: Background color */
   overflow:
     /*hidden*/
     auto;
@@ -112,8 +133,9 @@
   white-space: nowrap;
   /* Prevent text from wrapping */
   color: #7c7c8f75;
-/*   background: #ffffff;
- */  padding: 10px 10px 0 10px;
+  /*   background: #ffffff;
+ */
+  padding: 10px 10px 0 10px;
   font-size: x-small;
 }
 
@@ -132,12 +154,12 @@
   font-size: x-small;
 }
 
-.card-footer-container{
-/*   background-color: #eaeaff;
- */  padding-top: 0px;
+.card-footer-container {  
+  padding-top: 0px;
   padding-bottom: 0px;
-  background-color: white;
-  /* color: ; */
+  background-color: #faf9fd;
+  border-bottom-right-radius: inherit; /*fix on screen display bug*/
+  border-bottom-left-radius: inherit;
 }
 
 .card-photo {
@@ -188,9 +210,10 @@ section.card a::after {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 .form-input:read-only {
- background-color: #f3f3f5;
- color: gray;
+  background-color: #f3f3f5;
+  color: gray;
 }
 
 .dlg-card-meta-container {
@@ -204,50 +227,62 @@ section.card a::after {
   font-size: 0.9rem;
   color: #666;
 }
-.metadata-container {
-  display: flex;
-  gap: 16px; /* Space between fields */
-  flex-wrap: wrap; /* Allow wrapping if there's not enough space */
-}
 
 .metadata-container {
   display: flex;
-  gap: 16px; /* Space between fields */
-  flex-wrap: wrap; /* Allow wrapping if there's not enough space */
-  padding-top: 20px;
+  gap: 16px;
+  /* Space between fields */
+  flex-wrap: wrap;
+  /* Allow wrapping if there's not enough space */
+  padding-top: 12px;
 }
 
 .metadata-item {
   display: flex;
   flex-direction: column;
-  width: 30%; /* You can adjust the width as needed */
+  width: 30%;
+  /* You can adjust the width as needed */
 }
 
 .metadata-item-100 {
   display: flex;
   flex-direction: column;
-  width: 94%; /* You can adjust the width as needed */
+  width: 94%;
+  /* You can adjust the width as needed */
 }
+
 .metadata-item-50 {
   display: flex;
   flex-direction: column;
-  width: 46%; /* You can adjust the width as needed */
+  width: 46%;
+  /* You can adjust the width as needed */
 }
 
-.dlg-card-container, .metadata-container, .metadata-item, .metadata-item-2 label {
+.dlg-card-container,
+.metadata-container,
+.metadata-item,
+.metadata-item-2 label {
   font-family: monospace !important;
   color: #878585;
 }
 
 .form-input {
-  width: 100%; /* Make input fields take the full width of their container */
+  width: 100%;
+  /* Make input fields take the full width of their container */
 }
 
-.form-container .dialog-card label {
-  margin-bottom: 4px; /* Space between label and input */
+.form-container .dialog-card-add,
+.dialog-card-edit,
+label {
+  margin-bottom: 4px;
+  /* Space between label and input */
 }
+
 #description {
-  width: 100%; /* Makes the textarea take up 100% of its parent container width */
-  height: 100px; /* Set the height as desired */
-  resize: vertical; /* Allows resizing only vertically (optional) */
+  width: 100%;
+  /* Makes the textarea take up 100% of its parent container width */
+  height: 100px;
+  /* Set the height as desired */
+  resize: vertical;
+  /* Allows resizing only vertically (optional) */
 }

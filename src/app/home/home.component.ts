@@ -58,7 +58,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     </section>
     <section class="results">
 <!--     add this to bb-list cdkDrag
- -->      <bb-list cdkDrag class="draggable-item"
+ -->      <bb-list cdkDrag class="draggable-item bb-list"
         *ngFor="let xList of filteredLists"
         [bbList]="xList"
       ></bb-list>
@@ -123,6 +123,12 @@ export class HomeComponent {
         this.toggleCards();
       }
     }
+    
+    //TODO:
+    //1. show smthng when no data fetched
+    //2. hide empty lists
+
+
     isHidden = false;
     toggleCards(): void {
       //Hide all cards completely

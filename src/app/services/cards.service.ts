@@ -45,6 +45,31 @@ export class CardsService
       throw error; // Propagate the error to the caller
     }
   }
+
+  async insertCard(card: BBCard): Promise<BBCard> {
+    try {
+      const response = await fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Indicate JSON payload
+        },
+        body: JSON.stringify(card), // Send the BBCard object as JSON
+      });
+  
+      if (response.ok) {
+        const updatedCard: BBCard = await response.json(); // Parse the response as a BBCard object
+        console.log('Card updated successfully:', updatedCard);
+        return updatedCard; // Return the updated card
+      } else {
+        const errorMessage = await response.text(); // Read the error response
+        console.error('Failed to insert the card:', errorMessage);
+        throw new Error(errorMessage); // Throw an error to be handled by the caller
+      }
+    } catch (error) {
+      console.error('Error occurred while inserting the card:', error);
+      throw error; // Propagate the error to the caller
+    }
+  }
 /* 
   async delete(id: number): Promise<void> {
     try {

@@ -6,7 +6,7 @@ import {BBCard} from '../interfaces/bbcard';
 import { CardsService } from '../services/cards.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { DialogCardComponent } from '../components/dialog-card.component';
+import { EditDialogCardComponent } from './card-dialog-edit.component';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -15,11 +15,6 @@ import { MatIconModule } from '@angular/material/icon';
   template: `
     <section class="card-container">
       <h3 class="card-title">{{ bbCard.title }}</h3>
-
-      <form [formGroup]="editCardForm" (submit)="submitCard()">
-          <input id="title" type="text" class="input-group__input hidden" formControlName="title" />
-          <button type="submit" class="primary hidden">Save</button>
-        </form>
 
       <p class="card card-text" *ngIf="true">{{ bbCard.description }}</p>
       
@@ -60,44 +55,19 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
    * In this case, there is no default value. In our example application case we know that the value will be passed in - this is by design. 
    * The exclamation point is called the non-null assertion operator and it tells the TypeScript compiler that the value of this property won't be null or undefined. */
   
-  //Define card form forsending data to server
-  editCardForm = new FormGroup({
-    title: new FormControl(""),
-    description: new FormControl(""),
-     //position: new FormControl(""),
-   });
-
   constructor(private fb: FormBuilder, private dialog: MatDialog) {}
 
   cardsService: CardsService = inject(CardsService);
   
-  ngOnInit() {
-    // Initialize the form with all required controls
-    this.editCardForm = new FormGroup({
-      title: new FormControl(this.bbCard?.title || null),
-      description: new FormControl(this.bbCard?.description || null),
-      //position: new FormControl(this.bbCard?.position || null)
-     });
+  ngOnInit() {   
   }
 
   toggleDescription(card: any): void {
     card._showDescription = !card._showDescription;
   }
-  
-  async submitCard() {
-    try {
-      const editedCard =  Object.assign({}, this.bbCard);
-      editedCard.description = this.editCardForm.value.description ?? "";
-      editedCard.title = this.editCardForm.value.title ?? "";
-      const updatedCard = await this.cardsService.updateCard(editedCard); // Fetch updated card
-      this.bbCard = Object.assign({}, updatedCard); // Safely assign to bbCard
-    } catch (error) {
-      console.error('Failed to update card:', error);
-    }
-  }
 
   openEditDialog(card: BBCard ) {
-    const dialogRef = this.dialog.open(DialogCardComponent, {
+    const dialogRef = this.dialog.open(EditDialogCardComponent, {
       data: card,     
       autoFocus: false, // Prevent Angular Material from focusing the default element
       panelClass: 'custom-card-dialog-container',
@@ -112,7 +82,6 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
       if (updatedCard) {
         console.log('Dialog closed with updated card:', updatedCard);
         // Handle the updated card
-        //this.updateCardInList(updatedCard); // Example: Updating your local list
         this.bbCard = Object.assign({}, updatedCard);
       } else {
         console.log('Dialog was closed without saving changes.');

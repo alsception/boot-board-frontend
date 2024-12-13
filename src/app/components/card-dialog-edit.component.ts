@@ -9,18 +9,16 @@ import { HostListener } from '@angular/core';
 
 
 @Component({
-  selector: 'dialog-card',
+  selector: 'dialog-card-edit',
   imports: [CommonModule, MatDialogModule, ReactiveFormsModule],
   template: `
-  <h1 mat-dialog-title class="card-title">Edit Card</h1>
+  <h1 mat-dialog-title class="card-dialog-title">Edit Card {{data.id}}</h1>
   <section class="dlg-card-container">
-    <!-- Form Section -->
     <form
       [formGroup]="editCardForm"
       (ngSubmit)="submitCard()"
       class="form-container"
     >
-      <!-- ID and Metadata (Stacked Horizontally) -->
       <div class="metadata-container">
         <div class="metadata-item">
           <label for="id">ID</label>
@@ -54,10 +52,8 @@ import { HostListener } from '@angular/core';
       </div>
   
       <div class="metadata-container">
-        <!-- Optional Fields: Created and Updated -->
         <div class="metadata-item-50">
           <label for="created">Created</label>
-          <!-- type="date" -->
           <input
             id="created"
             type="datetime-local"
@@ -81,7 +77,6 @@ import { HostListener } from '@angular/core';
   
       <div class="metadata-container">
         <div class="metadata-item-100">
-          <!-- Title and Description -->
           <label for="title">Title</label>
           <input
             id="title"
@@ -103,7 +98,6 @@ import { HostListener } from '@angular/core';
       </div>
   
       <div class="metadata-container">
-        <!-- Color and Type -->
         <div class="metadata-item">
           <label for="color">Color</label>
           <input
@@ -125,7 +119,6 @@ import { HostListener } from '@angular/core';
         </div>
   
         <div class="metadata-item">
-          <!-- Position -->
           <label for="position">Position</label>
           <input
             id="position"
@@ -135,12 +128,6 @@ import { HostListener } from '@angular/core';
           />
         </div>
       </div>
-  
-      <!-- Form Actions -->
-      <!-- <div class="form-actions">
-        <button type="submit" class="primary-button" [disabled]="editCardForm.invalid">Save</button>
-        <button type="button" class="secondary-button" mat-dialog-close>Cancel</button>
-      </div> -->
     </form>
   </section>
   
@@ -160,7 +147,7 @@ import { HostListener } from '@angular/core';
   `,
   styleUrls: ['./card.component.css'],
 })
-export class DialogCardComponent implements AfterViewInit  
+export class EditDialogCardComponent implements AfterViewInit  
 {
   editCardForm: FormGroup;
   cardsService: CardsService = inject(CardsService);
@@ -173,7 +160,7 @@ export class DialogCardComponent implements AfterViewInit
   }
 
   constructor(
-    private dialogRef: MatDialogRef<DialogCardComponent>, // Inject MatDialogRef
+    private dialogRef: MatDialogRef<EditDialogCardComponent>, // Inject MatDialogRef
     @Inject(MAT_DIALOG_DATA) public data: BBCard) 
   {    
     this.editCardForm = new FormGroup(
@@ -208,15 +195,10 @@ export class DialogCardComponent implements AfterViewInit
   }
 
   async submitCard() {
-    console.log("updcard> ",this.getUpdatedCard())
     try {
-      const editedCard =  Object.assign({}, this.getUpdatedCard());
-      console.log("eddcard> ",editedCard)
-      
+      const editedCard =  Object.assign({}, this.getUpdatedCard());      
       const updatedCard = await this.cardsService.updateCard(editedCard); // Fetch updated card
       this.data = Object.assign({}, updatedCard); // Safely assign to bbCard
-
-
       // Close dialog here
       this.dialogRef.close(updatedCard); // Use injected dialogRef
     } catch (error) {
@@ -228,16 +210,4 @@ export class DialogCardComponent implements AfterViewInit
   getUpdatedCard(): BBCard {
     return this.editCardForm.value as BBCard;
   }
-
-  private formatDateTime(date: Date): string {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    const hours = String(d.getHours()).padStart(2, "0");
-    const minutes = String(d.getMinutes()).padStart(2, "0");
-    const seconds = String(d.getSeconds()).padStart(2, "0");
-    return `${day}.${month}.${year} at ${hours}:${minutes}:${seconds}`;
-  }
-
 }

@@ -2,6 +2,8 @@
   margin-bottom: 20px !important;
   transition: background-color 0.3s ease;
   border: 1px solid #dedede;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .listing-container:hover {

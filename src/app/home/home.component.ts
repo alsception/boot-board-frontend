@@ -8,10 +8,12 @@ import { BBBoard } from "../interfaces/bbboard";
 import { BBCard } from "../interfaces/bbcard";
 import { BBList } from "../interfaces/bblist";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { AddDialogListComponent } from '../components/list-dialog-add.component';
 
 @Component({
   selector: "app-home",
-  imports: [CommonModule, ListComponent, DragDropModule],
+  imports: [CommonModule, ListComponent, DragDropModule, MatDialogModule],
   template: `
     <section>
       <form>
@@ -50,7 +52,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
           class="primary"
           style="cursor: pointer;margin-left:50px"
           type="button"
-          (click)="createList()"
+          (click)="createList(1)"
         >Create list
         </button>
         <button
@@ -59,6 +61,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
           type="button"
           (click)="toggleDarkMode()"
         >Toggle dark mode
+        </button>
+        <button
+          class="primary"
+          style="cursor: pointer;margin-left:50px"
+          type="button"
+          (click)="toggleGridView()"
+        >Toggle grid view
         </button>
       </form>
 
@@ -96,7 +105,7 @@ export class HomeComponent {
   filteredCards: BBCard[] = [];
   filteredLists: BBList[] = [];
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.listsService
       .getAllListsWithCards()
       .then((xList: BBList[]) => {
@@ -177,12 +186,59 @@ export class HomeComponent {
       console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
     }
 
-    createList(): void{
-      console.log("create list");
-    }
+    createList(boardId: number): void{
+      //open dialog
+
+        //Now here we need new object of type BBList with listId set:
+        const newBBList: BBList = {
+          id: 0,
+          userId: 1,
+          boardId: boardId,  
+          title: "Sample title",
+          color: "",
+          type: "",  
+          position: 0,
+          created: new Date(), // Optional: Add if needed
+        };
+    
+        const dialogRef = this.dialog.open(AddDialogListComponent, {
+          data: newBBList,     
+          autoFocus: false, // Prevent Angular Material from focusing the default element
+          panelClass: 'custom-list-dialog-container',
+          width: '800px',  // Adjust this to control width
+          height: '500px', // Adjust this to control height
+          maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
+        });
+    
+        // Handle the dialog close event, subscribe to afterClosed()
+        dialogRef.afterClosed().subscribe((addedList: BBList | undefined) => {
+          if (addedList) 
+            {
+            // Ensure list.lists is initialized as an array
+            if (!this.lists) {
+              this.lists = [];
+            }
+            // Add the addedList to the list.lists array
+            this.lists.push(addedList);
+          } else {
+            console.log('Dialog was closed without saving changes.');
+          }
+        });
+      }
 
     toggleDarkMode(): void{
       console.log("toggleDarkMode");
+    }
+
+    toggleGridView(): void{
+      //todo
+      /* onst results = document.querySelectorAll('.results').setStyle("","");
+
+      results.forEach((element: HTMLElement) => {
+        this.renderer.setStyle(element, 'display', 'grid');
+        this.renderer.setStyle(element, 'gap', '16px');
+        this.renderer.setStyle(element, 'grid-template-columns', 'repeat(auto-fit, minmax(200px, 1fr))');
+      }); */
     }
   
 }

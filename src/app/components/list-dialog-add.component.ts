@@ -41,12 +41,12 @@ import { HostListener } from '@angular/core';
           />
         </div>
         <div class="metadata-item">
-          <label for="listId">List ID</label>
+          <label for="boardId">Board ID</label>
           <input
-            id="listId"
+            id="boardId"
             type="number"
             class="form-input"
-            formControlName="listId"
+            formControlName="boardId"
           />
         </div>
       </div>
@@ -85,7 +85,7 @@ import { HostListener } from '@angular/core';
             formControlName="title"
           />
         </div>
-  
+  <!-- 
         <div class="metadata-item-100">
           <label for="description">Description</label>
           <textarea
@@ -95,7 +95,8 @@ import { HostListener } from '@angular/core';
             #description
           ></textarea>
         </div>
-      </div>
+        </div>-->
+      </div> 
   
       <div class="metadata-container">
         <div class="metadata-item">
@@ -145,18 +146,23 @@ import { HostListener } from '@angular/core';
     </button>
   </div>
   `,
-  styleUrls: ['./list.component.css'],
+  styleUrls: ['./card.component.css'],
 })
 export class AddDialogListComponent implements AfterViewInit  
 {
   addListForm: FormGroup;
   listsService: ListsService = inject(ListsService);
 
-  @ViewChild('description') descriptionField!: ElementRef;
+  @ViewChild('title') titleField!: ElementRef;
 
   ngAfterViewInit(): void {
-    // Focus the description field when the dialog opens
-    this.descriptionField.nativeElement.focus();
+    // Focus the title field when the dialog opens
+    try {
+      this.titleField.nativeElement.focus();  
+    } catch (error) {
+      console.log('could not focus title field',error);
+    }   
+
   }
 
   constructor(
@@ -167,7 +173,7 @@ export class AddDialogListComponent implements AfterViewInit
       {
         id: new FormControl(data?.id || null), // Initialize with data or default to null
         userId: new FormControl(data?.userId || null),
-        listId: new FormControl(data?.boardId || null),
+        boardId: new FormControl(data?.boardId || null),
         title: new FormControl(data?.title || ""),
         color: new FormControl(data?.color || ""),
         type: new FormControl(data?.type || ""),

@@ -21,7 +21,6 @@ export class ListsService
     return (await data.json()) ?? [];
   }
 
-  //ghe xe??
   async getAllListsWithCards(): Promise<BBList[]> {
     const data = await fetch(`${this.apiUrl}/cards`);
     return (await data.json()) ?? [];
@@ -55,7 +54,29 @@ export class ListsService
     }
   }
   
-  //TODO
-  //submit edit
+  async insertList(list: BBList): Promise<BBList> {
+    try {
+      const response = await fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Indicate JSON payload
+        },
+        body: JSON.stringify(list), // Send the BBList object as JSON
+      });
+  
+      if (response.ok) {
+        const updatedList: BBList = await response.json(); // Parse the response as a BBList object
+        console.log('List updated successfully:', updatedList);
+        return updatedList; // Return the updated list
+      } else {
+        const errorMessage = await response.text(); // Read the error response
+        console.error('Failed to insert the list:', errorMessage);
+        throw new Error(errorMessage); // Throw an error to be handled by the caller
+      }
+    } catch (error) {
+      console.error('Error occurred while inserting the list:', error);
+      throw error; // Propagate the error to the caller
+    }
+  }
 
 }

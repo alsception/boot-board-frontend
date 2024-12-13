@@ -24,7 +24,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         <button
           class="primary"
           type="button"
-          style="cursor: pointer;"
+          style="cursor: pointer;margin-right: 50px;"
           (click)="filterResults(filter.value)"
         >
           Search
@@ -40,10 +40,25 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         &nbsp;&nbsp;
         <button
           class="primary"
-          style="cursor: disabled;"
+          style="cursor: pointer;"
           type="button"
           (click)="toggleLists()"
         >Toggle lists
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="primary"
+          style="cursor: pointer;margin-left:50px"
+          type="button"
+          (click)="createList()"
+        >Create list
+        </button>
+        <button
+          class="primary"
+          style="cursor: pointer;margin-left:50px"
+          type="button"
+          (click)="toggleDarkMode()"
+        >Toggle dark mode
         </button>
       </form>
 
@@ -128,7 +143,6 @@ export class HomeComponent {
     //1. show smthng when no data fetched
     //2. hide empty lists
 
-
     isHiddenCardDescription = false;
     toggleCards(): void {
       //Hide cards description, show only title
@@ -161,6 +175,14 @@ export class HomeComponent {
       });
   
       console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
+    }
+
+    createList(): void{
+      console.log("create list");
+    }
+
+    toggleDarkMode(): void{
+      console.log("toggleDarkMode");
     }
   
 }

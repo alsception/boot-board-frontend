@@ -52,7 +52,7 @@ import { MatIconModule } from '@angular/material/icon';
       <button mat-button color="primary" (click)="openAddCardDialog(bbList)">
       <mat-icon>add</mat-icon>Add Card</button>
       
-      <button mat-button color="primary" (click)="openDeleteDialog(bbList.id)">
+      <button mat-button color="primary" (click)="openEditDialog(bbList.id)">
       <mat-icon>edit</mat-icon>Edit list</button>
 
       <button mat-button color="primary" (click)="openDeleteDialog(bbList.id)">
@@ -84,7 +84,7 @@ export class ListComponent {
 
   constructor(private dialog: MatDialog) {}
 
-  openEditDialog() {
+  openEditDialog(id: number) {
     const person = { name: 'John Doe', age: 30 };
     this.dialog.open(EditDialogCardComponent, {
       data: person,

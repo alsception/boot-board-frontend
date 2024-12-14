@@ -1,6 +1,6 @@
 import { Component , inject, HostListener} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ListComponent } from "../components/list.component"
+import { ListComponent } from "./list.component"
 import { ListsService } from '../services/lists.service';
 import { CardsService } from '../services/cards.service';
 import { BoardsService } from '../services/boards.service';
@@ -9,12 +9,11 @@ import { BBCard } from "../interfaces/bbcard";
 import { BBList } from "../interfaces/bblist";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { AddDialogListComponent } from '../components/list-dialog-add.component';
-import { BoardComponentPreview } from "../components/board.component.preview";
+import { AddDialogListComponent } from './list-dialog-add.component';
 
 @Component({
-  selector: "app-home",
-  imports: [CommonModule, ListComponent, DragDropModule, MatDialogModule, BoardComponentPreview],
+  selector: "app-board",
+  imports: [CommonModule, ListComponent, DragDropModule, MatDialogModule],
   template: `
     <section>
       <form>
@@ -83,59 +82,55 @@ import { BoardComponentPreview } from "../components/board.component.preview";
     </section>
     <section class="results">
 <!--     add this to bb-list cdkDrag
- -->      <app-board-preview cdkDrag class="draggable-item bb-list"
-        *ngFor="let board of filteredBoards"
-        [bbBoard]="board"
-      ></app-board-preview>
+ -->      <bb-list cdkDrag class="draggable-item bb-list"
+        *ngFor="let xList of filteredLists"
+        [bbList]="xList"
+      ></bb-list>
     </section>
   `,
-  styleUrls: ["./home.component.css"],
+  styleUrls: ["board.component.css"],
 })
-export class HomeComponent {
-  
-  
+export class BoardComponent {  
 
   boards: BBBoard[] = [];
- /*  cards: BBCard[] = [];
-  lists: BBList[] = []; */
+  cards: BBCard[] = [];
+  lists: BBList[] = [];
 
-/*   listsService: ListsService = inject(ListsService);
- */  boardsService: BoardsService = inject(BoardsService);
-/*   cardsService: CardsService = inject(CardsService);
- */
+  listsService: ListsService = inject(ListsService);
+  boardsService: BoardsService = inject(BoardsService);
+  cardsService: CardsService = inject(CardsService);
+
   filteredBoards: BBBoard[] = [];
- /*  filteredCards: BBCard[] = [];
-  filteredLists: BBList[] = []; */
+  filteredCards: BBCard[] = [];
+  filteredLists: BBList[] = [];
 
   constructor(private dialog: MatDialog) {
-
-    console.log("initilized home component")
-
-    this.boardsService
-      .getAllBoards()
-      .then((xboards: BBBoard[]) => {
-        this.boards = xboards;
-        this.filteredBoards = xboards;
+    console.log("initilized board component")
+    this.listsService
+      .getAllListsWithCards()
+      .then((xList: BBList[]) => {
+        this.lists = xList;
+        this.filteredLists = xList;
       });
   }
 
   filterResults(text: string) {
     //Se no xe cerca -> mostri tutto
     if (!text) {
-      this.filteredBoards = this.boards;
+      this.filteredLists = this.lists;
       return;
     }
-    this.filteredBoards = this.boards.filter((board) => {
+    this.filteredLists = this.lists.filter((list) => {
       // Check if the list title matches the search text
-      const listTitleMatches = board?.title.toLowerCase().includes(text.toLowerCase());
+      const listTitleMatches = list?.title.toLowerCase().includes(text.toLowerCase());
     
       // Check if any card's title matches the search text
-      /* const cardTitleMatches = list?.cards?.some((card) =>
+      const cardTitleMatches = list?.cards?.some((card) =>
         card.title.toLowerCase().includes(text.toLowerCase())
-      ); */
+      );
     
       // The list is included if either the list title or any card's title matches
-      return listTitleMatches/* || cardTitleMatches*/;
+      return listTitleMatches || cardTitleMatches;
     });
     /**
      * This function uses the String filter function to compare the value of the text parameter against the housingLocation.city property.
@@ -149,7 +144,7 @@ export class HomeComponent {
       // Check for the key combination (Ctrl + Shift + K)
       if (event.ctrlKey && event.shiftKey && event.key === 'X') {
         console.log('Ctrl + Shift + K was pressed!');
-        //this.toggleCards();
+        this.toggleCards();
       }
     }
     
@@ -160,7 +155,7 @@ export class HomeComponent {
     isHiddenCardDescription = false;
     toggleCards(): void {
       //Hide cards description, show only title
-      /* const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
+      const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
             this.isHiddenCardDescription = !this.isHiddenCardDescription; // Toggle state
   
       cards.forEach(card => {
@@ -169,7 +164,7 @@ export class HomeComponent {
         } else {
           card.classList.remove('hidden'); // Remove the 'hidden' class
         }
-      }); */
+      });
   
       console.log(`Hidden class is now ${this.isHiddenCardDescription ? 'applied' : 'removed'}`);
     }
@@ -177,7 +172,7 @@ export class HomeComponent {
     isHiddenCards = false;
     toggleLists(): void {
       //Hide all cards completely
-      /* const cards = document.querySelectorAll('bb-card');
+      const cards = document.querySelectorAll('bb-card');
             this.isHiddenCards = !this.isHiddenCards; // Toggle state
   
       cards.forEach(card => {
@@ -187,13 +182,13 @@ export class HomeComponent {
           card.classList.remove('hidden'); // Remove the 'hidden' class
         }
       });
-   */
+  
       console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
     }
 
     createList(boardId: number): void{
       //open dialog
-/* 
+
         //Now here we need new object of type BBList with listId set:
         const newBBList: BBList = {
           id: 0,
@@ -228,7 +223,7 @@ export class HomeComponent {
           } else {
             console.log('Dialog was closed without saving changes.');
           }
-        }); */
+        });
       }
 
     toggleDarkMode(): void{

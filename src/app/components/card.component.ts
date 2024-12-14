@@ -48,8 +48,19 @@ import { MatIconModule } from '@angular/material/icon';
         <button mat-button color="primary" (click)="openEditDialog(bbCard)">
         <mat-icon>edit</mat-icon>Edit card</button>
 
-        <button mat-button color="primary" (click)="openEditDialog(bbCard)">
+        <button mat-button color="primary" (click)="openDeleteDialog(bbCard)">
         <mat-icon>delete</mat-icon>Delete card</button>
+
+        <div *ngIf="showDeleteDialog" class="overlay" (click)="showDeleteDialog = false">
+        <div class="dialog-box" style="color: black;" (click)="$event.stopPropagation()">
+          <p>Delete card?</p>
+          <br><br>
+          <button (click)="deleteCard(bbCard)" class="btn-red">Delete</button>
+          &nbsp;
+          <button (click)="showDeleteDialog = false">Cancel</button>
+        </div>
+    </div>
+
       </div>
 
      </section>
@@ -95,6 +106,17 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
         console.log('Dialog was closed without saving changes.');
       }
     });
+  }
+
+  showDeleteDialog = false; // Boolean to toggle the dialog
+
+  openDeleteDialog(card: BBCard){
+    this.showDeleteDialog=true;
+  }
+
+  deleteCard(card: BBCard){
+    this.showDeleteDialog=false;
+    this.cardsService.delete(card.id);
   }
   
 }

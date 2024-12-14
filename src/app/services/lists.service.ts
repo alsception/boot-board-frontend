@@ -77,13 +77,9 @@ export class ListsService
       console.error('Error occurred while inserting the list:', error);
       
       //Display error msg
-
-      //Close dialog.
-      
-      alert('Error occurred while inserting the list');
-      
+      //Close dialog.      
+      alert('Error occurred while inserting the list');      
       throw error; // Propagate the error to the caller
-
     }
   }
 

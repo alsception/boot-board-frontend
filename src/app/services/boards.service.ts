@@ -21,4 +21,58 @@ export class BoardsService
     return (await data.json()) ?? {};
   }
 
+  async create(board: BBBoard): Promise<BBBoard> {
+    try {
+      const response = await fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Indicate JSON payload
+        },
+        body: JSON.stringify(board), // Send the BBBoard object as JSON
+      });
+  
+      if (response.ok) {
+        const updatedBoard: BBBoard = await response.json(); // Parse the response as a BBBoard object
+        console.log('Board updated successfully:', updatedBoard);
+        return updatedBoard; // Return the updated board
+      } else {
+        const errorMessage = await response.text(); // Read the error response
+        console.error('Failed to insert the board:', errorMessage);
+        throw new Error(errorMessage); // Throw an error to be handled by the caller
+      }
+    } catch (error) {
+      console.error('Error occurred while inserting the board:', error);
+      
+      //Display error msg
+      //Close dialog.      
+      alert('Error occurred while inserting the board');      
+      throw error; // Propagate the error to the caller
+    }
+  }
+
+  async update(board: BBBoard): Promise<BBBoard> {
+    try {
+      const response = await fetch(this.apiUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json', // Indicate JSON payload
+        },
+        body: JSON.stringify(board), // Send the BBBoard object as JSON
+      });
+  
+      if (response.ok) {
+        const updatedBoard: BBBoard = await response.json(); // Parse the response as a BBBoard object
+        console.log('Board updated successfully:', updatedBoard);
+        return updatedBoard; // Return the updated board
+      } else {
+        const errorMessage = await response.text(); // Read the error response
+        console.error('Failed to update the board:', errorMessage);
+        throw new Error(errorMessage); // Throw an error to be handled by the caller
+      }
+    } catch (error) {
+      console.error('Error occurred while updating the board:', error);
+      throw error; // Propagate the error to the caller
+    }
+  }
+
 }

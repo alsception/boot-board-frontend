@@ -70,6 +70,24 @@ export class CardsService
       throw error; // Propagate the error to the caller
     }
   }
+
+  async delete(id: number): Promise<void> {
+    try {
+      const response = await fetch(`${this.apiUrl}/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        console.log('Item deleted successfully');
+        // Reload the page after successful deletion
+        window.location.reload();
+      } else {
+        console.error('Failed to delete the item');
+      }
+    } catch (error) {
+      console.error('Error occurred while deleting the item:', error);
+    }
+  }
 /* 
   async delete(id: number): Promise<void> {
     try {

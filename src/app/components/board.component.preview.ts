@@ -1,116 +1,77 @@
-import { Component , inject, HostListener} from "@angular/core";
+import { Component , inject, HostListener, Input} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ListComponent } from "../components/list.component"
-import { ListsService } from '../services/lists.service';
-import { CardsService } from '../services/cards.service';
 import { BoardsService } from '../services/boards.service';
 import { BBBoard } from "../interfaces/bbboard";
-import { BBCard } from "../interfaces/bbcard";
-import { BBList } from "../interfaces/bblist";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { AddDialogListComponent } from '../components/list-dialog-add.component';
-import { BoardComponentPreview } from "../components/board.component.preview";
+import {RouterModule} from '@angular/router';
+import { AddDialogListComponent } from './list-dialog-add.component';
 
 @Component({
-  selector: "app-home",
-  imports: [CommonModule, ListComponent, DragDropModule, MatDialogModule, BoardComponentPreview],
+  selector: "app-board-preview",
+  imports: [CommonModule, DragDropModule, MatDialogModule, RouterModule],
   template: `
-    <section>
-      <form>
-        <!--
-        By binding to the click event on the button element, you are able to call the filterResults function. 
-        The argument to the function is the value property of the filter template variable. 
-        Specifically, the .value property from the input HTML element.      
-        -->
-        <input type="text" placeholder="Search cards / lists / boards" #filter />
-        <button
-          class="primary"
-          type="button"
-          style="cursor: pointer;margin-right: 50px;"
-          (click)="filterResults(filter.value)"
-        >
-          Search
-        </button>
-        &nbsp;&nbsp;
-        <button
-          class="primary"
-          style="cursor: pointer;"
-          type="button"
-          (click)="toggleCards()"
-        >Toggle cards
-        </button>
-        &nbsp;&nbsp;
-        <button
-          class="primary"
-          style="cursor: pointer;"
-          type="button"
-          (click)="toggleLists()"
-        >Toggle lists
-        </button>
-        &nbsp;&nbsp;
-        <button
-          class="primary"
-          style="cursor: pointer;margin-left:50px"
-          type="button"
-          (click)="createList(1)"
-        >Create list
-        </button>
-        <button
-          class="primary"
-          style="cursor: pointer;margin-left:50px"
-          type="button"
-          (click)="toggleDarkMode()"
-        >Toggle dark mode
-        </button>
-        <button
-          class="primary"
-          style="cursor: pointer;margin-left:50px"
-          type="button"
-          (click)="toggleGridView()"
-        >Toggle grid view
-        </button>
-      </form>
+    <section class="listing listing-container listing-nb lg-{{bbBoard.color}}">    
+    <!-- 
+     <a [routerLink]="['/board', bbBoard.id]">
+ 
+      <h2 class="listing-heading">{{ bbBoard.title }} </h2> 
+     </a>
+ -->
+<!--  <a [routerLink]="['/board', bbBoard.id]" class="block-link">
+  <h2 class="listing-heading">{{ bbBoard.title }}</h2>
+</a> -->
+<div style=""
+  [routerLink]="['/board', bbBoard.id]" 
+  class="board-clickable-div"
+  role="button" 
+  tabindex="0">
+  <h2 class="board-listing-heading listing-heading ">{{ bbBoard.title }}</h2>
 
-      <!-- test input -->
-      <div class="container hidden">
-        <div class="input-group">
-          <label class="input-group__label" for="myInput">Input test</label>
-          <input type="text" id="myInput" class="input-group__input" value="This is my input">
+
+
+    <!-- <a [routerLink]="['/board', bbBoard.id]">{{ bbBoard.title }}</a> -->
+
+    <div class="listing-meta-container">      
+        <div class="listing-meta "> 
+          <span class="material-icons md-12">key</span>
+          {{ bbBoard.id }}
         </div>
+        <div class="listing-meta ">
+          <span class="material-icons md-12">tag</span>
+          {{ bbBoard.position }}
+        </div>
+        <div class="listing-meta ">
+          <span class="material-icons md-12">save</span>  
+          {{ bbBoard.created }}
+        </div>
+        <div class="listing-meta">
+          <span class="material-icons md-12">functions</span>
+          <span class="material-icons md-12">summarize</span>
+          {{ bbBoard.lists?.length }}
+        </div>   
+      </div> 
       </div>
 
-    </section>
-    <section class="results">
-<!--     add this to bb-list cdkDrag
- -->      <app-board-preview cdkDrag class="draggable-item bb-list"
-        *ngFor="let board of filteredBoards"
-        [bbBoard]="board"
-      ></app-board-preview>
-    </section>
+<!--       </a>  
+ -->    </section>
   `,
-  styleUrls: ["./home.component.css"],
+  styleUrls: ["list.component.css"],
 })
-export class HomeComponent {
-  
-  
+export class BoardComponentPreview {  
+  @Input() bbBoard!: BBBoard;
 
   boards: BBBoard[] = [];
- /*  cards: BBCard[] = [];
-  lists: BBList[] = []; */
 
-/*   listsService: ListsService = inject(ListsService);
- */  boardsService: BoardsService = inject(BoardsService);
-/*   cardsService: CardsService = inject(CardsService);
- */
-  filteredBoards: BBBoard[] = [];
- /*  filteredCards: BBCard[] = [];
+  boardsService: BoardsService = inject(BoardsService);
+
+  filteredBoards: BBBoard[] = [];/* 
+  filteredCards: BBCard[] = [];
   filteredLists: BBList[] = []; */
 
   constructor(private dialog: MatDialog) {
-
-    console.log("initilized home component")
-
+    console.log("initilized board preview component",this.bbBoard)
+    
     this.boardsService
       .getAllBoards()
       .then((xboards: BBBoard[]) => {
@@ -118,6 +79,7 @@ export class HomeComponent {
         this.filteredBoards = xboards;
       });
   }
+
 
   filterResults(text: string) {
     //Se no xe cerca -> mostri tutto
@@ -147,20 +109,20 @@ export class HomeComponent {
     @HostListener('window:keydown', ['$event'])
     handleKeyDown(event: KeyboardEvent): void {
       // Check for the key combination (Ctrl + Shift + K)
-      if (event.ctrlKey && event.shiftKey && event.key === 'X') {
+     /*  if (event.ctrlKey && event.shiftKey && event.key === 'X') {
         console.log('Ctrl + Shift + K was pressed!');
-        //this.toggleCards();
-      }
+        this.toggleCards();
+      } */
     }
     
     //TODO:
     //1. show smthng when no data fetched
     //2. hide empty lists
-
+/* 
     isHiddenCardDescription = false;
     toggleCards(): void {
       //Hide cards description, show only title
-      /* const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
+      const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
             this.isHiddenCardDescription = !this.isHiddenCardDescription; // Toggle state
   
       cards.forEach(card => {
@@ -169,15 +131,15 @@ export class HomeComponent {
         } else {
           card.classList.remove('hidden'); // Remove the 'hidden' class
         }
-      }); */
+      });
   
       console.log(`Hidden class is now ${this.isHiddenCardDescription ? 'applied' : 'removed'}`);
-    }
-
+    } */
+/* 
     isHiddenCards = false;
     toggleLists(): void {
       //Hide all cards completely
-      /* const cards = document.querySelectorAll('bb-card');
+      const cards = document.querySelectorAll('bb-card');
             this.isHiddenCards = !this.isHiddenCards; // Toggle state
   
       cards.forEach(card => {
@@ -187,11 +149,12 @@ export class HomeComponent {
           card.classList.remove('hidden'); // Remove the 'hidden' class
         }
       });
-   */
+  
       console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
-    }
+    } */
 
-    createList(boardId: number): void{
+      //create board
+    createBoard(boardId: number): void{
       //open dialog
 /* 
         //Now here we need new object of type BBList with listId set:

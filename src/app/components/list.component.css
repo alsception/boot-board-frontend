@@ -32,6 +32,17 @@
   padding: 10px 20px 20px 10px;
 }
 
+.board-clickable-div{
+  cursor: pointer;
+  text-decoration: none;
+  padding: 10px 20px 20px 10px;
+
+}
+
+.board-clickable-div:hover .board-listing-heading{
+  color: #0ff;
+}
+
 .listing-heading-dark {
 
   color: #74cf01;

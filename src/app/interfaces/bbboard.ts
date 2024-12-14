@@ -15,5 +15,5 @@ export interface BBBoard
     created?: Date;
     updated?: Date;
 
-    cards?: BBList[]; 
+    lists?: BBList[]; 
   }

@@ -1,6 +1,7 @@
 import {Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {DetailsComponent} from './details/details.component';
+import { BoardComponent } from './components/board.component';
 
 const routeConfig: Routes = [
     {
@@ -9,9 +10,9 @@ const routeConfig: Routes = [
       title: 'BootBoard - Home',
     },
     {
-      path: 'details/:id',
-      component: DetailsComponent,
-      title: 'BootBoard',
+      path: 'board/:id',
+      component: BoardComponent,
+      title: 'BootBoard - Board details',
     },
   ];
   export default routeConfig;

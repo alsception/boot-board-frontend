@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BBList } from '../interfaces/bblist';
+import { BBBoard } from '../interfaces/bbboard';
 
 @Injectable({
   providedIn: "root",
@@ -23,6 +24,17 @@ export class ListsService
 
   async getAllListsWithCards(): Promise<BBList[]> {
     const data = await fetch(`${this.apiUrl}/cards`);
+    return (await data.json()) ?? [];
+  }
+
+  async getBoard(id: number): Promise<BBBoard> {
+    const data = await fetch(`${this.apiBaseUrl}boards/${id}/lists`);
+    return (await data.json()) ?? [];
+  }
+
+  //ovo za sad jos nema backend
+  async getAllListsForBoardWithCards(id: number): Promise<BBList[]> {
+    const data = await fetch(`${this.apiBaseUrl}boards/${id}/lists/cards`);
     return (await data.json()) ?? [];
   }
 

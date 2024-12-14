@@ -7,9 +7,10 @@ import { BoardsService } from '../services/boards.service';
 import { BBBoard } from "../interfaces/bbboard";
 import { BBCard } from "../interfaces/bbcard";
 import { BBList } from "../interfaces/bblist";
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AddDialogListComponent } from './list-dialog-add.component';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-board",
@@ -80,37 +81,63 @@ import { AddDialogListComponent } from './list-dialog-add.component';
       </div>
 
     </section>
-    <section class="results">
-<!--     add this to bb-list cdkDrag
- -->      <bb-list cdkDrag class="draggable-item bb-list"
+    <section class="results" cdkDropList (cdkDropListDropped)="drop($event)">
+      <bb-list cdkDrag class="draggable-item bb-list"
         *ngFor="let xList of filteredLists"
         [bbList]="xList"
+        cdkDrag
       ></bb-list>
     </section>
   `,
   styleUrls: ["board.component.css"],
 })
 export class BoardComponent {  
-
-  boards: BBBoard[] = [];
-  cards: BBCard[] = [];
+  route: ActivatedRoute = inject(ActivatedRoute);
+  
   lists: BBList[] = [];
 
   listsService: ListsService = inject(ListsService);
   boardsService: BoardsService = inject(BoardsService);
   cardsService: CardsService = inject(CardsService);
 
-  filteredBoards: BBBoard[] = [];
-  filteredCards: BBCard[] = [];
   filteredLists: BBList[] = [];
 
   constructor(private dialog: MatDialog) {
-    console.log("initilized board component")
+    // Utility function for delay
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    const useDelay = false; // Toggle this flag to enable/disable delay
+
+    const boardId = parseInt(this.route.snapshot.params["id"], 10);
+    
     this.listsService
-      .getAllListsWithCards()
-      .then((xList: BBList[]) => {
-        this.lists = xList;
-        this.filteredLists = xList;
+      .getBoard(boardId)
+      .then(async (xList: BBBoard) => {
+        if (xList.lists != null) 
+          {
+          this.lists = []; // Start with an empty array
+          this.filteredLists = []; // Clear the filtered lists as well
+
+          for (const list of xList.lists) {
+            // Fetch cards for the current list
+            const listWithCards = await this.listsService.getListByIdWithCards(list.id);
+            const updatedList = listWithCards ?? list;
+
+            // Add the fetched list to the lists
+            this.lists.push(updatedList);
+            this.filteredLists.push(updatedList);
+
+            // Trigger change detection if necessary (for Angular apps)
+            // Example: this.changeDetectorRef.detectChanges();
+
+            // Optional delay
+            if (useDelay) {
+              await delay(500);
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching board or lists:', error);
       });
   }
 
@@ -227,7 +254,7 @@ export class BoardComponent {
       }
 
     toggleDarkMode(): void{
-      console.log("toggleDarkMode");
+      //console.log("toggleDarkMode");
     }
 
     toggleGridView(): void{
@@ -240,5 +267,14 @@ export class BoardComponent {
         this.renderer.setStyle(element, 'grid-template-columns', 'repeat(auto-fit, minmax(200px, 1fr))');
       }); */
     }
+
+
+  drop(event: CdkDragDrop<string[]>) {
+    console.log(event)
+    moveItemInArray(this.lists ?? [], event.previousIndex, event.currentIndex);
+    
+    //TODO:
+    //update positions to server
+  }
   
 }

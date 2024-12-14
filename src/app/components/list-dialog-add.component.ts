@@ -135,10 +135,17 @@ import { HostListener } from '@angular/core';
         </div>
       </div>
       <div class="metadata-item">
-          <label for="position">Create 10 cards</label>
-          <input type="checkbox" id="createCards" name="createCards" value=""style="width: inherit;"
+          <label for="position">Create 5 cards</label>
+          <input type="checkbox" id="createCards5" name="createCards5" value=""style="width: inherit;"
           class="form-input"
-            formControlName="createCards"
+            formControlName="createCards5"
+          />
+        </div>
+      <div class="metadata-item">
+          <label for="position">Create 10 cards</label>
+          <input type="checkbox" id="createCards10" name="createCards10" value=""style="width: inherit;"
+          class="form-input"
+            formControlName="createCards10"
           />
         </div>
     </form>
@@ -199,7 +206,8 @@ export class AddDialogListComponent implements AfterViewInit
           //alternatively we can format like: this.formatDateTime(data.updated) 
           data?.updated ? data.updated : null
         ),
-        createCards: new FormControl(false),
+        createCards5: new FormControl(false),
+        createCards10: new FormControl(false),
       });
   }
 
@@ -235,10 +243,16 @@ export class AddDialogListComponent implements AfterViewInit
   getUpdatedList(): BBList {
 
     let blist = this.addListForm.value as BBList;
-    if(this.isChecked()){
-      blist.type = 'ADD_CARDS_10';
-    }
+    let howMany = 1;
+    let prefix = 'ADD_CARDS';
 
+    if(this.isChecked5()){
+      howMany+=5
+    }
+    if(this.isChecked10()){
+      howMany+=10
+    }
+    blist.type = prefix + '_' + howMany;
     return blist;
   }
 
@@ -247,7 +261,10 @@ export class AddDialogListComponent implements AfterViewInit
 
 
 
-  isChecked(): boolean {
-    return this.addListForm.get('createCards')?.value; // Retrieve the checkbox's value
+  isChecked5(): boolean {
+    return this.addListForm.get('createCards5')?.value; // Retrieve the checkbox's value
+  }
+  isChecked10(): boolean {
+    return this.addListForm.get('createCards10')?.value; // Retrieve the checkbox's value
   }
 }

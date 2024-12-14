@@ -159,76 +159,20 @@ export class HomeComponent {
 
     isHiddenCardDescription = false;
     toggleCards(): void {
-      //Hide cards description, show only title
-      /* const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
-            this.isHiddenCardDescription = !this.isHiddenCardDescription; // Toggle state
-  
-      cards.forEach(card => {
-        if (this.isHiddenCardDescription) {
-          card.classList.add('hidden'); // Add the 'hidden' class
-        } else {
-          card.classList.remove('hidden'); // Remove the 'hidden' class
-        }
-      }); */
+   
   
       console.log(`Hidden class is now ${this.isHiddenCardDescription ? 'applied' : 'removed'}`);
     }
 
     isHiddenCards = false;
     toggleLists(): void {
-      //Hide all cards completely
-      /* const cards = document.querySelectorAll('bb-card');
-            this.isHiddenCards = !this.isHiddenCards; // Toggle state
   
-      cards.forEach(card => {
-        if (this.isHiddenCards) {
-          card.classList.add('hidden'); // Add the 'hidden' class
-        } else {
-          card.classList.remove('hidden'); // Remove the 'hidden' class
-        }
-      });
-   */
       console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
     }
 
     createList(boardId: number): void{
       //open dialog
-/* 
-        //Now here we need new object of type BBList with listId set:
-        const newBBList: BBList = {
-          id: 0,
-          userId: 1,
-          boardId: boardId,  
-          title: "Sample title",
-          color: "",
-          type: "",  
-          position: 0,
-          created: new Date(), // Optional: Add if needed
-        };
-    
-        const dialogRef = this.dialog.open(AddDialogListComponent, {
-          data: newBBList,     
-          autoFocus: false, // Prevent Angular Material from focusing the default element
-          panelClass: 'custom-list-dialog-container',
-          width: '800px',  // Adjust this to control width
-          height: '500px', // Adjust this to control height
-          maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
-        });
-    
-        // Handle the dialog close event, subscribe to afterClosed()
-        dialogRef.afterClosed().subscribe((addedList: BBList | undefined) => {
-          if (addedList) 
-            {
-            // Ensure list.lists is initialized as an array
-            if (!this.lists) {
-              this.lists = [];
-            }
-            // Add the addedList to the list.lists array
-            this.lists.push(addedList);
-          } else {
-            console.log('Dialog was closed without saving changes.');
-          }
-        }); */
+
       }
 
     toggleDarkMode(): void{

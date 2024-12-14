@@ -10,6 +10,7 @@
   border: 1px solid slateblue;
   margin-bottom: 10px;
   color: navajowhite;
+  min-width: max-content;
 }
 
 .card-container:hover {

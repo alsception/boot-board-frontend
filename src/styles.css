@@ -7,6 +7,8 @@
 body {
   font-family: 'Be Vietnam Pro', sans-serif;
   padding-top: 60px; /* Add padding to prevent content from being hidden behind the header line */
+  background-color: darkgray;
+  /*//url("./media/clouds2.jpg");*/
 }
 :root {
   /*

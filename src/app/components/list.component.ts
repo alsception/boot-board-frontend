@@ -11,10 +11,11 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { EditDialogCardComponent } from './card-dialog-edit.component';
 import { AddDialogCardComponent } from './card-dialog-add.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'bb-list',
-  imports: [CommonModule, RouterModule, CardComponent, DragDropModule, MatDialogModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterModule, CardComponent, DragDropModule, MatDialogModule, MatButtonModule, MatIconModule, MatTooltipModule],
   template: `
     <section class="listing listing-container listing-nb lg-{{bbList.color}}">      
       <h2 class="listing-heading">{{ bbList.title }} </h2>     
@@ -27,21 +28,24 @@ import { MatIconModule } from '@angular/material/icon';
       </section>
       
       <div class="listing-meta-container">      
-        <div class="listing-meta "> 
+        <div class="listing-meta " matTooltip="ID" matTooltipPosition="above"> 
           <span class="material-icons md-12">key</span>
           {{ bbList.id }}
         </div>
-        <div class="listing-meta ">
+        <div class="listing-meta " matTooltip="Position" matTooltipPosition="above">
           <span class="material-icons md-12">tag</span>
           {{ bbList.position }}
         </div>
-        <div class="listing-meta ">
+        <div class="listing-meta " matTooltip="Created" matTooltipPosition="above">
           <span class="material-icons md-12">save</span>  
           {{ bbList.created }}
         </div>
-        <div class="listing-meta">
+        <div class="listing-meta" matTooltip="Total cards"
+          matTooltipPosition="above"
+          >
           <span class="material-icons md-12">functions</span>
           <span class="material-icons md-12">summarize</span>
+          
           {{ bbList.cards?.length }}
         </div>   
       </div>
@@ -100,6 +104,25 @@ export class ListComponent {
     this.listsService.delete(id);
   }
 
+  getCardNumber() 
+  {
+    //Here we provide some kind of unique numbering to be used as index for card
+
+    const today = new Date();
+    
+    // Get the day, month, and year
+    const day = String(today.getDate()).padStart(2, '0');  // Add leading zero if needed
+    const month = String(today.getMonth() + 1).padStart(2, '0');  // Months are 0-indexed
+    const year = String(today.getFullYear()).slice(-2);  // Get last two digits of the year
+      
+    // Get the length of the cards array (ensure it's a 3-digit number)
+    const num = this.bbList.cards?.length ?? 0;
+    const formattedNum = String(num).padStart(3, '0');  // Format num as 3 digits
+
+    // Format as "000num-DDMM-YY-"
+    return `C${formattedNum}-${day}${month}-${year} | `;
+  }
+
   openAddCardDialog(list: BBList ) 
   {
     //Now here we need new object of type BBCard with listId set:
@@ -107,7 +130,7 @@ export class ListComponent {
       id: 0,
       userId: 1,
       listId: list.id,  
-      title: "Sample title",
+      title: this.getCardNumber()+"Sample title",
       description: "Sample description...",   
       color: "",
       type: "",  

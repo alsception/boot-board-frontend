@@ -16,4 +16,7 @@ export interface BBBoard
     updated?: Date;
 
     lists?: BBList[]; 
+
+    totalLists: number;
+    totalCards: number;
   }

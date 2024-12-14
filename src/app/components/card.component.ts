@@ -25,10 +25,6 @@ import { MatIconModule } from '@angular/material/icon';
         {{ bbCard.description | slice:0:200 }}<span *ngIf="bbCard.description.length > 200">...</span>
       </p>
       
-      <button class="toggle-text-btn hidden" (click)="toggleDescription(bbCard)">
-        {{ bbCard._showDescription ? 'Hide' : 'Show' }} Description
-      </button>
-
       <div class="card card-meta-container">
         <div class="card-meta">
         <span class="material-icons md-12">tag</span>{{ bbCard.id }}</div>

@@ -206,7 +206,7 @@ export class BoardComponent {
           autoFocus: false, // Prevent Angular Material from focusing the default element
           panelClass: 'custom-list-dialog-container',
           width: '800px',  // Adjust this to control width
-          height: '500px', // Adjust this to control height
+          height: '600px', // Adjust this to control height
           maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
         });
     

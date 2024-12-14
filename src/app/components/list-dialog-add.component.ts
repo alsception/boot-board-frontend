@@ -101,12 +101,17 @@ import { HostListener } from '@angular/core';
       <div class="metadata-container">
         <div class="metadata-item">
           <label for="color">Color</label>
-          <input
-            id="color"
-            type="text"
-            class="form-input"
-            formControlName="color"
-          />
+   
+          <select name="color" id="color" class="form-input" formControlName="color">
+            <option style="color: blueviolet;" value="blueviolet">blueviolet</option>
+            <option style="color: green;" value="green">green</option>
+            <option style="color: blue;" value="blue">blue</option>
+            <option style="color: red;" value="red">red</option>
+            <option style="color: yellow;background:lightgray;" value="yellow">yellow</option>
+            <option style="color: black;" value="black">black</option>
+            <option style="color: white;background:lightgray;" value="white">white</option>
+          </select>
+
         </div>
   
         <div class="metadata-item">
@@ -129,6 +134,13 @@ import { HostListener } from '@angular/core';
           />
         </div>
       </div>
+      <div class="metadata-item">
+          <label for="position">Create 10 cards</label>
+          <input type="checkbox" id="createCards" name="createCards" value=""style="width: inherit;"
+          class="form-input"
+            formControlName="createCards"
+          />
+        </div>
     </form>
   </section>
   
@@ -187,6 +199,7 @@ export class AddDialogListComponent implements AfterViewInit
           //alternatively we can format like: this.formatDateTime(data.updated) 
           data?.updated ? data.updated : null
         ),
+        createCards: new FormControl(false),
       });
   }
 
@@ -198,23 +211,43 @@ export class AddDialogListComponent implements AfterViewInit
   }
 
   async submitList() {
-    console.log("updlist> ",this.getUpdatedList())
     try {
       const addedList =  Object.assign({}, this.getUpdatedList());
       console.log("eddlist> ",addedList)
       
       const updatedList = await this.listsService.insertList(addedList); // Fetch updated list
-      this.data = Object.assign({}, updatedList); // Safely assign to bbList
+
+
+      //if this was ok, then load again with data
+      const updatedListWithCards = await this.listsService.getListByIdWithCards(updatedList.id); // Fetch updated list
+
+      this.data = Object.assign({}, updatedListWithCards); // Safely assign to bbList
 
 
       // Close dialog here
-      this.dialogRef.close(updatedList); // Use injected dialogRef
+      this.dialogRef.close(updatedListWithCards); // Use injected dialogRef
     } catch (error) {
       console.error('Failed to update list:', error);
     }
   }
+
   // Optional: Method to get the updated BBList object from the form
   getUpdatedList(): BBList {
-    return this.addListForm.value as BBList;
+
+    let blist = this.addListForm.value as BBList;
+    if(this.isChecked()){
+      blist.type = 'ADD_CARDS_10';
+    }
+
+    return blist;
+  }
+
+
+  //TODO 
+
+
+
+  isChecked(): boolean {
+    return this.addListForm.get('createCards')?.value; // Retrieve the checkbox's value
   }
 }

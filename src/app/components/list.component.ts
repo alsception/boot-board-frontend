@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 import {BBList} from '../interfaces/bblist';
 import {BBCard} from '../interfaces/bbcard';
 import {CardComponent} from '../components/card.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ListsService } from '../services/lists.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
@@ -18,12 +18,11 @@ import { MatIconModule } from '@angular/material/icon';
   template: `
     <section class="listing listing-container listing-nb lg-{{bbList.color}}">      
       <h2 class="listing-heading">{{ bbList.title }} </h2>     
-      <section class="cardsResults">
-        <!-- add this directive to make it draggable: cdkDrag -->
-        <!-- class="draggable-item"    -->        
+      <section class="cardsResults" cdkDropList (cdkDropListDropped)="drop($event)">         
          <bb-card  
           *ngFor="let xCard of bbList.cards"
           [bbCard]="xCard"
+          cdkDrag
         ></bb-card>
       </section>
       
@@ -73,7 +72,8 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent {
-  @Input() bbList!: BBList;
+  @Input()
+  bbList!: BBList;
   /**You have to add the ! because the input is expecting the value to be passed. 
    * In this case, there is no default value. In our example application case we know that the value will be passed in - this is by design. 
    * The exclamation point is called the non-null assertion operator and it tells the TypeScript compiler that the value of this property won't be null or undefined. */
@@ -138,5 +138,13 @@ export class ListComponent {
         console.log('Dialog was closed without saving changes.');
       }
     });
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    console.log(event)
+    moveItemInArray(this.bbList.cards ?? [], event.previousIndex, event.currentIndex);
+    console.log(this.bbList.cards);
+    //TODO:
+    //update positions to server
   }
 }

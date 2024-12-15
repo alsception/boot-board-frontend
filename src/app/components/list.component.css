@@ -30,6 +30,7 @@
   color: #000000;
   /*background: #b1bfdb;*/
   padding: 10px 20px 20px 10px;
+  width: max-content;
 }
 
 .board-clickable-div{

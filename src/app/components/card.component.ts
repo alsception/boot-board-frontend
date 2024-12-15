@@ -8,34 +8,36 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { EditDialogCardComponent } from './card-dialog-edit.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'bb-card',
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatIconModule, MatTooltipModule],
   template: `
     <section class="card-container lgc-{{bbCard.color}}">
-      <h3 class="card-title" (click)="openEditDialog(bbCard)" *ngIf="bbCard" class="lgc-{{bbCard.color}}">
+      <h3 class="card-title" (click)="openEditDialog(bbCard)" *ngIf="bbCard" class="lgc-{{bbCard.color}}" cdkDragHandle>
         {{ bbCard.title }}
       </h3>
       
       <p class="card card-text" 
         (click)="openEditDialog(bbCard)" *ngIf="bbCard.description"
          style="cursor: pointer;"
-         class="lgc-{{bbCard.color}}">
-        {{ bbCard.description | slice:0:200 }}<span *ngIf="bbCard.description.length > 200">...</span>
+         class="lgc-{{bbCard.color}}"
+        >
+        {{ bbCard.description | slice:0:200 }}<span *ngIf="bbCard.description.length > 200"  matTooltip="{{bbCard.description}}">...</span>
       </p>
       
       <div class="card card-meta-container">
-        <div class="card-meta">
+        <div class="card-meta" matTooltip="ID" matTooltipPosition="above">
         <span class="material-icons md-12">tag</span>{{ bbCard.id }}</div>
           
-        <div class="card-meta">
+        <div class="card-meta" matTooltip="Created: {{bbCard.created}}" matTooltipPosition="above">
           <span class="material-icons md-12">save</span>  
-          {{ bbCard.created }}
         </div>
-        <div class="card-meta">
+
+        <div class="card-meta" matTooltip="Modified: {{bbCard.updated}}" matTooltipPosition="above">
           <span class="material-icons md-12">edit</span>
-          {{ bbCard.updated }}
         </div>
       </div>
 

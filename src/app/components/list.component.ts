@@ -18,7 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [CommonModule, RouterModule, CardComponent, DragDropModule, MatDialogModule, MatButtonModule, MatIconModule, MatTooltipModule],
   template: `
     <section class="listing listing-container listing-nb lg-{{bbList.color}}">      
-      <h2 class="listing-heading">{{ bbList.title }} </h2>     
+      <h2 class="listing-heading" cdkDragHandle>{{ bbList.title }} </h2>     
       <section class="cardsResults" cdkDropList (cdkDropListDropped)="drop($event)">         
          <bb-card  
           *ngFor="let xCard of bbList.cards"

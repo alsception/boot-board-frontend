@@ -135,6 +135,13 @@ import { HostListener } from '@angular/core';
         </div>
       </div>
       <div class="metadata-item">
+          <label for="position">Create 1 cards</label>
+          <input type="checkbox" id="createCards1" name="createCards1" value=""style="width: inherit;"
+          class="form-input"
+            formControlName="createCards1"
+          />
+        </div>
+      <div class="metadata-item">
           <label for="position">Create 5 cards</label>
           <input type="checkbox" id="createCards5" name="createCards5" value=""style="width: inherit;"
           class="form-input"
@@ -146,6 +153,13 @@ import { HostListener } from '@angular/core';
           <input type="checkbox" id="createCards10" name="createCards10" value=""style="width: inherit;"
           class="form-input"
             formControlName="createCards10"
+          />
+        </div>
+        <div class="metadata-item">
+          <label for="position">Create 20 cards</label>
+          <input type="checkbox" id="createCards20" name="createCards20" value=""style="width: inherit;"
+          class="form-input"
+            formControlName="createCards20"
           />
         </div>
     </form>
@@ -206,8 +220,10 @@ export class AddDialogListComponent implements AfterViewInit
           //alternatively we can format like: this.formatDateTime(data.updated) 
           data?.updated ? data.updated : null
         ),
+        createCards1: new FormControl(false),
         createCards5: new FormControl(false),
         createCards10: new FormControl(false),
+        createCards20: new FormControl(false),
       });
   }
 
@@ -246,13 +262,25 @@ export class AddDialogListComponent implements AfterViewInit
     let howMany = 1;
     let prefix = 'ADD_CARDS';
 
+    if(this.isChecked1()){
+      howMany+=1
+    }
     if(this.isChecked5()){
       howMany+=5
     }
     if(this.isChecked10()){
       howMany+=10
     }
-    blist.type = prefix + '_' + howMany;
+    if(this.isChecked20()){
+      howMany+=20
+    }
+
+    if(!this.isChecked1() && !this.isChecked5() && !this.isChecked10() && !this.isChecked20()){
+      //dont override
+    }else{
+      blist.type = prefix + '_' + howMany;
+    }
+
     return blist;
   }
 
@@ -260,11 +288,16 @@ export class AddDialogListComponent implements AfterViewInit
   //TODO 
 
 
-
+  isChecked1(): boolean {
+    return this.addListForm.get('createCards1')?.value; // Retrieve the checkbox's value
+  }
   isChecked5(): boolean {
     return this.addListForm.get('createCards5')?.value; // Retrieve the checkbox's value
   }
   isChecked10(): boolean {
     return this.addListForm.get('createCards10')?.value; // Retrieve the checkbox's value
+  }
+  isChecked20(): boolean {
+    return this.addListForm.get('createCards20')?.value; // Retrieve the checkbox's value
   }
 }

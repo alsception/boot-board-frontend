@@ -71,15 +71,6 @@ import { ActivatedRoute } from "@angular/router";
         >Toggle grid view
         </button>
       </form>
-
-      <!-- test input -->
-      <div class="container hidden">
-        <div class="input-group">
-          <label class="input-group__label" for="myInput">Input test</label>
-          <input type="text" id="myInput" class="input-group__input" value="This is my input">
-        </div>
-      </div>
-
     </section>
     <section class="results" cdkDropList (cdkDropListDropped)="drop($event)">
       <bb-list cdkDrag class="draggable-item bb-list"

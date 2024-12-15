@@ -6,10 +6,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import {RouterModule} from '@angular/router';
 import { AddDialogListComponent } from './list-dialog-add.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @Component({
   selector: "app-board-preview",
-  imports: [CommonModule, DragDropModule, MatDialogModule, RouterModule],
+  imports: [CommonModule, DragDropModule, MatDialogModule, RouterModule, MatTooltipModule],
   template: `
     <section
       class="listing listing-container listing-nb lg-{{ bbBoard.color }}"
@@ -50,17 +52,15 @@ import { AddDialogListComponent } from './list-dialog-add.component';
           </div>
           <div
             class="listing-meta "
-            matTooltip="Created"
-            matTooltipPosition="above"
+            matTooltip="Created: {{bbBoard.created}}"
           >
             <span class="material-icons md-12">save</span>
-            {{ bbBoard.created }}
           </div>
-          <div class="listing-meta">
+          <!-- <div class="listing-meta">
             <span class="material-icons md-12">functions</span>
             <span class="material-icons md-12">summarize</span>
             {{ bbBoard.lists?.length }}
-          </div>
+          </div> -->
         </div>
       </div>
 

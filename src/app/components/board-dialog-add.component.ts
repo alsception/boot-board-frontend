@@ -1,26 +1,25 @@
 import { Component, Inject,inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { BBList } from '../interfaces/bblist';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { ListsService } from '../services/lists.service';
+import { BBBoard } from '../interfaces/bbboard';
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { BoardsService } from '../services/boards.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HostListener } from '@angular/core';
 
-
 @Component({
-  selector: 'dialog-list-add',
+  selector: 'dialog-board-add',
   imports: [CommonModule, MatDialogModule, ReactiveFormsModule],
   template: `
-  <h1 mat-dialog-title class="card-dialog-title">Add List</h1>
-  <section class="dlg-list-container">
+  <h1 mat-dialog-title class="card-dialog-title">Add Board</h1>
+  <section class="dlg-board-container">
     <form
-      [formGroup]="addListForm"
-      (ngSubmit)="submitList()"
+      [formGroup]="addBoardForm"
+      (ngSubmit)="submitBoard()"
       class="form-container"
     >
       <div class="metadata-container">
-        <div class="metadata-item">
+        <!-- <div class="metadata-item">
           <label for="id">ID</label>
           <input
             id="id"
@@ -29,7 +28,7 @@ import { HostListener } from '@angular/core';
             formControlName="id"
             readonly
           />
-        </div>
+        </div> -->
         <div class="metadata-item">
           <label for="userId">User ID</label>
           <input
@@ -41,13 +40,13 @@ import { HostListener } from '@angular/core';
           />
         </div>
         <div class="metadata-item">
-          <label for="boardId">Board ID</label>
+          <!-- <label for="boardId">Board ID</label>
           <input
             id="boardId"
             type="number"
             class="form-input"
             formControlName="boardId"
-          />
+          /> -->
         </div>
       </div>
   
@@ -124,36 +123,6 @@ import { HostListener } from '@angular/core';
           />
         </div>
       </div>
-      <div class="create-cards-container">
-        <div class="metadata-item-cc">
-            <label for="createCards1">Create 1 card</label>
-            <input type="checkbox" id="createCards1" name="createCards1" value=""style="width: inherit;"
-            class="form-input"
-              formControlName="createCards1"
-            />
-          </div>
-        <div class="metadata-item-cc">
-            <label for="createCards5">Create 5 cards</label>
-            <input type="checkbox" id="createCards5" name="createCards5" value=""style="width: inherit;"
-            class="form-input"
-              formControlName="createCards5"
-            />
-          </div>
-        <div class="metadata-item-cc">
-            <label for="createCards10">Create 10 cards</label>
-            <input type="checkbox" id="createCards10" name="createCards10" value=""style="width: inherit;"
-            class="form-input"
-              formControlName="createCards10"
-            />
-          </div>
-          <div class="metadata-item-cc">
-            <label for="createCards20">Create 20 cards</label>
-            <input type="checkbox" id="createCards20" name="createCards20" value=""style="width: inherit;"
-            class="form-input"
-              formControlName="createCards20"
-            />
-          </div>
-        </div>
     </form>
   </section>
   
@@ -164,8 +133,8 @@ import { HostListener } from '@angular/core';
     <button
       mat-button
       type="submit"
-      [disabled]="addListForm.invalid"
-      (click)="submitList()"
+      [disabled]="addBoardForm.invalid"
+      (click)="submitBoard()"
     >
       Save
     </button>
@@ -173,31 +142,19 @@ import { HostListener } from '@angular/core';
   `,
   styleUrls: ['./card.component.css'],
 })
-export class AddDialogListComponent implements AfterViewInit  
+export class AddDialogBoardComponent
 {
-  addListForm: FormGroup;
-  listsService: ListsService = inject(ListsService);
-
-  @ViewChild('title') titleField!: ElementRef;
-
-  ngAfterViewInit(): void {
-    // Focus the title field when the dialog opens
-    try {
-      this.titleField.nativeElement.focus();  
-    } catch (error) {
-      console.log('could not focus title field',error);
-    }   
-  }
+  addBoardForm: FormGroup;
+  boardsService: BoardsService = inject(BoardsService);
 
   constructor(
-    private dialogRef: MatDialogRef<AddDialogListComponent>, // Inject MatDialogRef
-    @Inject(MAT_DIALOG_DATA) public data: BBList) 
+    private dialogRef: MatDialogRef<AddDialogBoardComponent>, // Inject MatDialogRef
+    @Inject(MAT_DIALOG_DATA) public data: BBBoard) 
   {    
-    this.addListForm = new FormGroup(
+    this.addBoardForm = new FormGroup(
       {
         id: new FormControl(data?.id || null), // Initialize with data or default to null
         userId: new FormControl(data?.userId || null),
-        boardId: new FormControl(data?.boardId || null),
         title: new FormControl(data?.title || ""),
         color: new FormControl(data?.color || ""),
         type: new FormControl(data?.type || ""),
@@ -210,81 +167,33 @@ export class AddDialogListComponent implements AfterViewInit
         updated: new FormControl(
           //alternatively we can format like: this.formatDateTime(data.updated) 
           data?.updated ? data.updated : null
-        ),
-        createCards1: new FormControl(false),
-        createCards5: new FormControl(false),
-        createCards10: new FormControl(false),
-        createCards20: new FormControl(false),
+        )
       });
   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (event.ctrlKey && event.key === 'Enter') {
-      this.submitList();
+      this.submitBoard();
     }
   }
 
-  async submitList() {
+  async submitBoard() {
     try {
-      const addedList =  Object.assign({}, this.getUpdatedList());
-      console.log("eddlist> ",addedList)
+      const addedBoard =  Object.assign({}, this.addBoardForm.value as BBBoard);
+      console.log("eddboard> ",addedBoard)
       
-      const updatedList = await this.listsService.insertList(addedList); // Fetch updated list
+      const updatedBoard = await this.boardsService.create(addedBoard); // Fetch updated board
 
       //if this was ok, then load again with data
-      const updatedListWithCards = await this.listsService.getListByIdWithCards(updatedList.id); // Fetch updated list
+      const updatedBoardWithCards = await this.boardsService.getBoardById(updatedBoard.id); // Fetch updated board
 
-      this.data = Object.assign({}, updatedListWithCards); // Safely assign to bbList
+      this.data = Object.assign({}, updatedBoardWithCards); // Safely assign to bbBoard
 
       // Close dialog here
-      this.dialogRef.close(updatedListWithCards); // Use injected dialogRef
+      this.dialogRef.close(updatedBoardWithCards); // Use injected dialogRef
     } catch (error) {
-      console.error('Failed to update list:', error);
+      alert('Failed to update board: '+error)
     }
-  }
-
-  // Optional: Method to get the updated BBList object from the form
-  getUpdatedList(): BBList {
-
-    let blist = this.addListForm.value as BBList;
-    let howMany = 0;
-    let prefix = 'ADD_CARDS';
-
-    if(this.isChecked1()){
-      howMany+=1
-    }
-    if(this.isChecked5()){
-      howMany+=5
-    }
-    if(this.isChecked10()){
-      howMany+=10
-    }
-    if(this.isChecked20()){
-      howMany+=20
-    }
-
-    if(!this.isChecked1() && !this.isChecked5() && !this.isChecked10() && !this.isChecked20()){
-      //dont override
-    }else{
-      blist.type = prefix + '_' + howMany;
-    }
-
-    return blist;
-  }
-
-  //TODO 
-
-  isChecked1(): boolean {
-    return this.addListForm.get('createCards1')?.value; // Retrieve the checkbox's value
-  }
-  isChecked5(): boolean {
-    return this.addListForm.get('createCards5')?.value; // Retrieve the checkbox's value
-  }
-  isChecked10(): boolean {
-    return this.addListForm.get('createCards10')?.value; // Retrieve the checkbox's value
-  }
-  isChecked20(): boolean {
-    return this.addListForm.get('createCards20')?.value; // Retrieve the checkbox's value
   }
 }

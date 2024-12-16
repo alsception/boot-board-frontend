@@ -103,3 +103,10 @@ html, body { height: 100%; }
  */
 /*  transform: scale(1.1);  /* Slightly enlarge the element on hover. Mozda kasnije :) */
  }
+ .link{
+  color: #4315c1;
+  cursor: pointer;
+ }
+ .link:hover{
+  color: #1560c1;
+ }

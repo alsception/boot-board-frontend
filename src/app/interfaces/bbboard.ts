@@ -4,7 +4,6 @@ export interface BBBoard
 {
     id: number;
     userId: number;
-    listId: number;
 
     title: string;
     color: string;
@@ -17,6 +16,6 @@ export interface BBBoard
 
     lists?: BBList[]; 
 
-    totalLists: number;
-    totalCards: number;
+    totalLists?: number;
+    totalCards?: number;
   }

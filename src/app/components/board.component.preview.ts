@@ -4,17 +4,19 @@ import { BoardsService } from '../services/boards.service';
 import { BBBoard } from "../interfaces/bbboard";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AddDialogListComponent } from './list-dialog-add.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { EditDialogBoardComponent } from "./board-dialog-edit.component";
 
 @Component({
   selector: "app-board-preview",
-  imports: [CommonModule, DragDropModule, MatDialogModule, RouterModule, MatTooltipModule],
+  imports: [CommonModule, DragDropModule, MatDialogModule, RouterModule, MatTooltipModule, MatIconModule, MatButtonModule],
   template: `
     <section
-      class="listing listing-container listing-nb lg-{{ bbBoard.color }}"
+      class="board listing listing-container listing-nb lg-{{ bbBoard.color }}"
     >
       <div
         style="container"
@@ -29,14 +31,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         <div style="display: flex; ">
           <div style="width: 50%;">
             <h3 class="board-listing-heading listing-heading ">Total lists</h3>
-            <h1 class="board-listing-heading listing-heading ">53</h1>
+            <h1 class="board-listing-heading listing-heading ">-</h1>
           </div>
           <div style="width: 50%;">
             <h3 class="board-listing-heading listing-heading ">Total cards</h3>
-            <h1 class="board-listing-heading listing-heading ">1070</h1>
+            <h1 class="board-listing-heading listing-heading ">-</h1>
           </div>
         </div>
-
+        </div>
         <div class="listing-meta-container">
           <div class="listing-meta " matTooltip="ID" matTooltipPosition="above">
             <span class="material-icons md-12">key</span>
@@ -56,30 +58,40 @@ import { MatTooltipModule } from '@angular/material/tooltip';
           >
             <span class="material-icons md-12">save</span>
           </div>
-          <!-- <div class="listing-meta">
-            <span class="material-icons md-12">functions</span>
-            <span class="material-icons md-12">summarize</span>
-            {{ bbBoard.lists?.length }}
-          </div> -->
         </div>
-      </div>
 
-      <!--       </a>  
- -->
+        <div class="card-footer-container">
+
+          <button mat-button color="primary" (click)="openEditDialog(bbBoard)">
+          <mat-icon>edit</mat-icon>Edit board</button>
+
+          <button mat-button color="primary" (click)="openDeleteDialog(bbBoard)">
+          <mat-icon>delete</mat-icon>Delete board</button>
+
+          <div *ngIf="showDeleteDialog" class="overlay" (click)="showDeleteDialog = false">
+          <div class="dialog-box" style="color: black;" (click)="$event.stopPropagation()">
+            <p>Delete board?</p>
+            <br><br>
+            <button (click)="deleteBoard(bbBoard)" class="btn-red">Delete</button>
+            &nbsp;
+            <button (click)="showDeleteDialog = false">Cancel</button>
+          </div>
+          </div>
+      </div>
     </section>
   `,
   styleUrls: ["list.component.css"],
 })
-export class BoardComponentPreview {
+export class BoardComponentPreview 
+{
   @Input() bbBoard!: BBBoard;
 
   boards: BBBoard[] = [];
+  filteredBoards: BBBoard[] = []; 
 
   boardsService: BoardsService = inject(BoardsService);
 
-  filteredBoards: BBBoard[] = []; /* 
-  filteredCards: BBCard[] = [];
-  filteredLists: BBList[] = []; */
+  showDeleteDialog = false; // Boolean to toggle the dialog
 
   constructor(private dialog: MatDialog) {
     console.log("initilized board preview component", this.bbBoard);
@@ -124,98 +136,38 @@ export class BoardComponentPreview {
         this.toggleCards();
       } */
   }
-
-  //TODO:
-  //1. show smthng when no data fetched
-  //2. hide empty lists
-  /* 
-    isHiddenCardDescription = false;
-    toggleCards(): void {
-      //Hide cards description, show only title
-      const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
-            this.isHiddenCardDescription = !this.isHiddenCardDescription; // Toggle state
   
-      cards.forEach(card => {
-        if (this.isHiddenCardDescription) {
-          card.classList.add('hidden'); // Add the 'hidden' class
-        } else {
-          card.classList.remove('hidden'); // Remove the 'hidden' class
-        }
-      });
-  
-      console.log(`Hidden class is now ${this.isHiddenCardDescription ? 'applied' : 'removed'}`);
-    } */
-  /* 
-    isHiddenCards = false;
-    toggleLists(): void {
-      //Hide all cards completely
-      const cards = document.querySelectorAll('bb-card');
-            this.isHiddenCards = !this.isHiddenCards; // Toggle state
-  
-      cards.forEach(card => {
-        if (this.isHiddenCards) {
-          card.classList.add('hidden'); // Add the 'hidden' class
-        } else {
-          card.classList.remove('hidden'); // Remove the 'hidden' class
-        }
-      });
-  
-      console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
-    } */
-
-  //create board
-  createBoard(boardId: number): void {
-    //open dialog
-    /* 
-        //Now here we need new object of type BBList with listId set:
-        const newBBList: BBList = {
-          id: 0,
-          userId: 1,
-          boardId: boardId,  
-          title: "Sample title",
-          color: "",
-          type: "",  
-          position: 0,
-          created: new Date(), // Optional: Add if needed
-        };
-    
-        const dialogRef = this.dialog.open(AddDialogListComponent, {
-          data: newBBList,     
-          autoFocus: false, // Prevent Angular Material from focusing the default element
-          panelClass: 'custom-list-dialog-container',
-          width: '800px',  // Adjust this to control width
-          height: '500px', // Adjust this to control height
-          maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
-        });
-    
-        // Handle the dialog close event, subscribe to afterClosed()
-        dialogRef.afterClosed().subscribe((addedList: BBList | undefined) => {
-          if (addedList) 
-            {
-            // Ensure list.lists is initialized as an array
-            if (!this.lists) {
-              this.lists = [];
-            }
-            // Add the addedList to the list.lists array
-            this.lists.push(addedList);
-          } else {
-            console.log('Dialog was closed without saving changes.');
-          }
-        }); */
+  openDeleteDialog(board: BBBoard){
+    this.showDeleteDialog=true;
   }
 
-  toggleDarkMode(): void {
-    console.log("toggleDarkMode");
+  deleteBoard(board: BBBoard){
+    this.showDeleteDialog=false;
+    this.boardsService.delete(board.id);
   }
 
-  toggleGridView(): void {
-    //todo
-    /* onst results = document.querySelectorAll('.results').setStyle("","");
+  openEditDialog(board: BBBoard ) 
+  {
+    const dialogRef = this.dialog.open(EditDialogBoardComponent, {
+      data: board,     
+      autoFocus: false, // Prevent Angular Material from focusing the default element
+      panelClass: 'custom-card-dialog-container',
+      width: '800px',  // Adjust this to control width
+      height: 'auto', // Adjust this to control height
+      maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
+    });
 
-      results.forEach((element: HTMLElement) => {
-        this.renderer.setStyle(element, 'display', 'grid');
-        this.renderer.setStyle(element, 'gap', '16px');
-        this.renderer.setStyle(element, 'grid-template-columns', 'repeat(auto-fit, minmax(200px, 1fr))');
-      }); */
+    // Handle the dialog close event
+    // Subscribe to afterClosed()
+    dialogRef.afterClosed().subscribe((updatedBoard: BBBoard | undefined) => {
+      if (updatedBoard) {
+        console.log('Dialog closed with updated card:', updatedBoard);
+        // Handle the updated card
+        this.bbBoard = Object.assign({}, updatedBoard);
+      } else {
+        console.log('Dialog was closed without saving changes.');
+      }
+    });
   }
+
 }

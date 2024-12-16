@@ -5,6 +5,7 @@ import { BBBoard } from "../interfaces/bbboard";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { BoardComponentPreview } from "./board.component.preview";
+import { AddDialogBoardComponent } from './board-dialog-add.component';
 
 @Component({
   selector: "app-home",
@@ -17,7 +18,9 @@ import { BoardComponentPreview } from "./board.component.preview";
         The argument to the function is the value property of the filter template variable. 
         Specifically, the .value property from the input HTML element.      
         -->
-        <input type="text" placeholder="Search  lists / boards" #filter />
+        <input type="text" placeholder="Search lists / boards" #filter 
+        (keydown.enter)="onEnter($event, filter.value)"
+        />
         <button
           class="primary"
           type="button"
@@ -38,12 +41,22 @@ import { BoardComponentPreview } from "./board.component.preview";
         </button>    
       </form>
     </section>
-    <section class="results">
+    <section class="results board-container">
+    <ng-container *ngIf="filteredBoards.length > 0; else noResults">
      <app-board-preview cdkDrag class="draggable-item bb-list"
         *ngFor="let board of filteredBoards"
         [bbBoard]="board"
       ></app-board-preview>
+      </ng-container>
     </section>
+    <!-- Define the "no results" template -->
+    <ng-template #noResults>
+      <div class="no-results-message">
+        No boards found. Please try a different search or
+        <a (click)="createBoard()"
+        class="link">create a new board</a>.
+      </div>
+    </ng-template>
   `,
   styleUrls: ["./home.component.css"],
 })
@@ -60,6 +73,16 @@ export class HomeComponent
         this.boards = xboards;
         this.filteredBoards = xboards;
       });
+  }
+
+  onSearch(event: Event) {
+    event.preventDefault(); // Prevent form submission
+  }
+
+  // Method to handle Enter key
+  onEnter(event: Event, inputValue: string): void {
+    event.preventDefault(); // Prevent form submission or page refresh
+    this.filterResults(inputValue); // Call your search logic
   }
 
   filterResults(text: string) {
@@ -87,54 +110,71 @@ export class HomeComponent
   }  
 
   
-    @HostListener('window:keydown', ['$event'])
-    handleKeyDown(event: KeyboardEvent): void {
-      // Check for the key combination (Ctrl + Shift + K)
-      if (event.ctrlKey && event.shiftKey && event.key === 'X') {
-        console.log('Ctrl + Shift + K was pressed!');
-        //this.toggleCards();
-      }
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent): void {
+    // Check for the key combination (Ctrl + Shift + K)
+    if (event.ctrlKey && event.shiftKey && event.key === 'X') {
+      console.log('Ctrl + Shift + K was pressed!');
+      //this.toggleCards();
     }
-    
-    //TODO:
-    //1. show smthng when no data fetched
-    //2. hide empty lists
-
-    isHiddenCardDescription = false;
-    toggleCards(): void {
-   
+  }
   
-      console.log(`Hidden class is now ${this.isHiddenCardDescription ? 'applied' : 'removed'}`);
-    }
+  //TODO:
+  //1. show smthng when no data fetched
+  //2. hide empty lists
 
-    isHiddenCards = false;
-    toggleLists(): void {
-  
-      console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
-    }
+  createBoard(): void{    
+    //Now here we need new object of type BBBoard with listId set:
+    const newBBBoard: BBBoard = {
+      id: 0,
+      userId: 1,//For now everything is same user
+      title: this.getBoardNumber()+"Sample board",
+      color: "",
+      type: "",
+      position: 0,
+      created: new Date(), // Optional: Add if needed
+    };
 
-    createList(boardId: number): void{
-      //open dialog
+    const dialogRef = this.dialog.open(AddDialogBoardComponent, {
+      data: newBBBoard,
+      autoFocus: false, // Prevent Angular Material from focusing the default element
+      panelClass: 'custom-list-dialog-container',
+      width: '800px',  // Adjust this to control width
+      height: 'auto', // Adjust this to control height
+      maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
+    });
 
-      }
+    console.log('creating list');
 
-    toggleDarkMode(): void{
-      console.log("toggleDarkMode");
-    }
+    // Handle the dialog close event, subscribe to afterClosed()
+    dialogRef.afterClosed().subscribe((addedList: BBBoard | undefined) => {
+      if (addedList) {
+        // Ensure list.lists is initialized as an array
+        if (!this.boards) {
+          this.boards = [];
+        }
+        // Add the addedList to the list.lists array
+        this.boards.push(addedList);
+      } 
+    });
+  }
 
-    toggleGridView(): void{
-      //todo
-      /* onst results = document.querySelectorAll('.results').setStyle("","");
+  getBoardNumber() {
+    //Here we provide some kind of unique numbering to be used as index for card
 
-      results.forEach((element: HTMLElement) => {
-        this.renderer.setStyle(element, 'display', 'grid');
-        this.renderer.setStyle(element, 'gap', '16px');
-        this.renderer.setStyle(element, 'grid-template-columns', 'repeat(auto-fit, minmax(200px, 1fr))');
-      }); */
-    }
+    const today = new Date();
 
-    createBoard(): void{
+    // Get the day, month, and year
+    const day = String(today.getDate()).padStart(2, '0');  // Add leading zero if needed
+    const month = String(today.getMonth() + 1).padStart(2, '0');  // Months are 0-indexed
+    const year = String(today.getFullYear()).slice(-2);  // Get last two digits of the year
 
-    }
-  
+    // Get the length of the lists array (ensure it's a 3-digit number)
+    const num = this.boards?.length ?? 0;
+    const formattedNum = String(num).padStart(3, '0');  // Format num as 3 digits
+
+    // Format as "000num-DDMM-YY-"
+    return `B${formattedNum}-${day}${month}-${year} | `;
+  }
+
 }

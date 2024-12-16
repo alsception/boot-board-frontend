@@ -61,12 +61,22 @@ import { Title } from '@angular/platform-browser';
       </form>
     </section>
     <section class="results" cdkDropList (cdkDropListDropped)="drop($event)">
+    <ng-container *ngIf="filteredLists.length > 0; else noResults">
       <bb-list cdkDrag class="draggable-item bb-list"
         *ngFor="let xList of filteredLists"
         [bbList]="xList"
         cdkDrag
       ></bb-list>
+      </ng-container>
     </section>
+    <!-- Define the "no results" template -->
+    <ng-template #noResults>
+      <div class="no-results-message">
+        No lists found. Please try a different search or 
+        <a (click)="createList(boardId)"
+        class="link">create a new list</a>.
+      </div>
+    </ng-template>
   `,
   styleUrls: ["board.component.css"],
 })
@@ -240,7 +250,6 @@ export class BoardComponent implements OnInit
   }
 
   createList(boardId: number): void {
-    //open dialog
 
     //Now here we need new object of type BBList with listId set:
     const newBBList: BBList = {
@@ -263,8 +272,6 @@ export class BoardComponent implements OnInit
       maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
     });
 
-    console.log('creating list');
-
     // Handle the dialog close event, subscribe to afterClosed()
     dialogRef.afterClosed().subscribe((addedList: BBList | undefined) => {
       if (addedList) {
@@ -274,27 +281,12 @@ export class BoardComponent implements OnInit
         }
         // Add the addedList to the list.lists array
         this.lists.push(addedList);
+        this.filteredLists.push(addedList);
       } else {
         console.log('Dialog was closed without saving changes.');
       }
     });
   }
-
-  toggleDarkMode(): void {
-    //console.log("toggleDarkMode");
-  }
-
-  toggleGridView(): void {
-    //todo
-    /* onst results = document.querySelectorAll('.results').setStyle("","");
-
-    results.forEach((element: HTMLElement) => {
-      this.renderer.setStyle(element, 'display', 'grid');
-      this.renderer.setStyle(element, 'gap', '16px');
-      this.renderer.setStyle(element, 'grid-template-columns', 'repeat(auto-fit, minmax(200px, 1fr))');
-    }); */
-  }
-
 
   drop(event: CdkDragDrop<string[]>) {
     console.log(event)

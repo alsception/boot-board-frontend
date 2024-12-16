@@ -1,21 +1,21 @@
 import { Component, Inject,inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { BBList } from '../interfaces/bblist';
+import { BBBoard } from '../interfaces/bbboard';
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { ListsService } from '../services/lists.service';
+import { BoardsService } from '../services/boards.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HostListener } from '@angular/core';
 
 @Component({
-  selector: 'dialog-list-edit',
+  selector: 'dialog-board-edit',
   imports: [CommonModule, MatDialogModule, ReactiveFormsModule],
   template: `
-  <h1 mat-dialog-title class="card-dialog-title">Edit List {{data.id}}</h1>
-  <section class="dlg-list-container">
+  <h1 mat-dialog-title class="card-dialog-title">Edit Board {{data.id}}</h1>
+  <section class="dlg-board-container">
     <form
-      [formGroup]="editListForm"
-      (ngSubmit)="submitList()"
+      [formGroup]="editBoardForm"
+      (ngSubmit)="submitBoard()"
       class="form-container"
     >
       <div class="metadata-container">
@@ -81,7 +81,6 @@ import { HostListener } from '@angular/core';
             id="title"
             type="text"
             class="form-input dlg-input"
-            maxlength="255" size="255"
             formControlName="title"
           />
         </div>  
@@ -132,8 +131,8 @@ import { HostListener } from '@angular/core';
     <button
       mat-button
       type="submit"
-      [disabled]="editListForm.invalid"
-      (click)="submitList()"
+      [disabled]="editBoardForm.invalid"
+      (click)="submitBoard()"
     >
       Save
     </button>
@@ -141,21 +140,19 @@ import { HostListener } from '@angular/core';
   `,
   styleUrls: ['./card.component.css'],//TODO: use some unified styling for dialogs
 })
-export class EditDialogListComponent
+export class EditDialogBoardComponent
 {
-  editListForm: FormGroup;
-  listsService: ListsService = inject(ListsService);
+  editBoardForm: FormGroup;
+  boardsService: BoardsService = inject(BoardsService);
 
   constructor(
-    private dialogRef: MatDialogRef<EditDialogListComponent>, // Inject MatDialogRef
-    @Inject(MAT_DIALOG_DATA) public data: BBList) 
+    private dialogRef: MatDialogRef<EditDialogBoardComponent>, // Inject MatDialogRef
+    @Inject(MAT_DIALOG_DATA) public data: BBBoard) 
   {    
-    console.log('dialog opened')
-    this.editListForm = new FormGroup(
+    this.editBoardForm = new FormGroup(
       {
         id: new FormControl(data?.id || null), // Initialize with data or default to null
         userId: new FormControl(data?.userId || null),
-        boardId: new FormControl(data?.boardId || null),
         title: new FormControl(data?.title || ""),
         color: new FormControl(data?.color || ""),
         type: new FormControl(data?.type || ""),
@@ -170,31 +167,29 @@ export class EditDialogListComponent
           data?.updated ? data.updated : null
         )        
       });
-      console.log('form initiailized')
   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (event.ctrlKey && event.key === 'Enter') {
-      this.submitList();
+      this.submitBoard();
     }
   }
 
-  async submitList() {
+  async submitBoard() {
     try {
-      const editedList =  Object.assign({}, this.getUpdatedList());      
-      const updatedList = await this.listsService.updateList(editedList); // Fetch updated list
-      this.data = Object.assign({}, updatedList); // Safely assign to bbList
+      const editedBoard =  Object.assign({}, this.getUpdatedBoard());      
+      const updatedBoard = await this.boardsService.update(editedBoard); // Fetch updated board
+      this.data = Object.assign({}, updatedBoard); // Safely assign to bbBoard
       // Close dialog here
-      this.dialogRef.close(updatedList); // Use injected dialogRef
+      this.dialogRef.close(updatedBoard); // Use injected dialogRef
     } catch (error) {
-      console.error('Failed to update list:', error);
-      alert('Failed to update list: '+error)
+      alert('Failed to update board: '+error)
     }
   }
 
-  // Optional: Method to get the updated BBList object from the form
-  getUpdatedList(): BBList {
-    return this.editListForm.value as BBList;
+  // Optional: Method to get the updated BBBoard object from the form
+  getUpdatedBoard(): BBBoard {
+    return this.editBoardForm.value as BBBoard;
   }
 }

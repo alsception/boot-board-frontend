@@ -50,3 +50,21 @@ button {
       grid-template-columns: 1fr;
   }    
 }
+
+.board-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: normal;
+  gap: 20px;
+  row-gap: 200px;
+}
+
+.board {
+  display: flex; /* Align items properly */
+  flex-direction: column; /* Stack child elements vertically */
+  justify-content: space-between; /* Space content evenly */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  transition: all 0.3s ease; /* Smooth hover effect */
+  width: 500px;
+  max-width: 100%;
+}

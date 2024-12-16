@@ -82,8 +82,8 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
     card._showDescription = !card._showDescription;
   }
 
-  openEditDialog(card: BBCard ) {
-    console.log("open edit")
+  openEditDialog(card: BBCard ) 
+  {
     const dialogRef = this.dialog.open(EditDialogCardComponent, {
       data: card,     
       autoFocus: false, // Prevent Angular Material from focusing the default element

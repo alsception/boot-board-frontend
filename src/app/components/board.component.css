@@ -3,7 +3,7 @@
   column-gap: /*1*/0px;
   row-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
-  margin-top: 0px;
+  margin-top: 40px;
   justify-content: /*space-around;*/space-evenly
 }
 input[type="text"] {

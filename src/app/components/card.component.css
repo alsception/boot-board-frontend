@@ -253,13 +253,25 @@ section.card a::after {
   padding-top: 12px;
 }
 
+.create-cards-container {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+}
+
 .metadata-item {
   display: flex;
   flex-direction: column;
   width: 30%;
-  /* You can adjust the width as needed */
 }
-
+.metadata-item-cc {
+  display: ruby-text-container;
+  /* flex-direction: column; */
+  width: 25%;
+  font-family: monospace !important;
+  color: #878585;
+}
 .metadata-item-100 {
   display: flex;
   flex-direction: column;
@@ -282,6 +294,9 @@ section.card a::after {
   color: #878585;
 }
 
+.mat-mdc-dialog-surface {
+  height: auto !important;
+}
 
 .dlg-input{
   font-family: monospace;
@@ -342,6 +357,10 @@ bb-card.hidden {
 
 .lgc-yellow {
   color:  yellow;
+}
+
+.lgc-orange {
+  color: orange;
 }
 
 .lgc-white {

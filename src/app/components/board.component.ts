@@ -1,4 +1,4 @@
-import { Component , inject, HostListener} from "@angular/core";
+import { Component , inject, HostListener, OnInit} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ListComponent } from "./list.component"
 import { ListsService } from '../services/lists.service';
@@ -11,28 +11,28 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AddDialogListComponent } from './list-dialog-add.component';
 import { ActivatedRoute } from "@angular/router";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: "app-board",
   imports: [CommonModule, ListComponent, DragDropModule, MatDialogModule],
   template: `
     <section>
-      <form>
-        <!--
-        By binding to the click event on the button element, you are able to call the filterResults function. 
-        The argument to the function is the value property of the filter template variable. 
-        Specifically, the .value property from the input HTML element.      
-        -->
-        <input type="text" placeholder="Search cards / lists / boards" #filter />
+      <form (submit)="onEnter($event, filter.value)">        
+        <input type="text" placeholder="Search cards / lists" #filter 
+            (keydown.enter)="onEnter($event, filter.value)"
+        />
         <button
           class="primary"
-          type="button"
+          type="submit"
           style="cursor: pointer;margin-right: 50px;"
           (click)="filterResults(filter.value)"
         >
           Search
         </button>
+
         &nbsp;&nbsp;
+
         <button
           class="primary"
           style="cursor: pointer;"
@@ -48,28 +48,16 @@ import { ActivatedRoute } from "@angular/router";
           (click)="toggleLists()"
         >Toggle lists
         </button>
+
         &nbsp;&nbsp;
+
         <button
           class="primary"
           style="cursor: pointer;margin-left:50px"
           type="button"
           (click)="createList(boardId)"
         >Create list
-        </button>
-        <button
-          class="primary"
-          style="cursor: pointer;margin-left:50px"
-          type="button"
-          (click)="toggleDarkMode()"
-        >Toggle dark mode
-        </button>
-        <button
-          class="primary"
-          style="cursor: pointer;margin-left:50px"
-          type="button"
-          (click)="toggleGridView()"
-        >Toggle grid view
-        </button>
+        </button>        
       </form>
     </section>
     <section class="results" cdkDropList (cdkDropListDropped)="drop($event)">
@@ -82,10 +70,11 @@ import { ActivatedRoute } from "@angular/router";
   `,
   styleUrls: ["board.component.css"],
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit 
+{
+  id: string | null = null;
   route: ActivatedRoute = inject(ActivatedRoute);
   boardId = parseInt(this.route.snapshot.params["id"], 10);
-
   lists: BBList[] = [];
 
 
@@ -95,9 +84,10 @@ export class BoardComponent {
 
   filteredLists: BBList[] = [];
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog,    private titleService: Title) {
+
     // Utility function for delay
-    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms)); 
     const useDelay = false; // Toggle this flag to enable/disable delay
 
     const boardId = parseInt(this.route.snapshot.params["id"], 10);
@@ -133,7 +123,33 @@ export class BoardComponent {
       });
   }
 
-  filterResults(text: string) {
+  ngOnInit(): void {
+    // Subscribe to route parameters to get 'id'
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id');
+      if (this.id) {
+        // Set the page title dynamically
+        this.titleService.setTitle(`${this.id} | Board details | BootBoards`);
+      }
+    });
+  }
+
+  onSearch(event: Event) {
+    event.preventDefault(); // Prevent form submission
+  }
+
+  // Method to handle Enter key
+  onEnter(event: Event, inputValue: string): void {
+    event.preventDefault(); // Prevent form submission or page refresh
+    this.filterResults(inputValue); // Call your search logic
+  }
+
+  filterResults(text: string) 
+  {
+    //TODO:
+    // Now we search for card title and list title
+    // Add card description to search also
+
     //Se no xe cerca -> mostri tutto
     if (!text) {
       this.filteredLists = this.lists;

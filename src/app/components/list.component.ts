@@ -8,7 +8,7 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { ListsService } from '../services/lists.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { EditDialogCardComponent } from './card-dialog-edit.component';
+import { EditDialogListComponent } from './list-dialog-edit.component';
 import { AddDialogCardComponent } from './card-dialog-add.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -54,9 +54,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
       <button mat-button color="primary" (click)="openAddCardDialog(bbList)">
       <mat-icon>add</mat-icon>Add Card</button>
-      
-      <button mat-button color="primary" (click)="openEditDialog(bbList.id)">
-      <mat-icon>edit</mat-icon>Edit list</button>
+
+      <button mat-button color="primary" (click)="openEditDialog(bbList)">
+      <mat-icon>edit</mat-icon>Edit list</button> 
 
       <button mat-button color="primary" (click)="openDeleteDialog(bbList.id)">
         <mat-icon>delete</mat-icon>Delete list
@@ -87,13 +87,30 @@ export class ListComponent {
   listsService: ListsService = inject(ListsService);
 
   constructor(private dialog: MatDialog) {}
-
-  openEditDialog(id: number) {
-    const person = { name: 'John Doe', age: 30 };
-    this.dialog.open(EditDialogCardComponent, {
-      data: person,
-    });
-  }
+ 
+  openEditDialog(list: BBList ) {
+    console.log('opening edit dialog list')
+      const dialogRef = this.dialog.open(EditDialogListComponent, {
+        data: list,     
+        autoFocus: false, // Prevent Angular Material from focusing the default element
+        panelClass: 'custom-list-dialog-container',
+        width: '800px',  // Adjust this to control width
+        height: 'auto', // Adjust this to control height
+        maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
+      });
+  
+      // Handle the dialog close event
+      // Subscribe to afterClosed()
+      dialogRef.afterClosed().subscribe((updatedList: BBList | undefined) => {
+        if (updatedList) {
+          console.log('Dialog closed with updated list:', updatedList);
+          // Handle the updated list
+          this.bbList = Object.assign({}, updatedList);
+        } else {
+          console.log('Dialog was closed without saving changes.');
+        }
+      });
+    }
   
   openDeleteDialog(id: number){
     this.showDeleteDialog=true;
@@ -143,7 +160,7 @@ export class ListComponent {
       autoFocus: false, // Prevent Angular Material from focusing the default element
       panelClass: 'custom-card-dialog-container',
       width: '800px',  // Adjust this to control width
-      height: '700px', // Adjust this to control height
+      height: 'auto', // Adjust this to control height
       maxWidth: '100%', // Optional, ensures it doesn't exceed the viewport
     });
 

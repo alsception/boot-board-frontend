@@ -87,6 +87,9 @@ html, body { height: 100%; }
 
 .bb-list{
   padding: 50px;
+  padding: 1rem; /* Inner padding */
+  /*text-align: center;*/
+  height: 200px; /* Set a consistent height to prevent */
 }
 
 .listing:hover .card-title, 

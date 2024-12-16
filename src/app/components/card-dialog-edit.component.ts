@@ -100,14 +100,18 @@ import { HostListener } from '@angular/core';
   
       <div class="metadata-container">
         <div class="metadata-item">
-          <label for="color">Color</label>
-          <input
-            id="color"
-            type="text"
-            class="form-input"
-            formControlName="color"
-          />
-        </div>
+            <label for="color">Color</label>   
+            <select name="color" id="color" class="form-input" formControlName="color">
+              <option style="color: violet;" value="violet">violet</option>
+              <option style="color: green;" value="green">green</option>
+              <option style="color: orange;" value="orange">orange</option>
+              <option style="color: blue;" value="blue">blue</option>
+              <option style="color: red;" value="red">red</option>
+              <option style="color: yellow;background:lightgray;" value="yellow">yellow</option>
+              <option style="color: black;" value="black">black</option>
+              <option style="color: white;background:lightgray;" value="white">white</option>
+            </select>
+          </div>
   
         <div class="metadata-item">
           <label for="type">Type</label>

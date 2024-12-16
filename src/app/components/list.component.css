@@ -201,6 +201,10 @@ section.listing a::after {
   background: linear-gradient(to bottom, yellow, #e8e7fa);
 }
 
+.lg-orange {
+  background: linear-gradient(to bottom, orange, #e8e7fa);
+}
+
 .lg-white {
   background: linear-gradient(to bottom, white, #e8e7fa);
 }

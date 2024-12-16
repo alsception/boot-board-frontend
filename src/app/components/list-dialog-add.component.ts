@@ -12,7 +12,7 @@ import { HostListener } from '@angular/core';
   selector: 'dialog-list-add',
   imports: [CommonModule, MatDialogModule, ReactiveFormsModule],
   template: `
-  <h1 mat-dialog-title class="list-dialog-title">Add List</h1>
+  <h1 mat-dialog-title class="card-dialog-title">Add List</h1>
   <section class="dlg-list-container">
     <form
       [formGroup]="addListForm"
@@ -85,35 +85,24 @@ import { HostListener } from '@angular/core';
             formControlName="title"
           />
         </div>
-  <!-- 
-        <div class="metadata-item-100">
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            class="form-input"
-            formControlName="description"
-            #description
-          ></textarea>
-        </div>
-        </div>-->
       </div> 
   
       <div class="metadata-container">
+
         <div class="metadata-item">
-          <label for="color">Color</label>
-   
+          <label for="color">Color</label>   
           <select name="color" id="color" class="form-input" formControlName="color">
-            <option style="color: blueviolet;" value="blueviolet">blueviolet</option>
+            <option style="color: violet;" value="violet">violet</option>
             <option style="color: green;" value="green">green</option>
+            <option style="color: orange;" value="orange">orange</option>
             <option style="color: blue;" value="blue">blue</option>
             <option style="color: red;" value="red">red</option>
             <option style="color: yellow;background:lightgray;" value="yellow">yellow</option>
             <option style="color: black;" value="black">black</option>
             <option style="color: white;background:lightgray;" value="white">white</option>
           </select>
-
         </div>
-  
+
         <div class="metadata-item">
           <label for="type">Type</label>
           <input
@@ -134,33 +123,35 @@ import { HostListener } from '@angular/core';
           />
         </div>
       </div>
-      <div class="metadata-item">
-          <label for="position">Create 1 cards</label>
-          <input type="checkbox" id="createCards1" name="createCards1" value=""style="width: inherit;"
-          class="form-input"
-            formControlName="createCards1"
-          />
-        </div>
-      <div class="metadata-item">
-          <label for="position">Create 5 cards</label>
-          <input type="checkbox" id="createCards5" name="createCards5" value=""style="width: inherit;"
-          class="form-input"
-            formControlName="createCards5"
-          />
-        </div>
-      <div class="metadata-item">
-          <label for="position">Create 10 cards</label>
-          <input type="checkbox" id="createCards10" name="createCards10" value=""style="width: inherit;"
-          class="form-input"
-            formControlName="createCards10"
-          />
-        </div>
-        <div class="metadata-item">
-          <label for="position">Create 20 cards</label>
-          <input type="checkbox" id="createCards20" name="createCards20" value=""style="width: inherit;"
-          class="form-input"
-            formControlName="createCards20"
-          />
+      <div class="create-cards-container">
+        <div class="metadata-item-cc">
+            <label for="createCards1">Create 1 card</label>
+            <input type="checkbox" id="createCards1" name="createCards1" value=""style="width: inherit;"
+            class="form-input"
+              formControlName="createCards1"
+            />
+          </div>
+        <div class="metadata-item-cc">
+            <label for="createCards5">Create 5 cards</label>
+            <input type="checkbox" id="createCards5" name="createCards5" value=""style="width: inherit;"
+            class="form-input"
+              formControlName="createCards5"
+            />
+          </div>
+        <div class="metadata-item-cc">
+            <label for="createCards10">Create 10 cards</label>
+            <input type="checkbox" id="createCards10" name="createCards10" value=""style="width: inherit;"
+            class="form-input"
+              formControlName="createCards10"
+            />
+          </div>
+          <div class="metadata-item-cc">
+            <label for="createCards20">Create 20 cards</label>
+            <input type="checkbox" id="createCards20" name="createCards20" value=""style="width: inherit;"
+            class="form-input"
+              formControlName="createCards20"
+            />
+          </div>
         </div>
     </form>
   </section>
@@ -195,7 +186,6 @@ export class AddDialogListComponent implements AfterViewInit
     } catch (error) {
       console.log('could not focus title field',error);
     }   
-
   }
 
   constructor(
@@ -241,12 +231,10 @@ export class AddDialogListComponent implements AfterViewInit
       
       const updatedList = await this.listsService.insertList(addedList); // Fetch updated list
 
-
       //if this was ok, then load again with data
       const updatedListWithCards = await this.listsService.getListByIdWithCards(updatedList.id); // Fetch updated list
 
       this.data = Object.assign({}, updatedListWithCards); // Safely assign to bbList
-
 
       // Close dialog here
       this.dialogRef.close(updatedListWithCards); // Use injected dialogRef
@@ -259,7 +247,7 @@ export class AddDialogListComponent implements AfterViewInit
   getUpdatedList(): BBList {
 
     let blist = this.addListForm.value as BBList;
-    let howMany = 1;
+    let howMany = 0;
     let prefix = 'ADD_CARDS';
 
     if(this.isChecked1()){
@@ -284,9 +272,7 @@ export class AddDialogListComponent implements AfterViewInit
     return blist;
   }
 
-
   //TODO 
-
 
   isChecked1(): boolean {
     return this.addListForm.get('createCards1')?.value; // Retrieve the checkbox's value

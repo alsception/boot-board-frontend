@@ -1,20 +1,14 @@
 import { Component , inject, HostListener} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ListComponent } from "../components/list.component"
-import { ListsService } from '../services/lists.service';
-import { CardsService } from '../services/cards.service';
 import { BoardsService } from '../services/boards.service';
 import { BBBoard } from "../interfaces/bbboard";
-import { BBCard } from "../interfaces/bbcard";
-import { BBList } from "../interfaces/bblist";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { AddDialogListComponent } from '../components/list-dialog-add.component';
-import { BoardComponentPreview } from "../components/board.component.preview";
+import { BoardComponentPreview } from "./board.component.preview";
 
 @Component({
   selector: "app-home",
-  imports: [CommonModule, ListComponent, DragDropModule, MatDialogModule, BoardComponentPreview],
+  imports: [CommonModule, DragDropModule, MatDialogModule, BoardComponentPreview],
   template: `
     <section>
       <form>
@@ -23,7 +17,7 @@ import { BoardComponentPreview } from "../components/board.component.preview";
         The argument to the function is the value property of the filter template variable. 
         Specifically, the .value property from the input HTML element.      
         -->
-        <input type="text" placeholder="Search cards / lists / boards" #filter />
+        <input type="text" placeholder="Search  lists / boards" #filter />
         <button
           class="primary"
           type="button"
@@ -31,59 +25,21 @@ import { BoardComponentPreview } from "../components/board.component.preview";
           (click)="filterResults(filter.value)"
         >
           Search
-        </button>
-        &nbsp;&nbsp;
-        <button
-          class="primary"
-          style="cursor: pointer;"
-          type="button"
-          (click)="toggleCards()"
-        >Toggle cards
-        </button>
-        &nbsp;&nbsp;
-        <button
-          class="primary"
-          style="cursor: pointer;"
-          type="button"
-          (click)="toggleLists()"
-        >Toggle lists
-        </button>
-        &nbsp;&nbsp;
+        </button>        
+
+      &nbsp;&nbsp;
+
         <button
           class="primary"
           style="cursor: pointer;margin-left:50px"
           type="button"
-          (click)="createList(1)"
-        >Create list
-        </button>
-        <button
-          class="primary"
-          style="cursor: pointer;margin-left:50px"
-          type="button"
-          (click)="toggleDarkMode()"
-        >Toggle dark mode
-        </button>
-        <button
-          class="primary"
-          style="cursor: pointer;margin-left:50px"
-          type="button"
-          (click)="toggleGridView()"
-        >Toggle grid view
-        </button>
+          (click)="createBoard()"
+        >Create board
+        </button>    
       </form>
-
-      <!-- test input -->
-      <div class="container hidden">
-        <div class="input-group">
-          <label class="input-group__label" for="myInput">Input test</label>
-          <input type="text" id="myInput" class="input-group__input" value="This is my input">
-        </div>
-      </div>
-
     </section>
     <section class="results">
-<!--     add this to bb-list cdkDrag
- -->      <app-board-preview cdkDrag class="draggable-item bb-list"
+     <app-board-preview cdkDrag class="draggable-item bb-list"
         *ngFor="let board of filteredBoards"
         [bbBoard]="board"
       ></app-board-preview>
@@ -91,26 +47,13 @@ import { BoardComponentPreview } from "../components/board.component.preview";
   `,
   styleUrls: ["./home.component.css"],
 })
-export class HomeComponent {
-  
-  
-
-  boards: BBBoard[] = [];
- /*  cards: BBCard[] = [];
-  lists: BBList[] = []; */
-
-/*   listsService: ListsService = inject(ListsService);
- */  boardsService: BoardsService = inject(BoardsService);
-/*   cardsService: CardsService = inject(CardsService);
- */
+export class HomeComponent 
+{
+  boards: BBBoard[] = []; 
+  boardsService: BoardsService = inject(BoardsService); 
   filteredBoards: BBBoard[] = [];
- /*  filteredCards: BBCard[] = [];
-  filteredLists: BBList[] = []; */
 
   constructor(private dialog: MatDialog) {
-
-    console.log("initilized home component")
-
     this.boardsService
       .getAllBoards()
       .then((xboards: BBBoard[]) => {
@@ -188,6 +131,10 @@ export class HomeComponent {
         this.renderer.setStyle(element, 'gap', '16px');
         this.renderer.setStyle(element, 'grid-template-columns', 'repeat(auto-fit, minmax(200px, 1fr))');
       }); */
+    }
+
+    createBoard(): void{
+
     }
   
 }

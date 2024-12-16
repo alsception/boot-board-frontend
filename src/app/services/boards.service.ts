@@ -33,7 +33,6 @@ export class BoardsService
   
       if (response.ok) {
         const updatedBoard: BBBoard = await response.json(); // Parse the response as a BBBoard object
-        console.log('Board updated successfully:', updatedBoard);
         return updatedBoard; // Return the updated board
       } else {
         const errorMessage = await response.text(); // Read the error response
@@ -62,7 +61,6 @@ export class BoardsService
   
       if (response.ok) {
         const updatedBoard: BBBoard = await response.json(); // Parse the response as a BBBoard object
-        console.log('Board updated successfully:', updatedBoard);
         return updatedBoard; // Return the updated board
       } else {
         const errorMessage = await response.text(); // Read the error response

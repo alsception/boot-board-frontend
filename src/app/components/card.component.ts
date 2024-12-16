@@ -97,12 +97,9 @@ export class CardComponent implements OnInit {  @Input() bbCard!: BBCard;
     // Subscribe to afterClosed()
     dialogRef.afterClosed().subscribe((updatedCard: BBCard | undefined) => {
       if (updatedCard) {
-        console.log('Dialog closed with updated card:', updatedCard);
         // Handle the updated card
         this.bbCard = Object.assign({}, updatedCard);
-      } else {
-        console.log('Dialog was closed without saving changes.');
-      }
+      } 
     });
   }
 

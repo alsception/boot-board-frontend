@@ -150,7 +150,6 @@ export class EditDialogListComponent
     private dialogRef: MatDialogRef<EditDialogListComponent>, // Inject MatDialogRef
     @Inject(MAT_DIALOG_DATA) public data: BBList) 
   {    
-    console.log('dialog opened')
     this.editListForm = new FormGroup(
       {
         id: new FormControl(data?.id || null), // Initialize with data or default to null
@@ -170,7 +169,6 @@ export class EditDialogListComponent
           data?.updated ? data.updated : null
         )        
       });
-      console.log('form initiailized')
   }
 
   @HostListener('document:keydown', ['$event'])

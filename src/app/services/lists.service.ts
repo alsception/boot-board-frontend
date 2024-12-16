@@ -79,7 +79,6 @@ export class ListsService
   
       if (response.ok) {
         const updatedList: BBList = await response.json(); // Parse the response as a BBList object
-        console.log('List updated successfully:', updatedList);
         return updatedList; // Return the updated list
       } else {
         const errorMessage = await response.text(); // Read the error response
@@ -108,7 +107,6 @@ export class ListsService
     
         if (response.ok) {
           const updatedList: BBList = await response.json(); // Parse the response as a BBList object
-          console.log('List updated successfully:', updatedList);
           return updatedList; // Return the updated list
         } else {
           const errorMessage = await response.text(); // Read the error response

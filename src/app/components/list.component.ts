@@ -100,7 +100,6 @@ export class ListComponent {
   constructor(private dialog: MatDialog) {}
  
   openEditDialog(list: BBList ) {
-    console.log('opening edit dialog list')
       const dialogRef = this.dialog.open(EditDialogListComponent, {
         data: list,     
         autoFocus: false, // Prevent Angular Material from focusing the default element
@@ -114,12 +113,9 @@ export class ListComponent {
       // Subscribe to afterClosed()
       dialogRef.afterClosed().subscribe((updatedList: BBList | undefined) => {
         if (updatedList) {
-          console.log('Dialog closed with updated list:', updatedList);
           // Handle the updated list
           this.bbList = Object.assign({}, updatedList);
-        } else {
-          console.log('Dialog was closed without saving changes.');
-        }
+        } 
       });
     }
   
@@ -185,8 +181,6 @@ export class ListComponent {
         }
         // Add the addedCard to the list.cards array
         list.cards.push(addedCard);
-      } else {
-        console.log('Dialog was closed without saving changes.');
       }
     });
   }

@@ -90,9 +90,6 @@ export class BoardComponentPreview
 {
   @Input() bbBoard!: BBBoard;
 
-  boards: BBBoard[] = [];
-  filteredBoards: BBBoard[] = []; 
-
   boardsService: BoardsService = inject(BoardsService);
 
   showDeleteDialog = false; // Boolean to toggle the dialog
@@ -101,37 +98,6 @@ export class BoardComponentPreview
 
   constructor(private dialog: MatDialog) 
   {
-    this.boardsService.getAllBoards().then((xboards: BBBoard[]) => {
-      this.boards = xboards;
-      this.filteredBoards = xboards;
-    });
-  }
-
-  filterResults(text: string) {
-    //Se no xe cerca -> mostri tutto
-    if (!text) {
-      this.filteredBoards = this.boards;
-      return;
-    }
-    this.filteredBoards = this.boards.filter((board) => {
-      // Check if the list title matches the search text
-      const listTitleMatches = board?.title
-        .toLowerCase()
-        .includes(text.toLowerCase());
-
-      // The list is included if either the list title or any card's title matches
-      return listTitleMatches /* || cardTitleMatches*/;
-    });
-
-  }
-
-  @HostListener("window:keydown", ["$event"])
-  handleKeyDown(event: KeyboardEvent): void {
-    // Check for the key combination (Ctrl + Shift + K)
-    /*  if (event.ctrlKey && event.shiftKey && event.key === 'X') {
-        console.log('Ctrl + Shift + K was pressed!');
-        this.toggleCards();
-      } */
   }
   
   openDeleteDialog(board: BBBoard){
@@ -158,11 +124,8 @@ export class BoardComponentPreview
     // Subscribe to afterClosed()
     dialogRef.afterClosed().subscribe((updatedBoard: BBBoard | undefined) => {
       if (updatedBoard) {
-        console.log('Dialog closed with updated card:', updatedBoard);
         // Handle the updated card
         this.bbBoard = Object.assign({}, updatedBoard);
-      } else {
-        console.log('Dialog was closed without saving changes.');
       }
     });
   }

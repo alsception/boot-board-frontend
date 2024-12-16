@@ -281,9 +281,7 @@ export class BoardComponent implements OnInit
         // Add the addedList to the list.lists array
         this.lists.push(addedList);
         this.filteredLists.push(addedList);
-      } else {
-        console.log('Dialog was closed without saving changes.');
-      }
+      } 
     });
   }
 

@@ -154,35 +154,34 @@ export class BoardComponent implements OnInit
     this.filterResults(inputValue); // Call your search logic
   }
 
-  filterResults(text: string) 
-  {
-    //TODO:
-    // Now we search for card title and list title
-    // Add card description to search also
-
-    //Se no xe cerca -> mostri tutto
+  filterResults(text: string) {
+    // If no search text is provided, display all lists
     if (!text) {
       this.filteredLists = this.lists;
       return;
     }
+  
     this.filteredLists = this.lists.filter((list) => {
       // Check if the list title matches the search text
       const listTitleMatches = list?.title.toLowerCase().includes(text.toLowerCase());
-
+  
       // Check if any card's title matches the search text
       const cardTitleMatches = list?.cards?.some((card) =>
         card.title.toLowerCase().includes(text.toLowerCase())
       );
-
-      // The list is included if either the list title or any card's title matches
-      return listTitleMatches || cardTitleMatches;
+  
+      // Check if the list id matches the search text
+      const listIdMatches = list?.id.toString().toLowerCase().includes(text.toLowerCase());
+  
+      // Check if any card's id matches the search text (convert id to string for comparison)
+      const cardIdMatches = list?.cards?.some((card) =>
+        card.id.toString().includes(text)
+      );
+  
+      // The list is included if any of the conditions match
+      return listTitleMatches || cardTitleMatches || listIdMatches || cardIdMatches;
     });
-    /**
-     * This function uses the String filter function to compare the value of the text parameter against the housingLocation.city property.
-     * You can update this function to match against any property or multiple properties for a fun exercise.
-     */
-  }
-
+  } 
 
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent): void {

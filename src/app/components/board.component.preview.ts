@@ -16,7 +16,7 @@ import { EditDialogBoardComponent } from "./board-dialog-edit.component";
   imports: [CommonModule, DragDropModule, MatDialogModule, RouterModule, MatTooltipModule, MatIconModule, MatButtonModule],
   template: `
     <section
-      class="board listing listing-container listing-nb lg-{{ bbBoard.color }}"
+      class="board listing listing-container listing-nb listing-bb lg-{{ bbBoard.color }}"
     >
       <div
         style="container"
@@ -93,9 +93,8 @@ export class BoardComponentPreview
 
   showDeleteDialog = false; // Boolean to toggle the dialog
 
-  constructor(private dialog: MatDialog) {
-    console.log("initilized board preview component", this.bbBoard);
-
+  constructor(private dialog: MatDialog) 
+  {
     this.boardsService.getAllBoards().then((xboards: BBBoard[]) => {
       this.boards = xboards;
       this.filteredBoards = xboards;
@@ -114,18 +113,10 @@ export class BoardComponentPreview
         .toLowerCase()
         .includes(text.toLowerCase());
 
-      // Check if any card's title matches the search text
-      /* const cardTitleMatches = list?.cards?.some((card) =>
-        card.title.toLowerCase().includes(text.toLowerCase())
-      ); */
-
       // The list is included if either the list title or any card's title matches
       return listTitleMatches /* || cardTitleMatches*/;
     });
-    /**
-     * This function uses the String filter function to compare the value of the text parameter against the housingLocation.city property.
-     * You can update this function to match against any property or multiple properties for a fun exercise.
-     */
+
   }
 
   @HostListener("window:keydown", ["$event"])

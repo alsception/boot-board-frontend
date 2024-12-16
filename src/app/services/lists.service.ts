@@ -59,10 +59,11 @@ export class ListsService
         // Reload the page after successful deletion
         window.location.reload();
       } else {
-        console.error('Failed to delete the item');
+        console.error('Failed to delete the list',response);
+        alert('Failed to delete the list');
       }
     } catch (error) {
-      console.error('Error occurred while deleting the item:', error);
+      console.error('Error occurred while deleting the list:', error);
     }
   }
   

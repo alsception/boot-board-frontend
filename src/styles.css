@@ -110,3 +110,6 @@ html, body { height: 100%; }
  .link:hover{
   color: #1560c1;
  }
+ .listing-bb:hover * {
+  color: cyan !important;
+}

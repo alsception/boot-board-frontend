@@ -85,31 +85,25 @@ export class HomeComponent
     this.filterResults(inputValue); // Call your search logic
   }
 
-  filterResults(text: string) {
-    //Se no xe cerca -> mostri tutto
+  filterResults(text: string) 
+  {
     if (!text) {
       this.filteredBoards = this.boards;
       return;
     }
-    this.filteredBoards = this.boards.filter((board) => {
-      // Check if the list title matches the search text
-      const listTitleMatches = board?.title.toLowerCase().includes(text.toLowerCase());
-    
-      // Check if any card's title matches the search text
-      /* const cardTitleMatches = list?.cards?.some((card) =>
-        card.title.toLowerCase().includes(text.toLowerCase())
-      ); */
-    
-      // The list is included if either the list title or any card's title matches
-      return listTitleMatches/* || cardTitleMatches*/;
-    });
-    /**
-     * This function uses the String filter function to compare the value of the text parameter against the housingLocation.city property.
-     * You can update this function to match against any property or multiple properties for a fun exercise.
-     */
-  }  
-
   
+    this.filteredBoards = this.boards.filter((board) => {
+      // Check if the board title matches the search text
+      const boardTitleMatches = board?.title.toLowerCase().includes(text.toLowerCase());
+  
+      // Check if the board id matches the search text (convert id to string for comparison)
+      const boardIdMatches = board?.id.toString().includes(text);
+  
+      // Include the board if either the title or id matches the search text
+      return boardTitleMatches || boardIdMatches;
+    });
+  }
+    
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent): void {
     // Check for the key combination (Ctrl + Shift + K)

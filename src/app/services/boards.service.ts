@@ -86,10 +86,11 @@ export class BoardsService
         // Reload the page after successful deletion
         window.location.reload();
       } else {
-        console.error('Failed to delete the item');
+        console.error('Failed to delete the board',response);
+        alert('Failed to delete the board');
       }
     } catch (error) {
-      console.error('Error occurred while deleting the item:', error);
+      console.error('Error occurred while deleting the board:', error);
     }
   }
 

@@ -82,10 +82,11 @@ export class CardsService
         // Reload the page after successful deletion
         window.location.reload();
       } else {
-        console.error('Failed to delete the item');
+        console.error('Failed to delete the card',response);
+        alert('Failed to delete the card');
       }
     } catch (error) {
-      console.error('Error occurred while deleting the item:', error);
+      console.error('Error occurred while deleting the card:', error);
     }
   }
 }

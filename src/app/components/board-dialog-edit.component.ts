@@ -38,16 +38,7 @@ import { HostListener } from '@angular/core';
             formControlName="userId"
             readonly
           />
-        </div>
-        <div class="metadata-item">
-          <label for="boardId">Board ID</label>
-          <input
-            id="boardId"
-            type="number"
-            class="form-input"
-            formControlName="boardId"
-          />
-        </div>
+        </div>       
       </div>
   
       <div class="metadata-container">

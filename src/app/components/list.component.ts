@@ -17,8 +17,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   selector: 'bb-list',
   imports: [CommonModule, RouterModule, CardComponent, DragDropModule, MatDialogModule, MatButtonModule, MatIconModule, MatTooltipModule],
   template: `
-    <section class="listing listing-container listing-nb lg-{{bbList.color}}">      
-      <h2 class="listing-heading" cdkDragHandle>{{ bbList.title }} </h2>     
+    <section class="listing listing-container listing-nb lg-{{bbList.color}}">     
+
+      <h2 
+        class="listing-heading" 
+        cdkDragHandle
+        [matTooltip]="bbList.title.length > titleHeadingMaxLength ? bbList.title : ''"
+      >
+        {{ bbList.title.length > titleHeadingMaxLength ? (bbList.title | slice:0:titleHeadingMaxLength) + '...' : bbList.title }}
+      </h2>
+
+
       <section class="cardsResults" cdkDropList (cdkDropListDropped)="drop($event)">         
          <bb-card  
           *ngFor="let xCard of bbList.cards"
@@ -83,6 +92,8 @@ export class ListComponent {
    * The exclamation point is called the non-null assertion operator and it tells the TypeScript compiler that the value of this property won't be null or undefined. */
   
   showDeleteDialog = false; // Boolean to toggle the dialog
+  titleHeadingMaxLength = 25;
+
 
   listsService: ListsService = inject(ListsService);
 

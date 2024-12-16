@@ -5,11 +5,11 @@ import { BBBoard } from "../interfaces/bbboard";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
-import { AddDialogListComponent } from './list-dialog-add.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { EditDialogBoardComponent } from "./board-dialog-edit.component";
+
 
 @Component({
   selector: "app-board-preview",
@@ -25,9 +25,13 @@ import { EditDialogBoardComponent } from "./board-dialog-edit.component";
         role="button"
         tabindex="0"
       >
-        <h2 class="board-listing-heading listing-heading ">
-          {{ bbBoard.title }}
-        </h2>
+      <h2 
+        class="board-listing-heading listing-heading listing-heading-bb"
+        [matTooltip]="bbBoard.title.length > titleHeadingMaxLength ? bbBoard.title : ''"
+      >
+        {{ bbBoard.title.length > titleHeadingMaxLength ? (bbBoard.title | slice:0:titleHeadingMaxLength) + '...' : bbBoard.title }}
+      </h2>
+
         <div style="display: flex; ">
           <div style="width: 50%;">
             <h3 class="board-listing-heading listing-heading ">Total lists</h3>
@@ -92,6 +96,8 @@ export class BoardComponentPreview
   boardsService: BoardsService = inject(BoardsService);
 
   showDeleteDialog = false; // Boolean to toggle the dialog
+
+  titleHeadingMaxLength = 50;
 
   constructor(private dialog: MatDialog) 
   {

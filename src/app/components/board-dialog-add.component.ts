@@ -6,6 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { BoardsService } from '../services/boards.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dialog-board-add',
@@ -106,6 +107,15 @@ import { HostListener } from '@angular/core';
           />
         </div>
       </div>
+      <div class="metadata-container">
+        <div class="metadata-item-cc">
+            <label for="createTemplate1">Create from template [Daily todo board]</label>
+            <input type="checkbox" id="createTemplate1" name="createTemplate1" value=""style="width: inherit;"
+            class="form-input"
+              formControlName="createTemplate1"
+            />
+          </div>
+        </div>
     </form>
   </section>
   
@@ -132,7 +142,8 @@ export class AddDialogBoardComponent
 
   constructor(
     private dialogRef: MatDialogRef<AddDialogBoardComponent>, // Inject MatDialogRef
-    @Inject(MAT_DIALOG_DATA) public data: BBBoard) 
+    @Inject(MAT_DIALOG_DATA) public data: BBBoard,
+    private router: Router) 
   {    
     this.addBoardForm = new FormGroup(
       {
@@ -150,7 +161,8 @@ export class AddDialogBoardComponent
         updated: new FormControl(
           //alternatively we can format like: this.formatDateTime(data.updated) 
           data?.updated ? data.updated : null
-        )
+        ),
+        createTemplate1: new FormControl(false)
       });
   }
 
@@ -164,7 +176,11 @@ export class AddDialogBoardComponent
   async submitBoard() {
     try {
       const addedBoard =  Object.assign({}, this.addBoardForm.value as BBBoard);
-      console.log("eddboard> ",addedBoard)
+
+      if( this.isCheckedCreateTemplate1() )
+      {
+        addedBoard.type = "CREATE_TEMPLATE_T001_DAILY_BOARD";
+      }
       
       const updatedBoard = await this.boardsService.create(addedBoard); // Fetch updated board
 
@@ -175,8 +191,16 @@ export class AddDialogBoardComponent
 
       // Close dialog here
       this.dialogRef.close(updatedBoardWithCards); // Use injected dialogRef
+
+      //Actually go inside
+      this.router.navigate(['/board/'+updatedBoard.id]); 
+      
     } catch (error) {
       alert('Failed to update board: '+error)
     }
+  }
+
+  isCheckedCreateTemplate1(): boolean {
+    return this.addBoardForm.get('createTemplate1')?.value; // Retrieve the checkbox's value
   }
 }

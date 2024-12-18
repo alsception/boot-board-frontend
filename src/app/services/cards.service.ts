@@ -6,11 +6,11 @@ import { BBCard } from '../interfaces/bbcard';
 })
 export class CardsService 
 {
-  readonly grokHost = "https://cf34-2a05-4f46-130c-cc00-5267-5350-55fb-9291.ngrok-free.app";
+  readonly grokHost = "https://f030-2a05-4f46-130c-cc00-1377-733a-356c-3ec6.ngrok-free.app";
   readonly localhost= "http://localhost:8080/bootboard"
-  readonly apiBaseUrl = this.localhost + "/api/v1/"
-  /*readonly apiBaseUrl = this.grokHost + "/api/v1/"*/
-    readonly apiUrl = this.apiBaseUrl+"cards";
+  //readonly apiBaseUrl = this.localhost + "/api/v1/"
+  readonly apiBaseUrl = this.grokHost + "/api/v1/";
+  readonly apiUrl = this.apiBaseUrl+"cards";
 
   constructor() {}  
 
@@ -90,6 +90,28 @@ export class CardsService
       }
     } catch (error) {
       console.error('Error occurred while deleting the card:', error);
+    }
+  }
+
+  async swap(id1: number, id2: number): Promise<void>
+  {
+    try {
+      const response = await fetch(`${this.apiUrl}/swap/${id1}/${id2}`, {
+        method: 'GET',
+      });
+
+      console.log(response);
+  
+      if (response.ok) {
+        console.log('Items swapped successfully');
+        // Reload the page after successful deletion
+        //window.location.reload();
+      } else {
+        console.error('Failed to swap cards',response);
+        alert('Failed to swap the cards');
+      }
+    } catch (error) {
+      console.error('Failed to swaping cards',error);
     }
   }
 }

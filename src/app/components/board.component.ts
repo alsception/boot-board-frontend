@@ -203,7 +203,7 @@ export class BoardComponent implements OnInit
   //1. show smthng when no data fetched
   //2. hide empty lists
 
-  isHiddenCardDescription = false;
+  isHiddenCardDescription = true;
   toggleCards(): void {
     //Hide cards description, show only title
     const cards = document.querySelectorAll('.card, .card-footer-container, .card-text, .card-meta-container');
@@ -216,8 +216,6 @@ export class BoardComponent implements OnInit
         card.classList.remove('hidden'); // Remove the 'hidden' class
       }
     });
-
-    console.log(`Hidden class is now ${this.isHiddenCardDescription ? 'applied' : 'removed'}`);
   }
 
   isHiddenCards = false;
@@ -233,8 +231,6 @@ export class BoardComponent implements OnInit
         card.classList.remove('hidden'); // Remove the 'hidden' class
       }
     });
-
-    console.log(`Hidden class is now ${this.isHiddenCards ? 'applied' : 'removed'}`);
   }
 
   getListNumber() {

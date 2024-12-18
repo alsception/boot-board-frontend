@@ -6,10 +6,10 @@ import { BBBoard } from '../interfaces/bbboard';
 })
 export class BoardsService 
 {
-  readonly grokHost = "https://cf34-2a05-4f46-130c-cc00-5267-5350-55fb-9291.ngrok-free.app";
+  readonly grokHost = "https://f030-2a05-4f46-130c-cc00-1377-733a-356c-3ec6.ngrok-free.app";
   readonly localhost= "http://localhost:8080/bootboard"
-  readonly apiBaseUrl = this.localhost + "/api/v1/"
-  /*readonly apiBaseUrl = this.grokHost + "/api/v1/"*/
+  //readonly apiBaseUrl = this.localhost + "/api/v1/"
+  readonly apiBaseUrl = this.grokHost + "/api/v1/";
   readonly apiUrl = this.apiBaseUrl+"boards";
 
   constructor() {}  

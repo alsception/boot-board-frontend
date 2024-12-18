@@ -6,9 +6,9 @@
 	--accent-color: #e8e7fa; 
 	--accent-color-dark: #171717;
 	--shadow-color: #e3e3e3;
-	--yellow-background: #fff5bf;
-	--tertiary-color:#7c7a9b;
-   */
+	--yellow-background: #fff5bf;*/
+	--tertiary-color-pattern: #00ffcc;
+   /*
 	/**Alternative color palette for patterns*/
 	/*--primary-color: #292771;
 	--secondary-color: #6FE85E;
@@ -16,7 +16,7 @@
 	--accent-color-dark: #171717;
 	--shadow-color: #e3e3e3;
 	--yellow-background: #fff5bf;
-	--tertiary-color: #7c7a9b;*/
+	--tertiary-color-pattern: #7c7a9b;*/
   
 	/*Paterns fields*/
 	--size2: 150px;
@@ -191,7 +191,7 @@
 		  conic-gradient(at calc(100%/6) 50%,#0000 240deg,var(--primary-color) 0),
 		  conic-gradient(from 180deg at calc(100%/6) calc(500%/6),var(--primary-color) 60deg,#0000 0),
 		  conic-gradient(from 180deg at calc(500%/6),#0000 240deg,var(--primary-color) 0) calc(4*.866*var(--size16)) 0,
-		  repeating-linear-gradient(-150deg,var(--tertiary-color) 0 calc(100%/6),#0000   0 50%),
+		  repeating-linear-gradient(-150deg,var(--tertiary-color-pattern) 0 calc(100%/6),#0000   0 50%),
 		  repeating-linear-gradient(-30deg, #fff 0 calc(100%/6),var(--secondary-color) 0 50%);
 	background-size: calc(6*.866*var(--size16)) calc(3*var(--size16));
 }
@@ -288,9 +288,9 @@
 .ptn-28 {
 	background:
 		  var(--size) var(--size)/calc(2*var(--size)) calc(2*var(--size)) conic-gradient(at calc(500%/6) 50%,var(--secondary-color) 25%,#0000 0),0 0/calc(2*var(--size)) calc(2*var(--size)) conic-gradient(at calc(500%/6) 50%,var(--secondary-color) 25%,#0000 0),
-		  var(--size) var(--size)/calc(2*var(--size)) calc(2*var(--size)) conic-gradient(at calc(200%/3) 50%,var(--tertiary-color) 25%,#0000 0),0 0/calc(2*var(--size)) calc(2*var(--size)) conic-gradient(at calc(200%/3) 50%,var(--tertiary-color) 25%,#0000 0),
+		  var(--size) var(--size)/calc(2*var(--size)) calc(2*var(--size)) conic-gradient(at calc(200%/3) 50%,var(--tertiary-color-pattern) 25%,#0000 0),0 0/calc(2*var(--size)) calc(2*var(--size)) conic-gradient(at calc(200%/3) 50%,var(--tertiary-color-pattern) 25%,#0000 0),
 		  repeating-conic-gradient(var(--primary-color) 0 25%,#0000 0 50%) 0 0/calc(2*var(--size)) calc(2*var(--size)),
-		  linear-gradient(var(--primary-color) calc(100%/3),var(--tertiary-color) 0 calc(200%/3),var(--secondary-color) 0)
+		  linear-gradient(var(--primary-color) calc(100%/3),var(--tertiary-color-pattern) 0 calc(200%/3),var(--secondary-color) 0)
 		   0 0/var(--size) var(--size);
 }
 
@@ -337,8 +337,8 @@
 .ptn-30 {
 	background:
 		  conic-gradient(at var(--size16) calc(100% - var(--size16)),#0000 270deg,var(--primary-color) 0) calc(var(--size16) + var(--size12)) 0,
-		  linear-gradient(var(--tertiary-color) var(--size16),#0000 0) 0 var(--size12),
-		  conic-gradient(at var(--size16) calc(100% - var(--size16)),#0000 90deg,var(--tertiary-color) 0 180deg, var(--primary-color) 0),
+		  linear-gradient(var(--tertiary-color-pattern) var(--size16),#0000 0) 0 var(--size12),
+		  conic-gradient(at var(--size16) calc(100% - var(--size16)),#0000 90deg,var(--tertiary-color-pattern) 0 180deg, var(--primary-color) 0),
 		  var(--secondary-color);
 	background-size: calc(2*(var(--size16) + var(--size12))) calc(2*(var(--size16) + var(--size12)));
 }
@@ -389,7 +389,7 @@
 
 .ptn-23 {
 	background:
-		  conic-gradient(from 116.56deg at calc(100%/3) 0, #0000 90deg,var(--tertiary-color) 0),
+		  conic-gradient(from 116.56deg at calc(100%/3) 0, #0000 90deg,var(--tertiary-color-pattern) 0),
 		  conic-gradient(from -63.44deg at calc(200%/3) 100%, #0000 90deg,var(--secondary-color) 0)
 		  var(--primary-color);
 	background-size: var(--size) var(--size);
@@ -398,10 +398,10 @@
 .ptn-48 {
 	background: 
 		  radial-gradient(calc(1.28 * var(--size) + var(--size8)/2) at top 50% right calc(-.8*var(--size)), var(--primary-color) calc(99.5% - var(--size8)),var(--secondary-color) calc(101% - var(--size8)) 99.5%,#0000 101%) calc(-1*calc(1.8 * var(--size) + var(--size8))) var(--size),
-		  radial-gradient(calc(1.28 * var(--size) + var(--size8)/2) at top 50% left calc(-.8*var(--size)), var(--tertiary-color) calc(99.5% - var(--size8)),var(--secondary-color) calc(101% - var(--size8)) 99.5%,#0000 101%) calc(1.8 * var(--size) + var(--size8))  calc(-1*var(--size)),
-		  radial-gradient(calc(1.28 * var(--size) + var(--size8)/2) at top 50% right calc(-.8*var(--size)), var(--tertiary-color) calc(99.5% - var(--size8)),var(--secondary-color) calc(101% - var(--size8)) 99.5%,#0000 101%) calc(calc(1.8 * var(--size) + var(--size8))/-2) calc(-1*var(--size)),
+		  radial-gradient(calc(1.28 * var(--size) + var(--size8)/2) at top 50% left calc(-.8*var(--size)), var(--tertiary-color-pattern) calc(99.5% - var(--size8)),var(--secondary-color) calc(101% - var(--size8)) 99.5%,#0000 101%) calc(1.8 * var(--size) + var(--size8))  calc(-1*var(--size)),
+		  radial-gradient(calc(1.28 * var(--size) + var(--size8)/2) at top 50% right calc(-.8*var(--size)), var(--tertiary-color-pattern) calc(99.5% - var(--size8)),var(--secondary-color) calc(101% - var(--size8)) 99.5%,#0000 101%) calc(calc(1.8 * var(--size) + var(--size8))/-2) calc(-1*var(--size)),
 		  radial-gradient(calc(1.28 * var(--size) + var(--size8)/2) at top 50% left calc(-.8*var(--size)), var(--primary-color) calc(99.5% - var(--size8)),var(--secondary-color) calc(101% - var(--size8)) 99.5%,#0000 101%) calc(calc(1.8 * var(--size) + var(--size8))/ 2) var(--size),
-		  linear-gradient(90deg, var(--primary-color) 50%, var(--tertiary-color) 0);
+		  linear-gradient(90deg, var(--primary-color) 50%, var(--tertiary-color-pattern) 0);
 	background-size: calc(1.8 * var(--size) + var(--size8)) var(--size128);
 }
 
@@ -468,7 +468,7 @@
 
 .ptn-36 {
 	background:
-		  radial-gradient(var(--tertiary-color) 24%,#0000 25%),
+		  radial-gradient(var(--tertiary-color-pattern) 24%,#0000 25%),
 		  repeating-conic-gradient(from 30deg,var(--secondary-color) 0 30deg,var(--primary-color) 0 90deg);
 	background-size: var(--size) var(--size);
 }
@@ -499,10 +499,10 @@
 .ptn-47 {
 	background: 
 		  radial-gradient(calc(1.28*var(--size) + var(--size12)/2) at left 50% bottom calc(-.8*var(--size)),var(--primary-color) calc(100% - var(--size12)),var(--secondary-color) calc(101% - var(--size12)) 100%,#0000 101%) calc(2*var(--size)) calc(-1*calc(1.5*var(--size) + var(--size12))),
-		  radial-gradient(calc(1.28*var(--size) + var(--size12)/2) at left 50% bottom calc(-.8*var(--size)),var(--tertiary-color) calc(100% - var(--size12)),var(--secondary-color) calc(101% - var(--size12)) 100%,#0000 101%) calc(-1*var(--size)) calc(calc(1.5*var(--size) + var(--size12))/-2),
-		  radial-gradient(calc(1.28*var(--size) + var(--size12)/2) at left 50% top    calc(-.8*var(--size)),var(--tertiary-color) calc(100% - var(--size12)),var(--secondary-color) calc(101% - var(--size12)) 100%,#0000 101%) 0 calc(1.5*var(--size) + var(--size12)),
+		  radial-gradient(calc(1.28*var(--size) + var(--size12)/2) at left 50% bottom calc(-.8*var(--size)),var(--tertiary-color-pattern) calc(100% - var(--size12)),var(--secondary-color) calc(101% - var(--size12)) 100%,#0000 101%) calc(-1*var(--size)) calc(calc(1.5*var(--size) + var(--size12))/-2),
+		  radial-gradient(calc(1.28*var(--size) + var(--size12)/2) at left 50% top    calc(-.8*var(--size)),var(--tertiary-color-pattern) calc(100% - var(--size12)),var(--secondary-color) calc(101% - var(--size12)) 100%,#0000 101%) 0 calc(1.5*var(--size) + var(--size12)),
 		  radial-gradient(calc(1.28*var(--size) + var(--size12)/2) at left 50% top    calc(-.8*var(--size)),var(--primary-color) calc(100% - var(--size12)),var(--secondary-color) calc(101% - var(--size12)) 100%,#0000 101%) var(--size) calc(calc(1.5*var(--size) + var(--size12))/ 2),
-		  linear-gradient(var(--primary-color) 50%,var(--tertiary-color) 0);
+		  linear-gradient(var(--primary-color) 50%,var(--tertiary-color-pattern) 0);
 	background-size: calc(4*var(--size)) calc(1.5*var(--size) + var(--size12));
 }
 

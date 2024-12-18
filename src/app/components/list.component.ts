@@ -12,6 +12,7 @@ import { EditDialogListComponent } from './list-dialog-edit.component';
 import { AddDialogCardComponent } from './card-dialog-add.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CardsService } from '../services/cards.service';
 
 @Component({
   selector: 'bb-list',
@@ -19,13 +20,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   template: `
     <section class="listing listing-container listing-nb lg-{{bbList.color}}">     
 
-      <h2 
+      <h3 
         class="listing-heading" 
         cdkDragHandle
         [matTooltip]="bbList.title.length > titleHeadingMaxLength ? bbList.title : ''"
       >
         {{ bbList.title.length > titleHeadingMaxLength ? (bbList.title | slice:0:titleHeadingMaxLength) + '...' : bbList.title }}
-      </h2>
+      </h3>
 
 
       <section class="cardsResults" cdkDropList (cdkDropListDropped)="drop($event)">         
@@ -91,11 +92,12 @@ export class ListComponent {
    * In this case, there is no default value. In our example application case we know that the value will be passed in - this is by design. 
    * The exclamation point is called the non-null assertion operator and it tells the TypeScript compiler that the value of this property won't be null or undefined. */
   
+  openCards = false;
   showDeleteDialog = false; // Boolean to toggle the dialog
   titleHeadingMaxLength = 25;
 
-
   listsService: ListsService = inject(ListsService);
+  cardsService: CardsService = inject(CardsService);
 
   constructor(private dialog: MatDialog) {}
  
@@ -187,8 +189,53 @@ export class ListComponent {
 
   drop(event: CdkDragDrop<string[]>) {
     console.log(event)
-    moveItemInArray(this.bbList.cards ?? [], event.previousIndex, event.currentIndex);
-    console.log(this.bbList.cards);
+    
+    console.log('---------------------------------------------------------------------------------')
+    console.log("previous index: "+event.previousIndex);
+    console.log("current  index: "+event.currentIndex);
+
+    let prevIndexId = 0;
+    let nextIndexId = 0;
+
+    if (this.bbList?.cards?.[event.previousIndex] !== undefined) {
+        console.log("prev element: ",this.bbList.cards[event.previousIndex]);
+        prevIndexId = this.bbList.cards[event.previousIndex].id;
+    } else {
+        console.log("prev element is undefined");
+    }    
+
+    if (this.bbList?.cards?.[event.currentIndex] !== undefined) {
+        console.log("currentIndex element: ",this.bbList.cards[event.currentIndex]);
+        nextIndexId = this.bbList.cards[event.currentIndex].id;
+    } else {
+        console.log("currentIndex element is undefined");
+    }    
+
+    console.log("got ids: "+prevIndexId + "-> "+nextIndexId);
+    if( prevIndexId !== 0 && nextIndexId !== 0 ){
+      console.log("now lets update...")
+      this.cardsService.swap(prevIndexId,nextIndexId).then(() => {
+        this.updateBBList();
+      });
+      //moveItemInArray(this.bbList.cards ?? [], event.previousIndex, event.currentIndex);//it is important that this is executed after indexes are got to not mess up
+
+      //reload list: 
+      //this.bbList = this.listsService.getListByIdWithCards( this.bbList.id ) ;
+
+    }
+
+  }
+
+  async updateBBList() {
+    console.log("updating list")
+    const list = await this.listsService.getListByIdWithCards(this.bbList.id);
+    if (list) {
+        this.bbList = list;
+        console.log("list updated")
+    } else {
+        console.error("List not found!");
+    }
+
     //TODO:
     //update positions to server
   }

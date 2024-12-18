@@ -52,7 +52,8 @@
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css",
-              "src/assets/styles/styles-2.css"
+              "src/assets/styles/styles-2.css",
+              "src/assets/styles/patterns.css"
             ],
             "scripts": []
           },

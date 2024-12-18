@@ -1,4 +1,4 @@
-import { Component , inject, HostListener, OnInit} from "@angular/core";
+import { Component , inject, HostListener, OnInit, Renderer2} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ListComponent } from "./list.component"
 import { ListsService } from '../services/lists.service';
@@ -85,31 +85,38 @@ export class BoardComponent implements OnInit
   id: string | null = null;
   route: ActivatedRoute = inject(ActivatedRoute);
   boardId = parseInt(this.route.snapshot.params["id"], 10);
+  
   lists: BBList[] = [];
-
+  filteredLists: BBList[] = [];
 
   listsService: ListsService = inject(ListsService);
   boardsService: BoardsService = inject(BoardsService);
   cardsService: CardsService = inject(CardsService);
 
-  filteredLists: BBList[] = [];
-
-  constructor(private dialog: MatDialog,    private titleService: Title) {
-
+  constructor(
+    private dialog: MatDialog,    
+    private titleService: Title,
+    private renderer: Renderer2)
+    {
+    
     // Utility function for delay
-     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms)); 
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms)); 
     const useDelay = false; // Toggle this flag to enable/disable delay
 
     const boardId = parseInt(this.route.snapshot.params["id"], 10);
 
     this.listsService
       .getBoard(boardId)
-      .then(async (xList: BBBoard) => {
-        if (xList.lists != null) {
+      .then(async (board: BBBoard) => {
+
+        this.removeAllClassesFromBody();
+        this.addPatternClassToBody(board.type);
+
+        if (board.lists != null) {
           this.lists = []; // Start with an empty array
           this.filteredLists = []; // Clear the filtered lists as well
 
-          for (const list of xList.lists) {
+          for (const list of board.lists) {
             // Fetch cards for the current list
             const listWithCards = await this.listsService.getListByIdWithCards(list.id);
             const updatedList = listWithCards ?? list;
@@ -291,6 +298,19 @@ export class BoardComponent implements OnInit
 
     //TODO:
     //update positions to server
+  }
+
+  addPatternClassToBody(className: string): void {
+    this.renderer.addClass(document.body, "custom-pattern");
+    this.renderer.addClass(document.body, "ptn-"+className);
+  }
+
+  // Remove all classes from the body
+  removeAllClassesFromBody(): void {
+    const classList = Array.from(document.body.classList);
+    classList.forEach(className => {
+      this.renderer.removeClass(document.body, className);
+    });
   }
 
 }

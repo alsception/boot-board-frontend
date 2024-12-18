@@ -93,7 +93,7 @@ import { HostListener } from '@angular/core';
           </div>
             
         <div class="metadata-item">
-          <label for="type">Type</label>
+          <label for="type">Type (pattern 1-60)</label>
           <input
             id="type"
             type="text"

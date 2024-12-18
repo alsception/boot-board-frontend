@@ -10,7 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { EditDialogBoardComponent } from "./board-dialog-edit.component";
 
-
 @Component({
   selector: "app-board-preview",
   imports: [CommonModule, DragDropModule, MatDialogModule, RouterModule, MatTooltipModule, MatIconModule, MatButtonModule],
@@ -25,6 +24,8 @@ import { EditDialogBoardComponent } from "./board-dialog-edit.component";
         role="button"
         tabindex="0"
       >
+
+      <div class="xard custom-pattern ptn-{{bbBoard.type}}" style="margin-bottom: 18px;"></div>
       <h2 
         class="board-listing-heading listing-heading listing-heading-bb"
         [matTooltip]="bbBoard.title.length > titleHeadingMaxLength ? bbBoard.title : ''"
@@ -90,15 +91,14 @@ export class BoardComponentPreview
 {
   @Input() bbBoard!: BBBoard;
 
+  patternNumber: number = 0;
+  titleHeadingMaxLength = 35;
+
   boardsService: BoardsService = inject(BoardsService);
 
   showDeleteDialog = false; // Boolean to toggle the dialog
 
-  titleHeadingMaxLength = 50;
-
-  constructor(private dialog: MatDialog) 
-  {
-  }
+  constructor(private dialog: MatDialog) {  }
   
   openDeleteDialog(board: BBBoard){
     this.showDeleteDialog=true;

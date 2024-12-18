@@ -1,4 +1,4 @@
-import { Component , inject, HostListener} from "@angular/core";
+import { Component , inject, HostListener, Renderer2} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { BoardsService } from '../services/boards.service';
 import { BBBoard } from "../interfaces/bbboard";
@@ -43,7 +43,7 @@ import { AddDialogBoardComponent } from './board-dialog-add.component';
     </section>
     <section class="results board-container">
     <ng-container *ngIf="filteredBoards.length > 0; else noResults">
-     <app-board-preview cdkDrag class="draggable-item bb-list"
+     <app-board-preview class="draggable-item bb-list"
         *ngFor="let board of filteredBoards"
         [bbBoard]="board"
       ></app-board-preview>
@@ -65,14 +65,21 @@ export class HomeComponent
   boards: BBBoard[] = []; 
   boardsService: BoardsService = inject(BoardsService); 
   filteredBoards: BBBoard[] = [];
+  numbers: number[] = [];
 
-  constructor(private dialog: MatDialog) {
-    this.boardsService
-      .getAllBoards()
-      .then((xboards: BBBoard[]) => {
-        this.boards = xboards;
-        this.filteredBoards = xboards;
-      });
+  constructor(
+    private dialog: MatDialog,
+    private renderer: Renderer2)
+    {
+      this.resetBodyBackground();
+      
+      this.numbers = Array.from({ length: 60 }, (_, i) => i + 1); // Generate an array from 1 to 60
+      this.boardsService
+        .getAllBoards()
+        .then((xboards: BBBoard[]) => {
+          this.boards = xboards;
+          this.filteredBoards = xboards;
+        });
   }
 
   onSearch(event: Event) {
@@ -169,6 +176,22 @@ export class HomeComponent
 
     // Format as "000num-DDMM-YY-"
     return `B${formattedNum}-${day}${month}-${year} | `;
+  }
+
+  resetBodyBackground(){
+    this.removeAllClassesFromBody();
+    this.addClassToBody("mat-typography")
+  }
+
+  addClassToBody(className: string): void {
+    this.renderer.addClass(document.body, className);
+  }
+
+  removeAllClassesFromBody(): void {
+    const classList = Array.from(document.body.classList);
+    classList.forEach(className => {
+      this.renderer.removeClass(document.body, className);
+    });
   }
 
 }

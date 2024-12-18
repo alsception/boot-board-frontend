@@ -19,16 +19,6 @@ import { HostListener } from '@angular/core';
       class="form-container"
     >
       <div class="metadata-container">
-        <!-- <div class="metadata-item">
-          <label for="id">ID</label>
-          <input
-            id="id"
-            type="number"
-            class="form-input"
-            formControlName="id"
-            readonly
-          />
-        </div> -->
         <div class="metadata-item">
           <label for="userId">User ID</label>
           <input
@@ -40,13 +30,6 @@ import { HostListener } from '@angular/core';
           />
         </div>
         <div class="metadata-item">
-          <!-- <label for="boardId">Board ID</label>
-          <input
-            id="boardId"
-            type="number"
-            class="form-input"
-            formControlName="boardId"
-          /> -->
         </div>
       </div>
   
@@ -104,7 +87,7 @@ import { HostListener } from '@angular/core';
         </div>
 
         <div class="metadata-item">
-          <label for="type">Type</label>
+          <label for="type">Type (pattern 1-60)</label>
           <input
             id="type"
             type="text"

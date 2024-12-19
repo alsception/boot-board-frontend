@@ -41,7 +41,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "",
+            "baseHref": "/boot-board-front/",
             "outputPath": "dist/boot-board",
             "index": "src/index.html",
             "browser": "src/main.ts",

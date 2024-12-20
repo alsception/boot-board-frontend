@@ -9,7 +9,8 @@ export class ListsService
 {
   readonly grokHost = "https://f030-2a05-4f46-130c-cc00-1377-733a-356c-3ec6.ngrok-free.app";
   readonly localhost= "http://localhost:8080/bootboard"
-  readonly apiBaseUrl = this.localhost + "/api/v1/"
+  readonly localNetworkhost= "http://192.168.0.16:8080/bootboard"
+  readonly apiBaseUrl = this.localNetworkhost + "/api/v1/"
   //readonly apiBaseUrl = this.grokHost + "/api/v1/";
   readonly apiUrl = this.apiBaseUrl+"lists";
 

@@ -6,28 +6,45 @@ import {RouterModule} from '@angular/router';
   selector: "app-root",
   imports: [/*HomeComponent, */RouterModule],
   template: `
-    <div class="container">
-      <!-- Sidebar Menu -->
-      <nav class="sidebar">
-        <ul>
+  
+    <div class="container great-vibes-regular">
+    <!-- Sidebar Menu -->
+    <nav class="sidebar">
+    <div class="animated-border-box">
+    <ul>
           <li><a [routerLink]="['/']">Dashboard</a></li>
           <li><a [routerLink]="['/boards']">Boards</a></li>
           <li><a [routerLink]="['/settings']">Settings</a></li>
           <li><a (click)="logout()">Logout</a></li>
         </ul>
-      </nav>
+    </div>
+    <div class="animated-border-box-glov">
+    </div>
+        
+      </nav>    
 
       <!-- Main Content -->
       <main class="main">
         <!-- Header -->
         <a [routerLink]="['/']">
           <header class="header-line container-nb">
-            <span class="boot">BOOT</span><span class="board">BOARD</span>
+          
+          <!-- 🍄 -->
+
+          <div>
+          <span class="boot great-vibes-regular">BOOT</span><span class="board great-vibes-regular">BOARD🪼</span>
+          </div>
+            
+           <div  class="hidden">
+            <span class="boot great-vibes-regular btn-shine hhh">BOOTBOARD🪼</span>
+            </div>
+
+
           </header>
         </a>
 
         <!-- Content Section -->
-        <section class="content">
+        <section style="margin-left: 220px;" class="content">
           <router-outlet></router-outlet>
         </section>
       </main>

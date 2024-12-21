@@ -17,7 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   template: `
     <section class="card-container lgc-{{bbCard.color}}">
       
-      <h4 class="card-title" (click)="openEditDialog(bbCard)" *ngIf="bbCard" class="lgc-{{bbCard.color}}" cdkDragHandle>
+      <h4 (click)="openEditDialog(bbCard)" *ngIf="bbCard" class="card-title-dark lgc-{{bbCard.color}}" cdkDragHandle>
         {{ bbCard.title }}
       </h4>
       

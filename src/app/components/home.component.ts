@@ -12,21 +12,15 @@ import { AddDialogBoardComponent } from './board-dialog-add.component';
   imports: [CommonModule, DragDropModule, MatDialogModule, BoardComponentPreview],
   template: `
 <div class="container">
-  <!-- Sidebar Menu -->
-  <!-- <nav class="sidebar">
-    <ul>
-      <li><a href="#" (click)="navigateTo('dashboard')">Dashboard</a></li>
-      <li><a href="#" (click)="navigateTo('boards')">Boards</a></li>
-      <li><a href="#" (click)="navigateTo('settings')">Settings</a></li>
-      <li><a href="#" (click)="logout()">Logout</a></li>
-    </ul>
-  </nav> -->
+
 
   <!-- Main Content -->
   <main class="main-content">
     <section>
       <form>
         <!-- Search and Create Board Section -->
+        
+      
         <input
           type="text"
           placeholder="Search lists / boards"
@@ -57,6 +51,7 @@ import { AddDialogBoardComponent } from './board-dialog-add.component';
 
     <!-- Results Section -->
     <section class="results board-container">
+    
       <ng-container *ngIf="filteredBoards.length > 0; else noResults">
         <app-board-preview
           class="draggable-item bb-list"
@@ -64,6 +59,7 @@ import { AddDialogBoardComponent } from './board-dialog-add.component';
           [bbBoard]="board"
         ></app-board-preview>
       </ng-container>
+    
     </section>
 
     <!-- Define the "no results" template -->

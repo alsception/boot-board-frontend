@@ -77,6 +77,18 @@ border-top-left-radius: inherit;
 border-top-right-radius: inherit;
 cursor: pointer;
 }
+.card-title-dark {
+  color: #3b3936;
+  padding: 10px 20px 10px 20px;
+  max-width: 450px;
+  word-wrap: break-word;
+  display: block;
+  border: none;
+  background: #161a1e;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  cursor: pointer;
+  }
 
 .card-text{
   max-width: 450px;

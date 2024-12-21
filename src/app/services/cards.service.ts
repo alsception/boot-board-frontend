@@ -1,20 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BBCard } from '../interfaces/bbcard';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: "root",
 })
-export class CardsService 
+export class CardsService extends BaseService 
 {
-  readonly grokHost = "https://f030-2a05-4f46-130c-cc00-1377-733a-356c-3ec6.ngrok-free.app";
-  readonly localhost= "http://localhost:8080/bootboard"
-  readonly localNetworkhost= "http://192.168.0.16:8080/bootboard"
-  readonly apiBaseUrl = this.localNetworkhost + "/api/v1/"
-  //readonly apiBaseUrl = this.grokHost + "/api/v1/";
-  readonly apiUrl = this.apiBaseUrl+"cards";
-
-  constructor() {}  
-
+  readonly controller = "cards";
+  readonly apiUrl = this.apiBaseUrl + this.controller;  //apiBaseUrl is set in base.service file
+ 
   async getAllCards(): Promise<BBCard[]> {
     const data = await fetch(this.apiUrl);
     return (await data.json()) ?? [];

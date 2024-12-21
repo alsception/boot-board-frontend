@@ -1,20 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BBBoard } from '../interfaces/bbboard';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: "root",
 })
-export class BoardsService 
+export class BoardsService extends BaseService 
 {
-  readonly grokHost = "https://f030-2a05-4f46-130c-cc00-1377-733a-356c-3ec6.ngrok-free.app";
-  readonly localhost= "http://localhost:8080/bootboard"
-  readonly localNetworkhost= "http://192.168.0.16:8080/bootboard"
-  readonly apiBaseUrl = this.localNetworkhost + "/api/v1/"
-  //readonly apiBaseUrl = this.grokHost + "/api/v1/";
-  readonly apiUrl = this.apiBaseUrl+"boards";
-
-  constructor() {}  
-
+  readonly controller = "boards";
+  readonly apiUrl = this.apiBaseUrl + this.controller;  //apiBaseUrl is set in base.service file
+  
   async getAllBoards(): Promise<BBBoard[]> {
     const data = await fetch(this.apiUrl);
     return (await data.json()) ?? [];
@@ -77,7 +72,7 @@ export class BoardsService
     }
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: number): Promise<boolean> {
     try {
       const response = await fetch(`${this.apiUrl}/${id}`, {
         method: 'DELETE',
@@ -87,12 +82,15 @@ export class BoardsService
         console.log('Item deleted successfully');
         // Reload the page after successful deletion
         window.location.reload();
+        return true;
       } else {
         console.error('Failed to delete the board',response);
         alert('Failed to delete the board');
+        return false;
       }
     } catch (error) {
       console.error('Error occurred while deleting the board:', error);
+      return false;
     }
   }
 

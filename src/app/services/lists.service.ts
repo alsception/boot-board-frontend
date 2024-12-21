@@ -1,20 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BBList } from '../interfaces/bblist';
 import { BBBoard } from '../interfaces/bbboard';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: "root",
 })
-export class ListsService 
+export class ListsService extends BaseService  
 {
-  readonly grokHost = "https://f030-2a05-4f46-130c-cc00-1377-733a-356c-3ec6.ngrok-free.app";
-  readonly localhost= "http://localhost:8080/bootboard"
-  readonly localNetworkhost= "http://192.168.0.16:8080/bootboard"
-  readonly apiBaseUrl = this.localNetworkhost + "/api/v1/"
-  //readonly apiBaseUrl = this.grokHost + "/api/v1/";
-  readonly apiUrl = this.apiBaseUrl+"lists";
-
-  constructor() {}  
+  readonly controller = "lists";
+  readonly apiUrl = this.apiBaseUrl + this.controller;  //apiBaseUrl is set in base.service file
 
   // The code now uses asynchronous code to make a GET request over HTTP.
   // HELPFUL: For this example, the code uses fetch. For more advanced use cases consider using HttpClient provided by Angular.

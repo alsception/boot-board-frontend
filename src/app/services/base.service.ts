@@ -15,10 +15,7 @@ import { Injectable } from '@angular/core';
     readonly host = this.localhost; //use at pleasure localhost/networkhost/production etc...
 
     readonly backendServerName = "/bootboard"
-    readonly apiVersion = "/api/v1"
+    readonly apiVersion = "/api/v1/"
 
     readonly apiBaseUrl = this.host + this.backendServerName + this.apiVersion;    
-
-    constructor() {}    
-  }
-  
+  }  

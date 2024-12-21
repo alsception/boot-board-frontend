@@ -14,6 +14,9 @@ export class ListsService extends BaseService
   // The code now uses asynchronous code to make a GET request over HTTP.
   // HELPFUL: For this example, the code uses fetch. For more advanced use cases consider using HttpClient provided by Angular.
 
+  //TODO:
+  //Use http client instead of fetch
+
   async getAllLists(): Promise<BBList[]> {
     const data = await fetch(this.apiUrl);
     return (await data.json()) ?? [];

@@ -11,15 +11,27 @@ import { AddDialogBoardComponent } from './board-dialog-add.component';
   selector: "app-home",
   imports: [CommonModule, DragDropModule, MatDialogModule, BoardComponentPreview],
   template: `
+<div class="container">
+  <!-- Sidebar Menu -->
+  <!-- <nav class="sidebar">
+    <ul>
+      <li><a href="#" (click)="navigateTo('dashboard')">Dashboard</a></li>
+      <li><a href="#" (click)="navigateTo('boards')">Boards</a></li>
+      <li><a href="#" (click)="navigateTo('settings')">Settings</a></li>
+      <li><a href="#" (click)="logout()">Logout</a></li>
+    </ul>
+  </nav> -->
+
+  <!-- Main Content -->
+  <main class="main-content">
     <section>
       <form>
-        <!--
-        By binding to the click event on the button element, you are able to call the filterResults function. 
-        The argument to the function is the value property of the filter template variable. 
-        Specifically, the .value property from the input HTML element.      
-        -->
-        <input type="text" placeholder="Search lists / boards" #filter 
-        (keydown.enter)="onEnter($event, filter.value)"
+        <!-- Search and Create Board Section -->
+        <input
+          type="text"
+          placeholder="Search lists / boards"
+          #filter
+          (keydown.enter)="onEnter($event, filter.value)"
         />
         <button
           class="primary"
@@ -28,35 +40,42 @@ import { AddDialogBoardComponent } from './board-dialog-add.component';
           (click)="filterResults(filter.value)"
         >
           Search
-        </button>        
+        </button>
 
-      &nbsp;&nbsp;
+        &nbsp;&nbsp;
 
         <button
           class="primary"
-          style="cursor: pointer;margin-left:50px"
+          style="cursor: pointer;margin-left: 50px"
           type="button"
           (click)="createBoard()"
-        >Create board
-        </button>    
+        >
+          Create board
+        </button>
       </form>
     </section>
+
+    <!-- Results Section -->
     <section class="results board-container">
-    <ng-container *ngIf="filteredBoards.length > 0; else noResults">
-     <app-board-preview class="draggable-item bb-list"
-        *ngFor="let board of filteredBoards"
-        [bbBoard]="board"
-      ></app-board-preview>
+      <ng-container *ngIf="filteredBoards.length > 0; else noResults">
+        <app-board-preview
+          class="draggable-item bb-list"
+          *ngFor="let board of filteredBoards"
+          [bbBoard]="board"
+        ></app-board-preview>
       </ng-container>
     </section>
+
     <!-- Define the "no results" template -->
     <ng-template #noResults>
       <div class="no-results-message">
         No boards found. Please try a different search or
-        <a (click)="createBoard()"
-        class="link">create a new board</a>.
+        <a (click)="createBoard()" class="link">create a new board</a>.
       </div>
     </ng-template>
+  </main>
+</div>
+
   `,
   styleUrls: ["./home.component.css"],
 })
@@ -193,5 +212,17 @@ export class HomeComponent
       this.renderer.removeClass(document.body, className);
     });
   }
+
+  navigateTo(section: string): void {
+    console.log(`Navigating to ${section}`);
+    // Add your navigation logic here, such as using Angular Router:
+    // this.router.navigate([section]);
+  }
+  
+  logout(): void {
+    console.log('Logging out...');
+    // Add your logout logic here
+  }
+  
 
 }

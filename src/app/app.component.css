@@ -50,3 +50,71 @@ header {
   font-size: xxx-large;
   font-weight: bolder;
 }
+
+/* Container for Sidebar and Main Content */
+.container {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #333; /* Dark background */
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 15px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.sidebar a:hover {
+  background-color: #575757;
+}
+
+/* Main Content Styles */
+.main {
+  flex-grow: 1; /* Take up remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
+.header-line {
+  background-color: #222;
+  color: white;
+  padding: 10px 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.header-line .boot {
+  font-weight: bold;
+}
+
+.header-line .board {
+  color: #ffa500;
+}
+
+.content {
+  padding: 20px;
+  flex-grow: 1; /* Allows content to expand */
+  overflow-y: auto;
+}
+

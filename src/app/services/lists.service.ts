@@ -8,16 +8,14 @@ import { BaseService } from './base.service';
 })
 export class ListsService extends BaseService  
 {
-  readonly controller = "lists";
+  readonly controller = "/lists";
   readonly apiUrl = this.apiBaseUrl + this.controller;  //apiBaseUrl is set in base.service file
 
   // The code now uses asynchronous code to make a GET request over HTTP.
   // HELPFUL: For this example, the code uses fetch. For more advanced use cases consider using HttpClient provided by Angular.
 
   async getAllLists(): Promise<BBList[]> {
-    console.log("list service, loading all lists...")
     const data = await fetch(this.apiUrl);
-    console.log("lists loaded")
     return (await data.json()) ?? [];
   }
 
@@ -27,13 +25,13 @@ export class ListsService extends BaseService
   }
 
   async getBoard(id: number): Promise<BBBoard> {
-    const data = await fetch(`${this.apiBaseUrl}boards/${id}/lists`);
+    const data = await fetch(`${this.apiBaseUrl}/boards/${id}/lists`);
     return (await data.json()) ?? [];
   }
 
   //ovo za sad jos nema backend
   async getAllListsForBoardWithCards(id: number): Promise<BBList[]> {
-    const data = await fetch(`${this.apiBaseUrl}boards/${id}/lists/cards`);
+    const data = await fetch(`${this.apiBaseUrl}/boards/${id}/lists/cards`);
     return (await data.json()) ?? [];
   }
 

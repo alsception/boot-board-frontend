@@ -7,7 +7,7 @@ import { BaseService } from './base.service';
 })
 export class CardsService extends BaseService 
 {
-  readonly controller = "cards";
+  readonly controller = "/cards";
   readonly apiUrl = this.apiBaseUrl + this.controller;  //apiBaseUrl is set in base.service file
  
   async getAllCards(): Promise<BBCard[]> {
